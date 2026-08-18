@@ -85,6 +85,12 @@ Implementation Evidence & Portfolio Documentation
 - Cross-module integration
 - End-to-end testing
 
+## Evidence From the Current Implementation
+
+The current evidence pack contains SAP GUI evidence for the work completed to date. The source pack covers enterprise-structure and FI foundation work, including Company Code **9000**, G/L account **1020131**, control data, translation data, and save-validation behavior. See the [evidence index](evidence/README.md) for the page-by-page mapping.
+
+> **Configuration review item:** The evidence pack records that G/L account **1020131** represents Receivables, while the execution screenshot shows the account group **Liquid funds accounts**. This is intentionally preserved as a validation item and must be reviewed before downstream Accounts Receivable or Order-to-Cash use.
+
 ## Repository Structure
 
 ```text
@@ -107,6 +113,7 @@ sap-end-to-end-business-processes-project/
 │   └── lessons-learned/
 │
 ├── evidence/
+│   ├── README.md
 │   ├── screenshots/
 │   └── implementation-evidence-packs/
 │
