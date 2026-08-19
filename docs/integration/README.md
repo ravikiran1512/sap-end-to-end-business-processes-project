@@ -6,7 +6,7 @@ Integration is the layer that will demonstrate how the individual SAP modules op
 
 This section is **planned and not yet completed**. The content below defines the future integration scope and will be replaced or expanded with actual execution evidence as the corresponding modules are implemented.
 
-## What We Plan to Demonstrate
+## What I Plan to Demonstrate
 
 The integration phase will document the relationships between:
 
