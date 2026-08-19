@@ -6,7 +6,7 @@ Materials Management will establish TechNova's procurement and inventory-managem
 
 This module has **not yet been implemented** in the SAP system. The content below defines the planned implementation scope and will be expanded with actual configuration, business scenarios, and SAP evidence after execution.
 
-## What We Plan to Implement
+## What I Plan to Implement
 
 The MM phase will cover the organizational, master-data, procurement, inventory, and invoice-processing foundation required for the source-to-pay process.
 
