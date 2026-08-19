@@ -1,14 +1,12 @@
 # Materials Management (MM)
 
-## Module Introduction
+## My MM Implementation Plan
 
-Materials Management will establish TechNova's procurement and inventory-management processes. The objective is to model how the company plans and purchases materials, receives goods, manages stock, and processes supplier invoices while maintaining the required integration with FI.
+I will build the Materials Management (MM) foundation for TechNova Manufacturing GmbH to support procurement, inventory management, goods movements, and invoice processing.
 
-This module has **not yet been implemented** in the SAP system. The content below defines the planned implementation scope and will be expanded with actual configuration, business scenarios, and SAP evidence after execution.
+## What I Will Configure
 
-## What I Plan to Implement
-
-The MM phase will cover the organizational, master-data, procurement, inventory, and invoice-processing foundation required for the source-to-pay process.
+I plan to configure and document the organizational, master-data, procurement, inventory, and invoice-processing foundation required for the source-to-pay process.
 
 Planned areas include:
 
@@ -25,23 +23,23 @@ Planned areas include:
 
 ## Planned End-to-End Process
 
-The main business scenario will follow the source-to-pay flow:
+I will build the source-to-pay flow:
 
-**Procurement requirement → Purchasing → Purchase Order → Goods Receipt → Invoice Receipt → Financial Posting**
+**Procurement Requirement → Purchasing → Purchase Order → Goods Receipt → Invoice Receipt → Financial Posting**
 
-The documentation will explain not only how each object is configured, but also how the objects work together in the business process.
+I will document not only how I configure each object, but also how the objects work together in the business process.
 
-## Future Evidence
+## Evidence
 
-MM screenshots will be stored under:
+I will store MM screenshots under:
 
 `evidence/screenshots/mm/`
 
-For every completed configuration, we will capture the relevant SAP screen and document the important fields, assigned values, business purpose, validation, and integration impact.
+For every completed configuration, I will capture the relevant SAP screen and document the important fields, assigned values, business purpose, validation, and integration impact.
 
 ## Planned Integration
 
-MM will later connect with:
+I will connect MM with:
 
 - **FI** — inventory valuation, supplier invoices, and accounting postings
 - **CO** — relevant cost impacts
@@ -52,4 +50,4 @@ MM will later connect with:
 
 **Status: Planned**
 
-No MM configuration is being represented as completed until it has been executed and validated in SAP.
+I will not represent MM configuration as completed until I execute and validate it in SAP.
