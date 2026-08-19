@@ -1,10 +1,10 @@
 # Company Code 9000 — TechNova Mfg. GmbH
 
-## Business purpose
+## Business Purpose
 
-Company Code 9000 is the financial accounting foundation for TechNova Manufacturing GmbH.
+I configured Company Code **9000** as the financial accounting foundation for my TechNova Manufacturing GmbH implementation.
 
-## Executed configuration
+## Configuration I Executed
 
 | Field | Value |
 |---|---|
@@ -17,17 +17,24 @@ Company Code 9000 is the financial accounting foundation for TechNova Manufactur
 | Chart of Accounts | BMKG |
 | Fiscal Year Variant | K4 |
 
-## Transport evidence
+I assigned these values to establish the accounting framework that I will use for the subsequent FI and integrated business-process configuration.
 
-The source evidence pack records the configuration under Customizing Request **A4HK901352** and task **A4HK901353**.
+## Transport Evidence
 
-## SAP evidence
+I recorded the configuration under Customizing Request **A4HK901352** and task **A4HK901353** so that my configuration remains traceable through SAP change control.
 
-- Source evidence pack: page 3 — Company Code overview
-- Source evidence pack: page 4 — Company Code Global Data SAP GUI evidence
+## SAP Evidence
 
-The screenshots show the executed SAP state. Fields that are visible but not explicitly populated in the source evidence should not be interpreted as configured solely because they appear on the screen.
+I maintain the corresponding SAP GUI screenshots in:
+
+`evidence/screenshots/enterprise-structure/`
+
+The screenshots document the executed SAP configuration state. I do not treat fields as configured merely because they are visible on a screen; I only document values that are supported by my implementation evidence.
 
 ## Source
 
-`TechNova SAP End-to-End Implementation Evidence Pack`, current project evidence, pages 3–4.
+`TechNova SAP End-to-End Implementation Evidence Pack`, current project evidence.
+
+## Status
+
+**Completed foundation / ongoing enterprise-structure implementation**
