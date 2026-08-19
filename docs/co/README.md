@@ -1,53 +1,45 @@
 # Controlling (CO)
 
-## Module Introduction
+## My CO Implementation Plan
 
-Controlling will establish the management-accounting layer of the TechNova SAP implementation. While Financial Accounting records the company's external financial transactions, CO will be used to understand, monitor, and analyze internal costs and management performance.
+I will build the Controlling (CO) foundation for TechNova Manufacturing GmbH after establishing the required FI and organizational foundations.
 
-This module has **not yet been implemented** in the SAP system. The sections below describe the planned implementation scope and will be replaced or expanded with actual configuration details and SAP evidence as the project progresses.
+## What I Will Configure
 
-## What We Plan to Implement
+I plan to configure and document:
 
-The CO phase will cover the configuration and validation needed to connect internal cost management with the financial foundation already established in FI.
+- Controlling organizational assignments
+- Cost centers and cost center structures
+- Cost elements and relevant master data
+- Internal allocations
+- Planning and budgeting foundations
+- Actual cost postings and validation
+- FI/CO integration
+- Management-accounting reporting scenarios
 
-Planned areas include:
+## Business Process I Will Build
 
-- Controlling organizational assignments and relationships with Company Code `9000`
-- Cost center structure and master data
-- Cost element / G/L account integration where applicable
-- Internal cost collection and monitoring
-- Internal allocations and assessment/distribution concepts where required
-- Planning and comparison of planned versus actual costs
-- Relevant profitability and management reporting concepts
-- FI/CO integration and financial posting impacts
+I will use CO to explain how financial values are transformed into management-accounting information. My scenarios will connect operational activities with cost collection, allocation, and analysis.
 
-## Planned Business Perspective
+## Integration I Will Validate
 
-The objective is not simply to create CO master data. We will demonstrate how TechNova can use CO to understand where costs are incurred, which organizational units are responsible for them, and how those costs connect back to FI.
+I will validate how CO interacts with:
 
-The implementation will therefore be documented from both perspectives:
+- **FI** for financial postings and accounting integration
+- **MM** for procurement, inventory, and consumption-related costs
+- **PP** for production costs and activity-related postings
+- **SD** for sales and profitability-related analysis
 
-**Configuration → Business purpose → Transactional use → FI integration → Validation**
+## Evidence
 
-## Future Evidence
-
-When CO configuration begins, screenshots will be stored under:
+I will maintain screenshots and configuration evidence under:
 
 `evidence/screenshots/co/`
 
-Each configuration object will be documented with its relevant fields, assigned values, purpose, validation result, and corresponding SAP evidence.
+For every configuration object I complete, I will document the exact fields, values, business purpose, validation result, and SAP evidence.
 
-## Planned Integration
-
-CO will later connect with:
-
-- **FI** — financial accounting and internal cost impacts
-- **MM** — procurement and inventory-related cost impacts
-- **PP** — production costs and manufacturing activities
-- **SD** — sales-related profitability and cost impacts
-
-## Current Status
+## Status
 
 **Status: Planned**
 
-No CO configuration is being presented as completed until it has actually been executed and validated in the SAP system.
+I have not yet treated the planned CO configuration as completed. I will update this section with actual SAP configuration details as I perform and validate each step.
