@@ -1,14 +1,14 @@
 # Integration
 
-## Module Introduction
+## My Integration Plan
 
-Integration is the layer that will demonstrate how the individual SAP modules operate as one end-to-end business system. The goal is to connect organizational assignments, master data, operational transactions, and accounting impacts across the TechNova implementation.
+I will use the Integration layer to demonstrate how the individual SAP modules operate as one end-to-end business system. My goal is to connect organizational assignments, master data, operational transactions, and accounting impacts across the TechNova implementation.
 
-This section is **planned and not yet completed**. The content below defines the future integration scope and will be replaced or expanded with actual execution evidence as the corresponding modules are implemented.
+This section is **planned and not yet completed**. I will expand it with actual execution evidence as I implement the corresponding modules and business scenarios.
 
 ## What I Plan to Demonstrate
 
-The integration phase will document the relationships between:
+I will document the relationships between:
 
 - **FI ↔ CO** — financial accounting and controlling impacts
 - **MM → FI/CO** — procurement, inventory, invoice, and cost impacts
@@ -18,7 +18,7 @@ The integration phase will document the relationships between:
 
 ## Planned End-to-End Business Flows
 
-The repository will eventually connect the major business cycles:
+I will eventually connect the major business cycles:
 
 ### Procure-to-Pay
 **Procurement Requirement → Purchase Order → Goods Receipt → Invoice Receipt → FI Posting**
@@ -32,19 +32,19 @@ The repository will eventually connect the major business cycles:
 ### Record-to-Report
 **Business Transactions → Financial Postings → Period-End Processing → Reporting**
 
-These flows will be documented only after their underlying configuration and execution have been completed.
+I will document these flows only after I complete their underlying configuration and execution.
 
 ## Future Evidence
 
-Cross-module screenshots and process evidence will be stored under:
+I will store cross-module screenshots and process evidence under:
 
 `evidence/screenshots/integration/`
 
-The documentation will show the source transaction, relevant master/organizational dependencies, resulting postings or status changes, and the business relationship between modules.
+I will show the source transaction, relevant master and organizational dependencies, resulting postings or status changes, and the business relationship between modules.
 
 ## Validation Approach
 
-For each integration scenario we will record:
+For each integration scenario, I will record:
 
 1. Business objective
 2. Prerequisites and master data
@@ -59,4 +59,4 @@ For each integration scenario we will record:
 
 **Status: Planned**
 
-Integration testing will begin only after the relevant module configurations and business scenarios are available.
+I will begin integration testing only after I have the relevant module configurations and executable business scenarios available.
