@@ -1,14 +1,12 @@
 # Sales and Distribution (SD)
 
-## Module Introduction
+## My SD Implementation Plan
 
-Sales and Distribution will establish TechNova's customer-facing order-to-cash processes. The objective is to demonstrate how a customer requirement moves through sales order processing, delivery, goods issue, billing, and the resulting financial impact.
+I will build the Sales and Distribution (SD) foundation for TechNova Manufacturing GmbH to support customer-facing order-to-cash processes.
 
-This module has **not yet been implemented** in the SAP system. The sections below describe the planned scope and will be expanded with executed configuration and SAP evidence as the project progresses.
+## What I Will Configure
 
-## What We Plan to Implement
-
-The SD phase will cover the organizational and process foundation required for customer sales and fulfillment.
+I plan to configure and document the organizational and process foundation required for customer sales and fulfillment.
 
 Planned areas include:
 
@@ -25,15 +23,15 @@ Planned areas include:
 
 ## Planned End-to-End Process
 
-The main business scenario will follow the order-to-cash flow:
+I will build the order-to-cash flow:
 
 **Customer Requirement → Sales Order → Delivery → Goods Issue → Billing → Financial Posting**
 
-Each stage will be documented in terms of configuration, business purpose, execution, validation, and downstream impact.
+I will document each stage in terms of configuration, business purpose, execution, validation, and downstream impact.
 
-## Future Evidence
+## Evidence
 
-SD screenshots will be stored under:
+I will store SD screenshots under:
 
 `evidence/screenshots/sd/`
 
@@ -41,7 +39,7 @@ Each completed configuration will receive a dedicated evidence entry with the re
 
 ## Planned Integration
 
-SD will later connect with:
+I will connect SD with:
 
 - **FI** — billing, customer receivables, and revenue-related accounting impacts
 - **MM** — material availability and inventory movements
@@ -52,4 +50,4 @@ SD will later connect with:
 
 **Status: Planned**
 
-No SD configuration is being represented as completed until it has been executed and validated in SAP.
+I will not represent SD configuration as completed until I execute and validate it in SAP.
