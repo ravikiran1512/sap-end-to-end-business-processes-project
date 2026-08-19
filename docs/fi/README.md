@@ -1,14 +1,14 @@
 # Financial Accounting (FI)
 
-## FI Implementation Overview
+## My FI Implementation Overview
 
-The Financial Accounting (FI) work in this project establishes the accounting foundation required for TechNova Manufacturing GmbH to record and report its business transactions in SAP S/4HANA.
+I am building the Financial Accounting (FI) foundation for **TechNova Manufacturing GmbH** in SAP S/4HANA. I am documenting FI as part of an integrated business-process implementation rather than as isolated transaction practice.
 
-The implementation is being documented as a business-process configuration rather than as isolated transaction practice. The configuration connects the organizational structure with the General Ledger and prepares the environment for later integration with Controlling, Materials Management, Sales and Distribution, Production, and end-to-end financial postings.
+I am using the FI configuration to establish the accounting foundation that I will later connect with Controlling, Materials Management, Sales and Distribution, Production, and end-to-end financial postings.
 
 ## 1. FI Organizational Foundation
 
-The FI configuration is built around Company Code **9000**, representing TechNova Manufacturing GmbH in Hamburg, Germany.
+I am using Company Code **9000** as the financial accounting foundation for TechNova Manufacturing GmbH in Hamburg, Germany.
 
 | Configuration Field | Assigned Value |
 |---|---|
@@ -22,11 +22,11 @@ The FI configuration is built around Company Code **9000**, representing TechNov
 | Fiscal Year Variant | K4 |
 | Client | 300 |
 
-The Company Code is the central organizational unit used for external accounting. Its assigned currency, country, language, chart of accounts, and fiscal year variant provide the accounting framework in which financial transactions will subsequently be recorded.
+I assigned these values to establish the accounting framework in which I will record and validate subsequent financial transactions.
 
 ## 2. General Ledger Foundation
 
-The project established the initial General Ledger configuration and documented the creation/maintenance of G/L account **1020131**.
+I established the initial General Ledger configuration and documented my creation/maintenance of G/L account **1020131**.
 
 ### G/L Account 1020131
 
@@ -41,30 +41,30 @@ The project established the initial General Ledger configuration and documented 
 | Field Status Group | G019 |
 | Account Group shown during creation | Liquid funds accounts |
 
-The account was created as a balance-sheet G/L account in EUR and maintained within chart of accounts **BMKG**. The field status group **G019** controls which fields are available or required when postings are made to the account.
+I created the account as a balance-sheet G/L account in EUR and maintained it within chart of accounts **BMKG**. I assigned field status group **G019**, which controls which fields are available or required when postings are made to the account.
 
 ## 3. Language / Translation Maintenance
 
-The G/L account was also maintained with a German translation so that the account description can be represented consistently in the relevant language context.
+I maintained a German translation for the G/L account so that the account description can be represented consistently in the relevant language context.
 
 | Language | Description |
 |---|---|
 | English | Receivables |
 | German | Forderungen |
 
-This demonstrates that the configuration was not limited to entering the account number; the account master data and its language-dependent description were also maintained.
+This means I maintained more than the account number: I also maintained the account master data and its language-dependent description.
 
 ## 4. Validation and Configuration Review
 
-During validation, the account creation process displayed a configuration warning related to the selected account group. The implementation evidence records that **1020131 is intended to represent Receivables**, while the account-group selection displayed **Liquid funds accounts**.
+During my validation, the account creation process displayed a configuration warning related to the selected account group. My implementation evidence records that **1020131 is intended to represent Receivables**, while the account-group selection displayed **Liquid funds accounts**.
 
-This item is intentionally documented as a configuration review point rather than silently treated as correct. Before the account is used in downstream Accounts Receivable or Order-to-Cash processing, the account-group assignment should be reviewed and corrected if required by the final design.
+I am intentionally documenting this as a configuration review point rather than presenting it as resolved. Before I use the account in downstream Accounts Receivable or Order-to-Cash processing, I will review and correct the account-group assignment if required by the final design.
 
-This is part of the project's validation approach: configuration evidence records both successful entries and findings that require review.
+This is part of my validation approach: I document both successful configuration steps and findings that require review.
 
 ## 5. FI Configuration Management
 
-The FI configuration work is associated with the project's SAP Customizing change-control process.
+I associated my FI configuration work with the project's SAP Customizing change-control process.
 
 | Change-Control Field | Value |
 |---|---|
@@ -73,11 +73,11 @@ The FI configuration work is associated with the project's SAP Customizing chang
 | SAP Client | **300** |
 | Configuration User | **RAVI** |
 
-The transport information is retained so that the configuration remains traceable to the SAP change-control process.
+I retain this transport information so that my configuration remains traceable to the SAP change-control process.
 
 ## 6. Business Purpose
 
-The FI foundation enables TechNova to establish a consistent accounting structure before executing integrated business scenarios. The configuration provides the basis for:
+I am establishing the FI foundation so that TechNova can maintain a consistent accounting structure before I execute integrated business scenarios. This foundation will support:
 
 - General Ledger accounting
 - Balance-sheet and profit-and-loss reporting
@@ -89,29 +89,29 @@ The FI foundation enables TechNova to establish a consistent accounting structur
 
 ## 7. Integration Perspective
 
-FI will not be configured as an isolated module. The configuration will become the financial backbone of the end-to-end implementation.
+I will not configure FI as an isolated module. I will use it as the financial backbone of my end-to-end implementation.
 
 Planned integration includes:
 
 **MM → FI**
 
-Procurement and inventory transactions will generate relevant accounting impacts.
+I will validate the financial impact created by procurement and inventory transactions.
 
 **SD → FI**
 
-Sales and billing processes will ultimately create financial postings and receivables-related impacts.
+I will validate the financial postings created by sales and billing processes, including receivables-related impacts.
 
 **PP → FI / CO**
 
-Production activity will create material and cost impacts that feed the financial and controlling processes.
+I will evaluate the material and cost impacts created by production activity and how they flow into financial and controlling processes.
 
 **FI ↔ CO**
 
-Financial accounting and controlling will work together to support internal cost and profitability analysis.
+I will connect Financial Accounting and Controlling to support internal cost and profitability analysis.
 
 ## 8. Evidence
 
-Screenshots for FI configuration are maintained separately under:
+I maintain FI configuration screenshots separately under:
 
 `evidence/screenshots/fi/`
 
@@ -127,6 +127,6 @@ Recommended evidence naming:
 
 **Status: In Progress**
 
-The initial FI organizational and General Ledger foundation has been documented. Further FI configuration, integration, posting scenarios, validation, and end-to-end testing will be added as the implementation progresses.
+I have documented the initial FI organizational and General Ledger foundation. I will add further FI configuration, integration, posting scenarios, validation, and end-to-end testing only after I perform them in the SAP system and capture supporting implementation evidence.
 
-> **Documentation principle:** This section records what was actually configured and validated in the project. Future FI activities will be added only after they are performed in the SAP system and supported by implementation evidence.
+> **Documentation principle:** This section records what I actually configured and validated in the project. Future FI activities will be added only after I perform them in SAP and support them with implementation evidence.
