@@ -112,7 +112,47 @@ The warning did not block saving and the account was subsequently saved successf
 
 The execution evidence shows the account group **Liquid funds accounts** selected for G/L account `1020131`, while the business description is **Receivables**. This is recorded as an open configuration-review item and must be validated before the account is used in downstream Accounts Receivable / Order-to-Cash processing.
 
-## 5. Transport / Change Control
+## 5. MM — Material Master
+
+### Material 184 — TechNova Business Laptop
+
+| SAP Field / View | Value | Status |
+|---|---|---|
+| Material | `184` | Created |
+| Description | `TechNova Business Laptop` | Assigned |
+| Material Type | `Finished Product` | Assigned |
+| Industry | `Mechanical engineering` | Selected during creation |
+| Base Unit | `EA – Each` | Assigned |
+| Gross Weight | `2 KG` | Maintained |
+| Net Weight | `1.700 KG` | Maintained |
+| Dimensions | `35 × 24 × 2 cm` | Maintained/documented |
+| Plant | `0001 – AN PLANT – BENGALURU` | Extended |
+| Sales Organization | `0001 – Sales Org. 001` | Extended |
+| Distribution Channel | `01 – Distribution Channel 01` | Extended |
+| Classification | Class Type `001` / Class `1000` | Assigned |
+| Tax Classification | `1 – Full tax` for displayed entries | Maintained |
+| Availability Check | `02 – Individual requirements` | Maintained |
+| Profit Center | `PC0001` | Assigned |
+| Inventory Planning Mode | `eSPP calculation` | Displayed/reviewed |
+| Extended SPP Planning Scenario | None selected | Reviewed |
+| International Trade Export fields | Blank in captured workflow | Reviewed |
+| Sales Text | No text maintained | Reviewed |
+| Material Group | Valid system entry selected | Mandatory validation resolved; exact code not preserved |
+| Creation Result | `Material 184 created` | **Success** |
+
+### Material Master Implementation Notes
+
+I created the material as a finished product so that it can later participate in sales, procurement, inventory, planning, logistics, and accounting processes. I selected the relevant material views because different business functions consume different parts of the material master.
+
+I used SAP value help for the Material Group rather than inventing a code manually. The system displayed a catalogue of 185 material groups, but the captured evidence does not preserve the exact selected code, so the register intentionally does not guess it.
+
+I also reviewed the Item Category Group value help in Sales Organization 2 but did not record a final Item Category Group because the evidence does not establish one as assigned.
+
+The detailed implementation record is maintained at:
+
+`docs/mm/material-184-tech-nova-business-laptop.md`
+
+## 6. Transport / Change Control
 
 | Field | Value |
 |---|---|
@@ -121,7 +161,7 @@ The execution evidence shows the account group **Liquid funds accounts** selecte
 | Configuration User | `RAVI` |
 | Project Description | TechNova Manufacturing – SAP End-to-End Implementation |
 
-## 6. Configuration Status Legend
+## 7. Configuration Status Legend
 
 - **Created / Completed** — explicitly executed during the project.
 - **Verified** — existing object checked and confirmed for project use.
@@ -130,7 +170,7 @@ The execution evidence shows the account group **Liquid funds accounts** selecte
 - **TODO** — not yet configured.
 - **TBD** — TechNova-specific value has not yet been confirmed.
 
-## 7. Evidence Links
+## 8. Evidence Links
 
 Screenshots are maintained separately under:
 
@@ -152,9 +192,9 @@ Screenshots are maintained separately under:
 
 `evidence/screenshots/testing/`
 
-## 8. Next Configuration Register Expansion
+## 9. Next Configuration Register Expansion
 
-As each module is implemented, add the **complete set of assigned fields**, not only the headline configuration object. Each entry should capture:
+As each module is implemented, I will add the **complete set of assigned fields**, not only the headline configuration object. Each entry should capture:
 
 1. SAP configuration object
 2. Field name
@@ -165,4 +205,4 @@ As each module is implemented, add the **complete set of assigned fields**, not 
 7. Validation result
 8. Downstream integration impact
 
-This register will become the detailed configuration audit trail for the final SAP portfolio case study.
+This register will become the detailed configuration audit trail for my final SAP portfolio case study.
