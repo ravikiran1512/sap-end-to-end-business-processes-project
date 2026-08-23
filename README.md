@@ -17,7 +17,7 @@ I am intentionally structuring this repository as an implementation case study r
 | Business Process | SAP Areas | Status |
 |---|---|---|
 | Record-to-Report (R2R) | FI / CO | 🟡 In Progress |
-| Source-to-Pay (S2P) | MM / FI / CO | ⚪ Planned |
+| Source-to-Pay (S2P) | MM / FI / CO | 🟡 In Progress |
 | Design-to-Operate (D2O) | PP / MM / CO | ⚪ Planned |
 | Lead-to-Cash (L2C) | SD / FI | ⚪ Planned |
 | Service | Service / FI / CO | ⚪ Planned |
@@ -31,7 +31,9 @@ Enterprise Structure
         ↓
 Financial & Controlling Foundation
         ↓
-Procurement & Inventory (MM)
+Material Master & Procurement Foundation (MM)
+        ↓
+Procurement & Inventory Processing
         ↓
 Sales & Distribution (SD)
         ↓
@@ -75,40 +77,70 @@ Implementation Evidence & Portfolio Documentation
 - I established the current enterprise-structure foundation, including Plant **TN01**, Storage Location **RM10**, Purchasing Organization **TN01**, Sales Organization **TN01**, Distribution Channel **10**, Division **00**, and Sales Area **TN01 / 10 / 00**.
 - I started the FI General Ledger foundation and configured G/L Account **1020131 — Receivables**.
 - I maintained the G/L account's control data and English/German descriptions and captured the SAP validation behavior.
-- I documented the FI configuration and evidence in the repository.
+- I created Material **184 — TechNova Business Laptop** as a Finished Product.
+- I maintained the documented material basic data, organizational extensions, classification, sales/tax data, plant/profit-center data, and relevant reviewed views.
+- I resolved the mandatory Material Group validation in the Purchasing view using SAP value help.
+- I successfully saved Material **184** and captured the creation confirmation.
+- I documented the FI and MM implementation evidence in the repository.
 
-### Current Focus — Financial Accounting (FI)
+### Current Focus — Materials Management (MM)
+
+**Status: In Progress — Material Master Foundation Completed**
+
+I have moved the implementation into the MM foundation while continuing the broader FI work. My current MM focus is to verify Material **184** with **MM03** and then continue into the procurement and inventory process.
+
+The material-master implementation currently includes:
+
+- Material `184` — TechNova Business Laptop
+- Material Type — Finished Product
+- Base Unit — EA
+- Gross Weight — 2 KG
+- Net Weight — 1.700 KG
+- Dimensions — 35 × 24 × 2 cm
+- Plant `0001`
+- Sales Organization `0001`
+- Distribution Channel `01`
+- Classification `001 / 1000`
+- Tax Classification `1 – Full tax` for the displayed entries
+- Availability Check `02`
+- Profit Center `PC0001`
+- Extended SPP review
+- International Trade review
+- Sales Text review
+- Purchasing Material Group validation and resolution
+- Successful material creation
+
+The exact Material Group code is not preserved clearly in the captured evidence, so I have intentionally not guessed it.
+
+### FI Status
 
 **Status: In Progress**
 
-I am currently continuing the FI foundation before moving into the next major module. My immediate focus is to complete and validate the required FI configuration and prepare the financial processes that will later integrate with MM, SD, PP, and CO.
+I am continuing the FI foundation in parallel. The G/L Account **1020131 — Receivables** remains subject to the documented configuration review before I use it in downstream Accounts Receivable / Order-to-Cash processing.
 
-The current FI work includes:
+### Immediate Next Steps
 
-- Completing the required General Ledger foundation
-- Reviewing the G/L Account **1020131** configuration warning before downstream AR/O2C use
-- Adding the remaining FI configuration required by the project scope
-- Executing relevant FI validation/posting scenarios as the configuration becomes ready
-- Capturing SAP screenshots and maintaining detailed configuration evidence
-- Preparing the FI foundation for later cross-module integration
+1. I will verify Material `184` with **MM03**.
+2. I will continue the Source-to-Pay process with the relevant procurement steps.
+3. I will document goods receipt, inventory, invoice verification, and financial impacts as I execute them.
+4. I will continue the remaining FI foundation and validation activities.
+5. I will later connect MM with FI, CO, PP, and SD in integrated scenarios.
 
 ### Not Yet Implemented
 
-- Controlling (CO)
-- Materials Management (MM)
+- Controlling (CO) foundation
+- Complete MM procurement and inventory process
 - Sales & Distribution (SD)
 - Production Planning (PP)
 - Service processes
 - Cross-module integration scenarios
 - End-to-end business-process testing
 
-These areas are documented in the repository as planned future implementation work and are **not presented as completed configuration**.
+These areas are documented as planned or in-progress work and are **not presented as completed configuration** until I execute and validate them in SAP.
 
 ## Current Implementation Evidence
 
-My current evidence pack contains SAP GUI evidence for the work completed to date. It covers the enterprise-structure foundation and FI foundation, including Company Code **9000**, G/L account **1020131**, control data, translation data, and save-validation behavior.
-
-> **Configuration review item:** My evidence records that G/L account **1020131** represents Receivables, while the execution screenshot shows the account group **Liquid funds accounts**. I have intentionally preserved this as a validation item and will review it before I use the account in downstream Accounts Receivable or Order-to-Cash processing.
+My current evidence covers the enterprise-structure foundation, FI foundation, and the new MM Material Master milestone. The MM evidence records the creation of Material **184**, its relevant views and organizational extensions, mandatory-field validation, and successful creation.
 
 ## Repository Structure
 
@@ -196,8 +228,8 @@ I will preserve lessons learned, configuration issues, validation findings, and 
 ## My Future Milestones
 
 - Complete the FI foundation
+- Complete MM procurement and inventory processing
 - Build the CO foundation
-- Configure MM procurement and inventory
 - Configure SD order-to-cash
 - Configure PP planning and production
 - Add the required Service processes
