@@ -1,6 +1,6 @@
 # SAP S/4HANA End-to-End Business Process Implementation
 
-> **My hands-on SAP S/4HANA implementation portfolio project covering integrated enterprise business processes from organizational structure through configuration, validation, integration, and end-to-end testing.**
+> **Hands-on SAP S/4HANA implementation portfolio project covering integrated enterprise business processes from organizational structure through configuration, validation, execution, integration, and end-to-end testing.**
 
 ![SAP](https://img.shields.io/badge/SAP-S%2F4HANA-0FAAFF)
 ![Project](https://img.shields.io/badge/Project-End--to--End%20Implementation-blue)
@@ -8,23 +8,23 @@
 
 ## About My Project
 
-I am building and documenting an end-to-end SAP S/4HANA business-process environment for the fictional manufacturing organization **TechNova Manufacturing GmbH**.
+I am building and documenting an end-to-end SAP S/4HANA business-process environment for the fictional manufacturing organization **TechNova Manufacturing GmbH**. The repository is structured as an implementation case study rather than a collection of isolated exercises.
 
-I am intentionally structuring this repository as an implementation case study rather than a collection of isolated SAP exercises. For each major configuration decision, I document its business purpose, organizational dependencies, exact configured values, SAP evidence, validation result, transport/change-control information, and downstream integration impact.
+For each major milestone I capture the business purpose, organizational dependencies, exact executed values, SAP evidence, validation result, and downstream integration impact.
 
-## My Business Scope
+## Business Scope
 
 | Business Process | SAP Areas | Status |
 |---|---|---|
 | Record-to-Report (R2R) | FI / CO | 🟡 In Progress |
 | Source-to-Pay (S2P) | MM / FI / CO | 🟡 In Progress |
+| Order-to-Cash (O2C) | SD / MM / FI | 🟡 In Progress |
 | Design-to-Operate (D2O) | PP / MM / CO | ⚪ Planned |
-| Lead-to-Cash (L2C) | SD / FI | ⚪ Planned |
 | Service | Service / FI / CO | ⚪ Planned |
 | Cross-Module Integration | FI / CO / MM / SD / PP / Service | ⚪ Planned |
 | End-to-End Testing | All relevant areas | ⚪ Planned |
 
-## My Implementation Roadmap
+## Implementation Roadmap
 
 ```text
 Enterprise Structure
@@ -36,6 +36,8 @@ Material Master & Procurement Foundation (MM)
 Procurement & Inventory Processing
         ↓
 Sales & Distribution (SD)
+        ↓
+Outbound Delivery / Logistics Execution
         ↓
 Production (PP)
         ↓
@@ -65,82 +67,81 @@ Implementation Evidence & Portfolio Documentation
 | Customizing Request | **A4HK901352** |
 | Customizing Task | **A4HK901353** |
 
-## My Current Implementation Status — 23 August 2026
+## Current Implementation Status — 24 August 2026
 
 ### Completed / Established
 
-- I established the SAP S/4HANA project environment.
-- I defined **TechNova Manufacturing GmbH** and Company Code **9000**.
-- I configured and validated Company Code **9000**, including its documented accounting parameters.
-- I established the initial SAP Customizing transport.
-- I configured and validated internal trading partner **TN9000**.
-- I established the current enterprise-structure foundation, including Plant **TN01**, Storage Location **RM10**, Purchasing Organization **TN01**, Sales Organization **TN01**, Distribution Channel **10**, Division **00**, and Sales Area **TN01 / 10 / 00**.
-- I started the FI General Ledger foundation and configured G/L Account **1020131 — Receivables**.
-- I maintained the G/L account's control data and English/German descriptions and captured the SAP validation behavior.
-- I created Material **184 — TechNova Business Laptop** as a Finished Product.
-- I maintained the documented material basic data, organizational extensions, classification, sales/tax data, plant/profit-center data, and relevant reviewed views.
-- I resolved the mandatory Material Group validation in the Purchasing view using SAP value help.
-- I successfully saved Material **184** and captured the creation confirmation.
-- I documented the FI and MM implementation evidence in the repository.
+- Established the SAP S/4HANA project environment and documented the implementation structure.
+- Established Company Code **9000** and the documented TechNova enterprise foundation.
+- Configured and documented the initial FI General Ledger foundation, including G/L Account **1020131 — Receivables**, with its documented review item retained.
+- Created Material **184 — TechNova Business Laptop** as a Finished Product.
+- Maintained the documented material basic data, organizational extensions, classification, sales/tax data, plant/profit-center data, and reviewed views.
+- Resolved the mandatory Material Group validation using SAP value help and successfully saved Material **184**.
+- **Verified Material 184 in MM03 after creation.**
+- **Maintained shipping-relevant material data in MM02: Loading Group `0002 — Forklift` and Transportation Group `0004 — Parcel`.**
+- **Validated/added Shipping Point Determination for the executed practice scenario: Shipping Condition `01` + Loading Group `0002` + Plant `0001` → Shipping Point `0001`.**
+- **Created and successfully saved Standard Sales Order `12` for customer `1000000020 — TechNova GmbH`, Material `184`, quantity `10 EA`, PR00 price `1.00 EUR/EA`, and net value `10.00 EUR`.**
 
-### Current Focus — Materials Management (MM)
+### Current Focus — SD / Order-to-Cash Execution
 
-**Status: In Progress — Material Master Foundation Completed**
+**Status: In Progress — Sales Order milestone completed**
 
-I have moved the implementation into the MM foundation while continuing the broader FI work. My current MM focus is to verify Material **184** with **MM03** and then continue into the procurement and inventory process.
+The first O2C execution milestone is now complete. The next step is to create the outbound delivery with reference to Sales Order **12** using **VL01N**.
 
-The material-master implementation currently includes:
+Current executed chain:
 
-- Material `184` — TechNova Business Laptop
-- Material Type — Finished Product
-- Base Unit — EA
-- Gross Weight — 2 KG
-- Net Weight — 1.700 KG
-- Dimensions — 35 × 24 × 2 cm
-- Plant `0001`
-- Sales Organization `0001`
-- Distribution Channel `01`
-- Classification `001 / 1000`
-- Tax Classification `1 – Full tax` for the displayed entries
-- Availability Check `02`
-- Profit Center `PC0001`
-- Extended SPP review
-- International Trade review
-- Sales Text review
-- Purchasing Material Group validation and resolution
-- Successful material creation
+```text
+Material 184
+   ↓
+MM03 verification
+   ↓
+MM02 shipping data
+   ↓
+Shipping Point Determination
+   ↓
+VA01 Sales Order 12
+   ↓
+VL01N Outbound Delivery  ← NEXT
+   ↓
+Picking
+   ↓
+Post Goods Issue
+   ↓
+Billing
+   ↓
+FI / Accounts Receivable Impact
+```
 
-The exact Material Group code is not preserved clearly in the captured evidence, so I have intentionally not guessed it.
+Detailed evidence: [`docs/sd/material-verification-to-sales-order-12.md`](docs/sd/material-verification-to-sales-order-12.md)
 
-### FI Status
+Evidence pack: [`evidence/implementation-evidence-packs/SAP_Material_Verification_to_Sales_Order_12.pdf`](evidence/implementation-evidence-packs/SAP_Material_Verification_to_Sales_Order_12.pdf)
 
-**Status: In Progress**
+### Important Environment Note
 
-I am continuing the FI foundation in parallel. The G/L Account **1020131 — Receivables** remains subject to the documented configuration review before I use it in downstream Accounts Receivable / Order-to-Cash processing.
+The current SD execution was performed in the available SAP practice/server environment. Values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020` are recorded as actual execution evidence. They are **not silently reclassified as the confirmed TechNova enterprise IDs** in the project master plan.
 
-### Immediate Next Steps
+### Not Yet Completed
 
-1. I will verify Material `184` with **MM03**.
-2. I will continue the Source-to-Pay process with the relevant procurement steps.
-3. I will document goods receipt, inventory, invoice verification, and financial impacts as I execute them.
-4. I will continue the remaining FI foundation and validation activities.
-5. I will later connect MM with FI, CO, PP, and SD in integrated scenarios.
-
-### Not Yet Implemented
-
-- Controlling (CO) foundation
+- Outbound Delivery
+- Picking
+- Post Goods Issue
+- Billing
+- FI / Accounts Receivable integration validation for the O2C chain
 - Complete MM procurement and inventory process
-- Sales & Distribution (SD)
-- Production Planning (PP)
-- Service processes
-- Cross-module integration scenarios
-- End-to-end business-process testing
+- CO foundation
+- PP / Service processes
+- Full cross-module integration
+- End-to-end testing and reconciliation
 
-These areas are documented as planned or in-progress work and are **not presented as completed configuration** until I execute and validate them in SAP.
+These areas are not presented as completed until they are executed and validated in SAP.
 
-## Current Implementation Evidence
+## Current Evidence
 
-My current evidence covers the enterprise-structure foundation, FI foundation, and the new MM Material Master milestone. The MM evidence records the creation of Material **184**, its relevant views and organizational extensions, mandatory-field validation, and successful creation.
+The latest evidence extends the Material Master milestone into the first O2C execution milestone:
+
+**MM03 verification → MM02 shipping data → Shipping Point Determination → VA01 Sales Order 12**.
+
+The evidence includes the MM verification, Loading Group and Transportation Group selection, shipping-point determination, sales-order creation, incompletion handling, pricing, and final save confirmation.
 
 ## Repository Structure
 
@@ -166,6 +167,8 @@ sap-end-to-end-business-processes-project/
 ├── evidence/
 │   ├── README.md
 │   ├── screenshots/
+│   │   ├── mm/
+│   │   └── sd/
 │   └── implementation-evidence-packs/
 │
 ├── process-flows/
@@ -175,65 +178,36 @@ sap-end-to-end-business-processes-project/
 │   └── plan-to-produce/
 │
 ├── configuration/
-│
 └── test-scenarios/
 ```
 
-## My Documentation Standard
+## Documentation Standard
 
-For every major configuration or business-process milestone, I will capture:
+For every major configuration or business-process milestone, I capture:
 
-1. **Business requirement** — why I need the configuration
-2. **SAP configuration area** — where I configure it
-3. **Organizational dependencies** — company code, plant, sales area, purchasing organization, etc.
-4. **Configured values** — exact values I use in the SAP system
-5. **Configuration procedure** — reproducible implementation steps
-6. **Validation** — expected and actual results
-7. **SAP evidence** — screenshots or other implementation evidence
-8. **Transport/change control** — request and task information
-9. **Integration impact** — upstream/downstream dependencies
-10. **Testing** — related business scenario and test result
+1. Business requirement
+2. SAP configuration area / transaction
+3. Organizational dependencies
+4. Exact executed values
+5. Reproducible procedure
+6. Validation result
+7. SAP evidence
+8. Transport/change-control information where applicable
+9. Integration impact
+10. Testing status
 
-## My Process Integration Philosophy
+## Process Integration Philosophy
 
-I am following business-process chains rather than configuring modules in isolation.
-
-Examples:
-
-- I will trace procurement through inventory and accounting impacts.
-- I will connect sales and billing with Financial Accounting.
-- I will connect production with material consumption, inventory, controlling, and financial impacts.
-- I will use master data and organizational assignments to enable consistent cross-module processing.
-- I will trace end-to-end scenarios from business initiation through logistical and financial consequences.
+I am following business-process chains rather than configuring modules in isolation. The current O2C chain is being used to demonstrate how material master data and SD configuration enable delivery and later financial processing.
 
 ## Evidence & Traceability
 
-I maintain SAP configuration changes through Customizing Requests and associated tasks. I organize evidence separately from explanatory documentation so that my implementation decisions remain easy to audit.
+The repository separates explanatory documentation from SAP screenshots and implementation evidence. I document the executed SAP state without inventing undocumented values. This includes keeping practice-system/demo IDs distinct from confirmed TechNova enterprise IDs.
 
-My evidence pack records completed implementation work, configuration values, SAP GUI evidence, validation notes, and known configuration review items.
+## Project Principles
 
-## My Learning & Implementation Record
-
-I will preserve lessons learned, configuration issues, validation findings, and corrections discovered during implementation. This allows the repository to show not only my final configuration, but also how I validated and improved the quality of my implementation.
-
-## My Project Principles
-
-- **Business process first** — I understand the process before configuring the transaction.
-- **Integration aware** — I evaluate upstream and downstream effects before finalizing configuration.
-- **Evidence driven** — I capture SAP evidence for important implementation milestones.
-- **Controlled change** — I keep configuration changes traceable through SAP transport management.
-- **Testable configuration** — I define a validation method for important configuration decisions.
-- **Portfolio ready** — I document the project so it is understandable to SAP professionals and recruiters.
-
-## My Future Milestones
-
-- Complete the FI foundation
-- Complete MM procurement and inventory processing
-- Build the CO foundation
-- Configure SD order-to-cash
-- Configure PP planning and production
-- Add the required Service processes
-- Build cross-module integration scenarios
-- Execute end-to-end tests
-- Consolidate implementation evidence
-- Publish my final SAP implementation case study
+- **Business process first:** understand why the transaction exists before executing it.
+- **Evidence driven:** every completed milestone must have SAP evidence.
+- **No invented values:** record only values supported by the system or project documentation.
+- **Integration focused:** trace documents and business impact across SAP areas.
+- **Transparent status:** completed, in progress, and planned work are kept separate.

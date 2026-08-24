@@ -2,6 +2,31 @@
 
 All notable project implementation milestones are recorded here.
 
+## 2026-08-24
+
+### Material Verification → Sales Order 12
+
+- Verified Material **184 — TechNova Business Laptop** using `MM03` after successful material creation.
+- Confirmed key displayed material data including Plant `0001`, Base Unit `EA`, Gross Weight `2 KG`, Net Weight `1.700 KG`, Availability Check `02`, and Profit Center `PC0001`.
+- Opened Material `184` in `MM02` to maintain shipping-relevant data for the executed sales scenario.
+- Selected Loading Group **`0002 — Forklift`** from SAP value help.
+- Selected Transportation Group **`0004 — Parcel`** from SAP value help.
+- Investigated shipping-point determination after the initial sales-order screen could not determine a shipping point.
+- Added/saved the executed Shipping Point Determination combination: Shipping Condition `01` + Loading Group `0002` + Plant `0001` → Shipping Point `0001`.
+- Returned to `VA01` and confirmed that the sales-order item could then determine Shipping Point `0001`.
+- Created Standard Sales Order **`12`** for Sold-to/Ship-to Party **`1000000020 — TechNova GmbH`**.
+- Used customer reference **`TECHNOVA-001`**, Material **`184`**, and quantity **`10 EA`**.
+- Resolved the VA01 incompletion message for missing **Net Value** by maintaining pricing condition **PR00 — Price**.
+- Maintained PR00 at **`1.00 EUR / EA`**, producing a final net value of **`10.00 EUR`** for 10 EA.
+- Successfully saved the sales order; SAP confirmed **“Standard order 12 has been saved.”**
+- Added the detailed Material Verification → Sales Order documentation and PDF evidence pack.
+- Added organized MM and SD screenshots to the repository evidence structure.
+- Updated the O2C process flow to show Sales Order 12 completed and `VL01N` Outbound Delivery as the next step.
+
+### Environment / Traceability Note
+
+- The current SD execution evidence was captured in the available SAP practice/server environment. Values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020` are recorded as executed system values and are not silently reclassified as confirmed TechNova enterprise IDs.
+
 ## 2026-08-23
 
 ### MM Material Master Milestone
@@ -18,8 +43,6 @@ All notable project implementation milestones are recorded here.
 - I resolved the mandatory **Material Group** validation in the Purchasing view using SAP value help.
 - I successfully saved the material and captured the SAP confirmation **Material 184 created**.
 - I added the detailed Material 184 implementation documentation and configuration-register entry.
-- I updated the Source-to-Pay process flow to show the Material Master milestone as completed and procurement transactions as the next implementation stage.
-- I removed PDF page-number references from the evidence index and replaced them with implementation descriptions.
 
 ### FI / Enterprise Foundation Status
 

@@ -1,41 +1,38 @@
 # Sales and Distribution (SD)
 
-## My SD Implementation Plan
+## Current SD Execution
 
-I will build the Sales and Distribution (SD) foundation for TechNova Manufacturing GmbH to support customer-facing order-to-cash processes.
+**Status: In Progress — Sales Order milestone completed**
 
-## What I Will Configure
+The first executed Order-to-Cash milestone has now been completed in the available SAP practice/server environment. Material `184` was verified, shipping-relevant material data was maintained, shipping-point determination was corrected for the executed scenario, and Standard Sales Order `12` was saved successfully.
 
-I plan to configure and document the organizational and process foundation required for customer sales and fulfillment.
+## Executed Milestone — 24 August 2026
 
-Planned areas include:
+- `MM03` — verified Material `184 — TechNova Business Laptop`.
+- `MM02` — maintained Loading Group `0002 — Forklift`.
+- `MM02` — maintained Transportation Group `0004 — Parcel`.
+- Shipping Point Determination — validated/added the combination Shipping Condition `01` + Loading Group `0002` + Plant `0001` → Shipping Point `0001`.
+- `VA01` — created Standard Sales Order `12`.
+- Sold-to / Ship-to Party — `1000000020 — TechNova GmbH`.
+- Customer Reference — `TECHNOVA-001`.
+- Material — `184`.
+- Quantity — `10 EA`.
+- Pricing — `PR00`, `1.00 EUR / EA`.
+- Net Value — `10.00 EUR`.
 
-- Sales organization and distribution-channel structure
-- Division and sales-area relationships
-- Customer/business-partner master-data dependencies
-- Material and sales master-data dependencies
-- Sales document processing
-- Delivery processing
-- Picking and goods issue concepts
-- Billing and invoice processing
-- Pricing and relevant sales-process configuration
-- FI integration and customer receivables impacts
+Detailed evidence: [`material-verification-to-sales-order-12.md`](material-verification-to-sales-order-12.md)
 
 ## Planned End-to-End Process
 
-I will build the order-to-cash flow:
+**Customer Requirement → Sales Order → Outbound Delivery → Picking → Post Goods Issue → Billing → Financial Posting**
 
-**Customer Requirement → Sales Order → Delivery → Goods Issue → Billing → Financial Posting**
+## Next Execution Step
 
-I will document each stage in terms of configuration, business purpose, execution, validation, and downstream impact.
+`VL01N` — Create Outbound Delivery with reference to Sales Order `12`.
 
-## Evidence
+## Important Environment Note
 
-I will store SD screenshots under:
-
-`evidence/screenshots/sd/`
-
-Each completed configuration will receive a dedicated evidence entry with the relevant fields, values, business explanation, validation result, and screenshot reference.
+The executed screenshots contain practice/server values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020`. These are recorded as actual execution evidence and are not silently reclassified as the confirmed TechNova enterprise IDs from the project master plan.
 
 ## Planned Integration
 
@@ -46,8 +43,4 @@ I will connect SD with:
 - **CO** — relevant cost and profitability impacts
 - **PP** — supply and production dependencies where applicable
 
-## Current Status
-
-**Status: Planned**
-
-I will not represent SD configuration as completed until I execute and validate it in SAP.
+SD will be marked complete only after the downstream delivery, goods issue, billing, and integration validation steps are executed and documented.
