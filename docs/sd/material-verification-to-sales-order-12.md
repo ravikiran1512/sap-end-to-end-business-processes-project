@@ -1,4 +1,4 @@
-# SAP Business Suite Project — Material Verification to Sales Order
+# SAP Business Suite Project — Material Verification to Sales Order 12
 
 **Project:** TechNova SAP End-to-End Business Process Implementation  
 **Execution date:** 24 August 2026  
@@ -8,13 +8,17 @@
 
 ## 1. Purpose
 
-This evidence record extends the previous Material Master milestone. Material **184** had already been created successfully. This session verifies the material, completes the shipping-related material data used by the practice-system sales process, validates shipping-point determination, and creates a sales order.
+I extended the completed Material Master milestone into the first executed Order-to-Cash milestone. I verified Material **184**, maintained the shipping-related material data required by the executed sales process, corrected the shipping-point determination needed by the scenario, and created Sales Order **12**.
 
-> **Environment note:** The screenshots record execution in the available SAP practice/server environment. Values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020` are captured as executed system values. They are not silently reclassified as the confirmed TechNova enterprise IDs in the project master plan.
+> **Environment note:** The screenshots record execution in the available SAP practice/server environment. Values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020` are recorded as executed system values. I do not silently reclassify them as the confirmed TechNova enterprise IDs in the project master plan.
 
 ## 2. Material Verification — MM03
 
-`MM03` — Display Material was used to verify Material **184 — TechNova Business Laptop** after creation.
+### Transaction
+
+`MM03` — Display Material
+
+I used MM03 to verify Material **184 — TechNova Business Laptop** after its creation.
 
 | Field | Verified value |
 |---|---|
@@ -27,29 +31,50 @@ This evidence record extends the previous Material Master milestone. Material **
 | Availability Check | `02 — Individual requirements` |
 | Profit Center | `PC0001` |
 
-**Screenshot:** `material-184-mm03-general-plant.jpg`
+The MM03 display confirmed that the material record exists after creation and that the key plant/general data required for the subsequent sales execution is available.
+
+**Evidence:** `evidence/screenshots/mm/material-184-mm03-general-plant.jpg`
 
 ## 3. Shipping-Relevant Material Data — MM02
 
-The material was opened in `MM02` to maintain shipping data required for the executed sales/delivery scenario.
+### Transaction
+
+`MM02` — Change Material
+
+I opened Material 184 in change mode to maintain the shipping data required by the executed sales/delivery scenario.
 
 ### Loading Group
 
-SAP value help showed `0001 — Crane`, `0002 — Forklift`, and `0003 — Manual`. Material 184 was maintained with **Loading Group `0002 — Forklift`**.
+The SAP value help showed:
 
-**Screenshot:** `material-184-loading-group-0002.jpg`
+- `0001` — Crane
+- `0002` — Forklift
+- `0003` — Manual
+
+I selected **Loading Group `0002 — Forklift`** for Material 184.
+
+**Evidence:** `evidence/screenshots/mm/material-184-loading-group-0002.jpg`
 
 ### Transportation Group
 
-SAP value help included `0001 — On pallets`, `0002 — In liquid form`, `0003 — Container`, `0004 — Parcel`, `0005 — Bulk Product`, and `TVS1 — On pallets`. Material 184 was maintained with **Transportation Group `0004 — Parcel`**.
+The SAP value help showed entries including:
 
-**Screenshot:** `material-184-transportation-group-0004.jpg`
+- `0001` — On pallets
+- `0002` — In liquid form
+- `0003` — Container
+- `0004` — Parcel
+- `0005` — Bulk Product
+- `TVS1` — On pallets
 
-The material was saved successfully.
+I selected **Transportation Group `0004 — Parcel`** for Material 184 and saved the material.
+
+**Evidence:** `evidence/screenshots/mm/material-184-transportation-group-0004.jpg`
+
+I maintained these values because the loading group participates in the shipping-point determination used by the sales and outbound-delivery process.
 
 ## 4. Shipping Point Determination
 
-The sales process initially could not determine a shipping point. The Shipping Point Determination view was therefore checked and the executed combination was added/saved:
+During the first sales-order attempt, SAP could not determine a shipping point for the item. I therefore checked the Shipping Point Determination configuration and added the combination required by the executed scenario.
 
 | Determination field | Value |
 |---|---|
@@ -58,16 +83,26 @@ The sales process initially could not determine a shipping point. The Shipping P
 | Plant | `0001` |
 | Proposed Shipping Point | `0001` |
 
-**Screenshots:**
+I saved the new entry successfully.
 
-- `shipping-point-determination-overview.jpg`
-- `shipping-point-determination-saved.jpg`
+**Evidence:**
 
-This is an important SD/Logistics Execution integration point because the shipping condition, loading group, and delivering plant participate in shipping-point determination for the outbound delivery process.
+- `evidence/screenshots/sd/shipping-point-determination-overview.jpg`
+- `evidence/screenshots/sd/shipping-point-determination-saved.jpg`
+
+### Why I performed this configuration
+
+Shipping-point determination is an SD/Logistics Execution integration point. SAP uses the shipping condition, loading group, and delivering plant to determine the shipping point that will be used for the outbound delivery process.
 
 ## 5. Sales Order Creation — VA01
 
-`VA01` — Create Standard Order was used to create the customer order.
+### Transaction
+
+`VA01` — Create Standard Order
+
+I used VA01 to create the customer order after correcting the shipping-point determination.
+
+### Header and Item Data
 
 | Field | Value |
 |---|---|
@@ -79,31 +114,42 @@ This is an important SD/Logistics Execution integration point because the shippi
 | Order Quantity | `10 EA` |
 | Delivering Plant | `0001 — AN PLANT – BENGALURU` |
 
-After the shipping-point determination correction, the sales-order item was able to determine Shipping Point `0001`.
+After I corrected shipping-point determination, SAP was able to populate the expected shipping information for the sales-order item.
 
-**Screenshot:** `sales-order-shipping-determined.jpg`
+**Evidence:** `evidence/screenshots/sd/sales-order-shipping-determined.jpg`
 
 ## 6. Incompletion Handling and Pricing
 
-The first save attempt reported that the document was incomplete because **Net Value** was missing.
+When I first attempted to save the order, SAP reported that the document was incomplete because the **Net Value** was missing.
 
-**Screenshot:** `sales-order-save-incomplete.jpg`
+**Evidence:** `evidence/screenshots/sd/sales-order-save-incomplete.jpg`
 
-The Incompletion Log identified **Net Value** as missing for item `10`.
+I opened the Incompletion Log and identified **Net Value** as missing for item `10`.
 
-**Screenshot:** `sales-order-incompletion-log.jpg`
+**Evidence:** `evidence/screenshots/sd/sales-order-incompletion-log.jpg`
 
-The item pricing was then completed with **PR00 — Price**. The maintained price was **1.00 EUR per EA** for **10 EA**, resulting in a **10.00 EUR** net value.
+I then opened the item pricing screen and reviewed the condition value help. I selected the standard price condition **PR00 — Price**.
 
-**Screenshot:** `sales-order-pr00-price.jpg`
+I maintained:
+
+- **Amount:** `1.00 EUR`
+- **Per:** `1 EA`
+- **Quantity:** `10 EA`
+- **Net Value:** `10.00 EUR`
+
+**Evidence:** `evidence/screenshots/sd/sales-order-pricing-condition-help.jpg` and `evidence/screenshots/sd/sales-order-pr00-price.jpg`
+
+### Why I corrected the incompletion
+
+I needed a valid net value before SAP could save the order as a complete sales document. By maintaining PR00, I provided the pricing information required for the executed scenario and resolved the incompletion item.
 
 ## 7. Final Result
 
-The sales order was saved successfully.
+After I completed the missing pricing information, I saved the sales order successfully.
 
 > **Standard order 12 has been saved.**
 
-Final executed values:
+The final executed order contains:
 
 - Sales Order: **12**
 - Customer: **1000000020 — TechNova GmbH**
@@ -113,9 +159,11 @@ Final executed values:
 - Net Value: **10.00 EUR**
 - Customer Reference: **TECHNOVA-001**
 
-**Screenshot:** `sales-order-12-saved.jpg`
+**Evidence:** `evidence/screenshots/sd/sales-order-12-saved.jpg`
 
 ## 8. Business Process Position
+
+The completed execution establishes this document/process chain:
 
 ```text
 Material Master 184
@@ -141,25 +189,33 @@ FI / Accounts Receivable Impact
 
 ## 9. Implementation Learning
 
-The sales order is not an isolated SD transaction. It depends on material master data and configuration maintained earlier. The loading group participates in shipping-point determination, the delivering plant connects the sales item to logistics execution, shipping-point determination enables the delivery step, and pricing conditions determine the order's net value.
+This milestone demonstrated to me that a sales order is not an isolated SD transaction.
+
+I used material master data that I had created and verified earlier. I used the loading group in shipping-point determination, connected the sales item to the delivering plant, corrected the shipping-point configuration when SAP could not determine it, and maintained pricing so that the order could be completed.
+
+The Sales Order now becomes the reference document for the next logistics step: **VL01N — Create Outbound Delivery**.
 
 ## 10. Evidence Status
 
 | Milestone | Status | Evidence |
 |---|---|---|
-| Material 184 exists after creation | Completed | MM03 |
-| Loading Group 0002 maintained | Completed | MM02 |
-| Transportation Group 0004 maintained | Completed | MM02 |
-| Shipping Point Determination | Completed in practice system | SD configuration |
+| Material 184 exists after creation | **Completed** | MM03 |
+| Loading Group 0002 maintained | **Completed** | MM02 |
+| Transportation Group 0004 maintained | **Completed** | MM02 |
+| Shipping Point Determination | **Completed in practice system** | SD configuration |
 | Sales Order 12 created | **Completed** | VA01 final confirmation |
-| Outbound Delivery | Next | `VL01N` |
+| Outbound Delivery | **Next** | `VL01N` |
 | Picking | Pending | — |
 | Post Goods Issue | Pending | — |
 | Billing | Pending | — |
 | FI/AR integration validation | Pending | — |
 
-See `evidence/screenshots/SCREENSHOT-MANIFEST.md` for the complete screenshot list and the accompanying screenshot package for the captured images.
+## 11. Next Execution Step
 
----
+My next SAP transaction is:
 
-**Repository evidence rule:** This document records what was actually executed and visible in SAP. It does not infer undocumented configuration values or convert practice-system/demo IDs into confirmed TechNova configuration IDs.
+**`VL01N` — Create Outbound Delivery**
+
+I will create the outbound delivery with reference to **Sales Order 12** and then document the delivery, picking, goods issue, billing, and FI/AR integration steps only after I execute and validate them in SAP.
+
+> **Repository evidence rule:** I record what I actually execute and what SAP displays. I do not infer undocumented configuration values or convert practice-system/demo IDs into confirmed TechNova configuration IDs.
