@@ -2,28 +2,13 @@
 
 I store versioned evidence packs here as the project grows.
 
-## Current Evidence Pack — 24 August 2026
+## Current Project Evidence
 
-### Material Verification → Sales Order 12
+### Material 194 → Sales Order 12
 
-Source document supplied for this milestone:
+The active project material is **194 — TechNova Business Laptop**.
 
-`SAP_Material_Verification_to_Sales_Order_12(1).pdf`
-
-The evidence covers:
-
-- MM03 verification of Material `184`
-- MM02 Loading Group `0002 — Forklift`
-- MM02 Transportation Group `0004 — Parcel`
-- Shipping Point Determination: `01 / 0002 / 0001 → 0001`
-- VA01 Standard Sales Order `12`
-- Incompletion handling for missing Net Value
-- PR00 pricing at `1.00 EUR / EA`
-- Final net value `10.00 EUR`
-- Customer `1000000020 — TechNova GmbH`
-- Customer reference `TECHNOVA-001`
-
-The corresponding implementation narrative is maintained in:
+The related implementation narrative is maintained in:
 
 `docs/sd/material-verification-to-sales-order-12.md`
 
@@ -31,22 +16,43 @@ The screenshot mapping is maintained in:
 
 `evidence/screenshots/SCREENSHOT-MANIFEST.md`
 
-## Repository Binary-File Note
+### SD-FI Billing Release & Account Determination Resolution
 
-The PDF supplied in the current working session has been used as the source for the repository documentation. The current GitHub connector available to me can create and update UTF-8 text files, but it does not provide a binary-file upload operation for the PDF or JPG/PNG evidence files.
+New evidence package integrated on **29 August 2026**:
 
-I therefore keep the exact intended repository path and filename documented here rather than pretending that the binary PDF has been uploaded when it has not.
+`SAP_SD_FI_Billing_Release_Documentation.pdf`
 
-When I have a binary upload-capable Git workflow available, the PDF should be placed at:
+The package covers:
 
-`evidence/implementation-evidence-packs/SAP_Material_Verification_to_Sales_Order_12.pdf`
+- VF02 initial billing account-determination failure
+- VKOA revenue account determination for ERL
+- OB40 output-tax account assignment for MWS
+- FS00 validation/creation of G/L accounts `2300000` and `6010131`
+- FBN1 number-range configuration for `Z1` / fiscal year `2026`
+- Successful VF02 release of billing document `90000032`
+- FB03 verification of FI document `9000000000`
+- Final accounting split of receivable, revenue, and output tax
 
-The screenshots should be placed under their corresponding module folders documented in `evidence/screenshots/SCREENSHOT-MANIFEST.md`.
+The professional case-study narrative is maintained in:
+
+`docs/integration/sd-fi-billing-resolution.md`
+
+The standalone screenshots are maintained in:
+
+`evidence/screenshots/sd/billing-resolution/`
+
+## Material Traceability
+
+The main project master-data identifier is **194**. The supplied billing evidence identifies material **10194**. That source identifier is preserved exactly in the billing-resolution documentation rather than silently rewritten.
+
+## Evidence Policy
+
+Binary evidence supplied for a milestone is stored alongside its explanatory documentation. Screenshots are organized by SAP area and process step so that the diagnostic sequence can be reviewed independently of the narrative.
 
 ## Naming Convention
 
-For future packs I use:
+For future evidence packs I use:
 
 `TechNova_SAP_Implementation_Evidence_Pack_vX.pdf`
 
-Each version should document the SAP milestones covered and identify any configuration items that still require review.
+Each version should identify the SAP milestones covered, source transactions, validation result, and any configuration items that remain under review.
