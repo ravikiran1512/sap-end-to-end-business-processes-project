@@ -49,7 +49,7 @@ The register records values actually assigned, verified, or explicitly documente
 | Currency | `EUR` | Assigned |
 | Chart of Accounts | `BMKG` | Existing documentation |
 
-**Review item:** The earlier evidence shows the account group **Liquid funds accounts** while the business description is Receivables. This remains a configuration-review item before downstream Accounts Receivable use.
+**Review item:** The earlier evidence shows the account group **Liquid funds accounts** while the business description is Receivables. This remains a configuration-review item before downstream Accounts Receivable use. The separate O2C billing case uses chart of accounts `BKMG`; these two documented contexts are not silently merged.
 
 ## 4. MM — Current Material Master
 
@@ -90,16 +90,20 @@ Detailed material documentation: `docs/mm/material-194-tech-nova-business-laptop
 
 This combination was added/saved for the executed practice scenario after SAP initially could not determine a shipping point.
 
-## 6. SD-FI Billing Resolution Configuration
+## 6. SD-FI-AR Billing Resolution Configuration
 
 | Area | Transaction | Executed / documented result |
 |---|---|---|
 | Revenue account determination | `VKOA` | `ERL` → G/L `6010131` for `BKMG` / Sales Org `9000` |
 | Output tax account determination | `OB40` | `MWS` → G/L `2300000` |
 | G/L master data | `FS00` | G/L `2300000` and `6010131` established/validated |
-| FI number range | `FBN1` | `Z1`, fiscal year `2026`, `9000000000–9999999999` |
+| FI number ranges | `FBN1 / OBA7` | `RV → Z1`, `DZ → 06`, fiscal year `2026` |
+| Customer tolerance | `OBA3` | Default tolerance group; `€10.00` / `5.0%` limits |
 | Billing release | `VF02` | Successful for billing document `90000032` |
-| Accounting verification | `FB03` | FI document `9000000000` verified |
+| Accounting verification | `FB03` | FI document `9000000000` verified and balanced |
+| Customer open item | `FBL5N` | `€5,950.00` receivable documented |
+| Incoming payment | `F-28` | Payment document `6000000000`, `€5,950.00` |
+| Final clearing | `FBL5N` | Customer balance `€0.00` |
 
 Detailed case study: `docs/integration/sd-fi-billing-resolution.md`
 
@@ -130,3 +134,9 @@ Screenshots are organized under:
 - `evidence/screenshots/integration/`
 
 The configuration register is expanded as new SAP milestones are executed and validated.
+
+## 10. Current Configuration Status
+
+**SD-FI-AR billing case: Completed through customer clearing.**
+
+**Core O2C execution: In Progress — Sales Order `12` remains at the pre-delivery milestone, with `VL01N` as the next operational step.**
