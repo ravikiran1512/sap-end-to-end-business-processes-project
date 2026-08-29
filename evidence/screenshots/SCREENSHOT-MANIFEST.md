@@ -2,7 +2,7 @@
 
 Updated: **29 August 2026**
 
-This manifest separates master-data evidence, SD execution evidence, and the integrated SD-FI billing-resolution evidence.
+This manifest separates master-data evidence, core SD execution evidence, and the integrated SD-FI-AR billing-resolution evidence.
 
 ## MM — Current Material 194
 
@@ -38,9 +38,7 @@ The active material identifier is **194 — TechNova Business Laptop**.
 
 ## SD-FI — Billing Resolution Source Package
 
-The uploaded billing update contains **18 SAP screenshots**. Their intended repository location is:
-
-`evidence/screenshots/sd/billing-resolution/`
+The supplied billing update contains **18 SAP screenshots** covering the initial and intermediate diagnostic/configuration stages.
 
 | Source file | SAP step |
 |---|---|
@@ -65,15 +63,16 @@ The uploaded billing update contains **18 SAP screenshots**. Their intended repo
 
 ## Final-Stage Evidence
 
-The supplied PDF documents the later stages as completed:
+The supplied case-study source documents the later completed stages:
 
-- FBN1 — number range Z1 for fiscal year 2026
-- VF02 — successful release of billing document 90000032
-- FB03 — FI document 9000000000 and balanced journal entry
-- FBL5N — identified as the next customer open-item verification step
-- F-28 — identified as the next incoming-payment clearing step
+- `FBN1` / `OBA7` — FI document-number configuration for 2026
+- `VF02` — successful release of billing document `90000032`
+- `FB03` — FI document `9000000000` and balanced journal entry
+- `FBL5N` — customer receivable of `€5,950.00`
+- `F-28` — incoming payment `6000000000` for `€5,950.00`
+- `FBL5N` — final customer clearing with balance `€0.00`
 
-The source PDF is the authoritative evidence package for these stages. No standalone SAP screenshot is claimed here unless it is actually present in the supplied source files.
+These results are documented from the supplied source package. The repository does **not** claim standalone SAP screenshots for the final stages unless those image files are actually available.
 
 ## Source Document
 
