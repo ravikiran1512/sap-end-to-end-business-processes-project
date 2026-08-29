@@ -1,12 +1,12 @@
 # Production Planning (PP)
 
-## My PP Implementation Plan
+## PP Implementation Plan
 
-I will extend the TechNova implementation into manufacturing execution through Production Planning (PP).
+The TechNova implementation will be extended into manufacturing execution through Production Planning (PP).
 
-## What I Will Configure
+## Planned Configuration Scope
 
-I plan to configure and document the master data, planning, execution, and confirmation activities required for a manufacturing scenario.
+The planned scope covers the master data, planning, execution, and confirmation activities required for a manufacturing scenario.
 
 Planned areas include:
 
@@ -23,15 +23,15 @@ Planned areas include:
 
 ## Planned End-to-End Process
 
-I will build the plan-to-produce flow:
+The plan-to-produce flow will follow:
 
 **Demand → Material Requirements Planning → Planned Order → Production Order → Material Issue → Production Confirmation → Goods Receipt**
 
-I will connect the operational steps with the resulting inventory, cost, and financial impacts.
+The operational steps will be connected with the resulting inventory, cost, and financial impacts.
 
 ## Evidence
 
-I will store PP screenshots under:
+PP screenshots will be stored under:
 
 `evidence/screenshots/pp/`
 
@@ -39,7 +39,7 @@ Each configuration object and execution scenario will be documented with the rel
 
 ## Planned Integration
 
-I will connect PP with:
+PP integration will cover:
 
 - **MM** — material availability, component consumption, and inventory movements
 - **CO** — production-order and manufacturing cost impacts
@@ -50,4 +50,4 @@ I will connect PP with:
 
 **Status: Planned**
 
-I will not represent PP configuration as completed until I execute and validate it in SAP.
+PP configuration will be marked as completed only after execution and validation in SAP.
