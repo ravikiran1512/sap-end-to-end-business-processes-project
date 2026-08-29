@@ -5,19 +5,20 @@
 ![SAP](https://img.shields.io/badge/SAP-S%2F4HANA-0FAAFF)
 ![Project](https://img.shields.io/badge/Project-End--to--End%20Implementation-blue)
 ![O2C](https://img.shields.io/badge/O2C-SD%20%7C%20MM%20%7C%20FI-success)
-![Status](https://img.shields.io/badge/Status-In%20Progress-orange)
+![Status](https://img.shields.io/badge/Status-Active%20%7C%20Evidence%20Driven-orange)
 
 ## Project Overview
 
-I am building and documenting an end-to-end SAP S/4HANA business-process environment for the fictional manufacturing organization **TechNova Manufacturing GmbH**. The repository is maintained as an implementation case study: each milestone connects business purpose, SAP configuration, master data, execution evidence, validation, and downstream integration.
+This repository documents a hands-on SAP S/4HANA business-process implementation for the fictional **TechNova Manufacturing GmbH**. Each milestone connects business purpose, SAP configuration, master data, transaction execution, validation, evidence, and cross-module integration.
 
-The project now contains both the core **Material-to-Sales Order** execution and a separate **SD-FI Billing Release & Account Determination Resolution** case study.
+The portfolio currently combines two connected workstreams:
 
-## Current Master Data Revision
+1. **Core Order-to-Cash execution** — Material Master → Shipping Data → Shipping Point Determination → Sales Order 12 → next delivery, goods issue, and billing steps.
+2. **SD-FI billing resolution** — diagnosis and configuration of revenue determination, tax account assignment, G/L master data, FI document numbering, successful billing release, and accounting verification.
 
-### Material 194 is the active project material
+## Current Master Data — Material 194
 
-The project's previous laptop material identifier **184** has been retired from the active documentation and replaced by **194**.
+**Material 194 — TechNova Business Laptop** is the active material used by the core O2C project.
 
 | Attribute | Current value |
 |---|---|
@@ -34,21 +35,9 @@ The project's previous laptop material identifier **184** has been retired from 
 
 Detailed material documentation: [`docs/mm/material-194-tech-nova-business-laptop.md`](docs/mm/material-194-tech-nova-business-laptop.md)
 
-## Business Scope
-
-| Business Process | SAP Areas | Status |
-|---|---|---|
-| Record-to-Report (R2R) | FI / CO | 🟡 In Progress |
-| Source-to-Pay (S2P) | MM / FI / CO | 🟡 In Progress |
-| Order-to-Cash (O2C) | SD / MM / FI | 🟡 In Progress |
-| Design-to-Operate (D2O) | PP / MM / CO | ⚪ Planned |
-| Service | Service / FI / CO | ⚪ Planned |
-| Cross-Module Integration | FI / CO / MM / SD / PP / Service | 🟡 Expanding |
-| End-to-End Testing | All relevant areas | ⚪ Planned |
-
 ## Executed O2C Milestone
 
-**Material Verification → Shipping Data → Shipping Point Determination → Sales Order 12**
+### Material Verification → Sales Order 12
 
 | Field | Executed value |
 |---|---|
@@ -72,7 +61,7 @@ Shipping Point Determination
       ↓
 VA01 Sales Order 12
       ↓
-VL01N Outbound Delivery        ← NEXT EXECUTION STEP
+VL01N Outbound Delivery
       ↓
 Picking
       ↓
@@ -85,28 +74,28 @@ FI / Accounts Receivable
 
 Detailed execution record: [`docs/sd/material-verification-to-sales-order-12.md`](docs/sd/material-verification-to-sales-order-12.md)
 
-## New SD-FI Billing Resolution Case Study
+## SD-FI Billing Resolution Case Study
 
-The repository now includes the supplied **SD-FI Billing Release & Account Determination Resolution** evidence package.
+The repository also contains the complete supplied **SD-FI Billing Release & Account Determination Resolution** case study.
 
-### Diagnostic path
+### Diagnostic and configuration path
 
 ```text
 VF02 — Release Billing Document 90000032
              ↓
-     Revenue determination error
+Revenue account determination issue
              ↓
 VKOA — ERL → G/L 6010131
              ↓
-      Tax determination error
+Output tax account determination issue
              ↓
 OB40 — MWS → G/L 2300000
              ↓
-     G/L master-data validation
+G/L master-data validation
              ↓
-FS00 — Create/extend required G/L accounts
+FS00 — Create / extend required G/L accounts
              ↓
-     FI number-range error
+FI document number-range issue
              ↓
 FBN1 — Z1 / Fiscal Year 2026
              ↓
@@ -123,29 +112,47 @@ FB03 — FI Document 9000000000
 | `6010131` | Current Revenues | €5,000.00 | Credit |
 | `2300000` | Output Tax (19% VAT) | €950.00 | Credit |
 
-The supplied billing evidence identifies material **10194**. Because the main project master-data revision is **194**, the billing artifact preserves `10194` exactly as executed rather than silently changing source evidence.
+**Balance check:** €5,950.00 debit = €5,950.00 credit.
 
-Billing resolution documentation: [`docs/integration/sd-fi-billing-resolution.md`](docs/integration/sd-fi-billing-resolution.md)  
-Evidence PDF: [`evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`](evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf)
+### Source-evidence traceability
+
+The supplied billing evidence package records material **10194** in its executed billing scenario. That identifier is retained exactly inside the source evidence for auditability. The **core project master-data and O2C workstream uses Material 194**.
+
+Billing resolution documentation: [`docs/integration/sd-fi-billing-resolution.md`](docs/integration/sd-fi-billing-resolution.md)
 
 ## Evidence & Traceability
 
-New billing screenshots are organized under:
+Billing evidence is organized under:
 
 `evidence/screenshots/sd/billing-resolution/`
 
-The repository distinguishes:
+The evidence sequence covers:
 
-- **Master-data evidence** — MM
-- **Transactional SD evidence** — Sales Order 12 and subsequent O2C steps
-- **Configuration evidence** — VKOA, OB40, FS00, FBN1
-- **Financial verification evidence** — VF02 and FB03
+- VF02 initial and intermediate errors
+- VKOA revenue determination
+- OB40 output-tax determination
+- FS00 G/L master-data creation and validation
+- FBN1 number-range diagnosis and correction
+- Final VF02 release to accounting
+- FB03 posted FI document verification
 
 Screenshot index: [`evidence/screenshots/SCREENSHOT-MANIFEST.md`](evidence/screenshots/SCREENSHOT-MANIFEST.md)
 
+## Business Scope
+
+| Business Process | SAP Areas | Status |
+|---|---|---|
+| Record-to-Report (R2R) | FI / CO | 🟡 In Progress |
+| Source-to-Pay (S2P) | MM / FI / CO | 🟡 In Progress |
+| Order-to-Cash (O2C) | SD / MM / FI | 🟡 In Progress |
+| Design-to-Operate (D2O) | PP / MM / CO | ⚪ Planned |
+| Service | Service / FI / CO | ⚪ Planned |
+| Cross-Module Integration | FI / CO / MM / SD / PP / Service | 🟡 Expanding |
+| End-to-End Testing | All relevant areas | ⚪ Planned |
+
 ## Documentation Standard
 
-For each major milestone I capture:
+Each major milestone is documented using the same implementation-oriented structure:
 
 1. Business requirement
 2. SAP transaction / configuration area
@@ -194,6 +201,6 @@ sap-end-to-end-business-processes-project/
 - **Business process first** — understand the business flow before executing transactions.
 - **Evidence driven** — completed milestones are supported by SAP evidence.
 - **No invented values** — source evidence is preserved when system values differ.
-- **Integration focused** — trace the document flow and accounting impact across SAP modules.
+- **Integration focused** — trace document flow and accounting impact across SAP modules.
 - **Transparent status** — completed, in-progress, planned, and evidence-pending work remain clearly separated.
 - **Portfolio ready** — documentation explains both what was executed and why the configuration matters to the business.
