@@ -1,15 +1,24 @@
 # Order-to-Cash (O2C)
 
-I am building the Order-to-Cash process as an integrated business-process chain rather than as isolated SD transactions.
+The TechNova Order-to-Cash process is documented as an integrated business-process chain rather than as isolated SD transactions.
 
-## Current Evidence Milestone
+## Current Execution Milestone
 
-**Completed:** Material verification → shipping-relevant material data → shipping-point determination → **Sales Order 12**.
+**Completed:** Material 194 verification → shipping-relevant material data → shipping-point determination → **Sales Order 12**.
 
-I verified Material `184`, maintained Loading Group `0002` and Transportation Group `0004`, corrected the shipping-point determination combination required by the executed practice scenario, and created Standard Sales Order `12` for customer `1000000020` with 10 EA of Material `184`.
+| Field | Executed value |
+|---|---|
+| Material | `194 — TechNova Business Laptop` |
+| Sales Order | `12` |
+| Customer | `1000000020 — TechNova GmbH` |
+| Quantity | `10 EA` |
+| PR00 | `1.00 EUR / EA` |
+| Net Value | `10.00 EUR` |
+| Plant | `0001` |
+| Shipping Point | `0001` |
 
 ```text
-Material 184
+Material 194
    ↓
 MM03 verification                 ✓
    ↓
@@ -30,39 +39,32 @@ Billing
 FI / Accounts Receivable Impact
 ```
 
-## Sales Order 12 Result
+## SD-FI Billing Resolution Extension
 
-| Field | Executed value |
-|---|---|
-| Sales Order | `12` |
-| Customer | `1000000020 — TechNova GmbH` |
-| Customer Reference | `TECHNOVA-001` |
-| Material | `184 — TechNova Business Laptop` |
-| Quantity | `10 EA` |
-| Pricing Condition | `PR00 — Price` |
-| Price | `1.00 EUR / EA` |
-| Net Value | `10.00 EUR` |
-| Delivering Plant | `0001 — AN PLANT – BENGALURU` |
-| Shipping Point | `0001` |
+A separate uploaded execution package has been integrated into the project under the SD/FI evidence area. It documents the diagnostic path from billing-account-determination errors through configuration and successful FI posting verification.
 
-## What I Learned From This Milestone
+```text
+Billing Document 90000032
+        ↓
+VF02 — Release to Accounting
+        ↓
+VKOA — Revenue Account Determination
+        ↓
+OB40 — Output Tax Account Determination
+        ↓
+FS00 — G/L Master Data Validation
+        ↓
+FBN1 — FI Document Number Range
+        ↓
+VF02 — Successful Release
+        ↓
+FB03 — Posted FI Document 9000000000
+```
 
-I demonstrated that the sales order depends on master data and configuration maintained earlier. I used the material master to provide product and logistics attributes, used the loading group in shipping-point determination, connected the sales item to the delivering plant, and maintained PR00 pricing to resolve the order incompletion.
+The uploaded billing evidence records material **10194**. Because the project master-data revision is **194**, the billing artifact preserves `10194` exactly as shown by the executed evidence rather than silently rewriting an evidence value that may represent a separate system object.
 
-## Next Step
-
-I will continue with:
+## Next O2C Step
 
 **`VL01N` — Create Outbound Delivery with reference to Sales Order `12`.**
 
-After that I will execute and document picking, Post Goods Issue, billing, and the resulting FI/Accounts Receivable integration.
-
-## Detailed Evidence
-
-[`docs/sd/material-verification-to-sales-order-12.md`](../../docs/sd/material-verification-to-sales-order-12.md)
-
-Screenshot mapping: [`evidence/screenshots/SCREENSHOT-MANIFEST.md`](../../evidence/screenshots/SCREENSHOT-MANIFEST.md)
-
-## Environment Note
-
-The executed screenshots contain practice/server values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020`. I record these as actual execution evidence and do not silently reclassify them as confirmed TechNova enterprise IDs.
+After delivery execution, the project will continue through picking, PGI, billing, and FI/AR validation.
