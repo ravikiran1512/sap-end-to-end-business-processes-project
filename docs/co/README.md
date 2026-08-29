@@ -1,12 +1,12 @@
 # Controlling (CO)
 
-## My CO Implementation Plan
+## CO Implementation Plan
 
-I will build the Controlling (CO) foundation for TechNova Manufacturing GmbH after establishing the required FI and organizational foundations.
+The Controlling (CO) foundation for TechNova Manufacturing GmbH is planned after establishing the required FI and organizational foundations.
 
-## What I Will Configure
+## Planned Configuration Scope
 
-I plan to configure and document:
+The planned CO scope includes:
 
 - Controlling organizational assignments
 - Cost centers and cost center structures
@@ -17,29 +17,29 @@ I plan to configure and document:
 - FI/CO integration
 - Management-accounting reporting scenarios
 
-## Business Process I Will Build
+## Planned Business Process
 
-I will use CO to explain how financial values are transformed into management-accounting information. My scenarios will connect operational activities with cost collection, allocation, and analysis.
+CO will be used to explain how financial values are transformed into management-accounting information. The scenarios will connect operational activities with cost collection, allocation, and analysis.
 
-## Integration I Will Validate
+## Planned Integration
 
-I will validate how CO interacts with:
+CO integration will be validated across:
 
-- **FI** for financial postings and accounting integration
-- **MM** for procurement, inventory, and consumption-related costs
-- **PP** for production costs and activity-related postings
-- **SD** for sales and profitability-related analysis
+- **FI** — financial postings and accounting integration
+- **MM** — procurement, inventory, and consumption-related costs
+- **PP** — production costs and activity-related postings
+- **SD** — sales and profitability-related analysis
 
 ## Evidence
 
-I will maintain screenshots and configuration evidence under:
+CO screenshots and configuration evidence will be maintained under:
 
 `evidence/screenshots/co/`
 
-For every configuration object I complete, I will document the exact fields, values, business purpose, validation result, and SAP evidence.
+Each completed configuration object will document the relevant fields, values, business purpose, validation result, and SAP evidence.
 
 ## Status
 
 **Status: Planned**
 
-I have not yet treated the planned CO configuration as completed. I will update this section with actual SAP configuration details as I perform and validate each step.
+The planned CO configuration is not represented as completed. This section will be updated with actual SAP configuration details after execution and validation of each step.
