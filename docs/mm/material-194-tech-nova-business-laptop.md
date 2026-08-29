@@ -4,8 +4,6 @@
 
 Material **194 — TechNova Business Laptop** is the current material master used in the TechNova SAP S/4HANA end-to-end project. The material is maintained as a finished product so the same master-data object can support sales, procurement, inventory, planning, logistics, and accounting integration.
 
-> **Master-data revision:** The previous project material identifier **184** has been retired from the active project documentation. The current identifier is **194**.
-
 ## 1. Material Master Profile
 
 | Field | Current value |
@@ -63,9 +61,10 @@ FI / Accounts Receivable
 ## 4. Traceability
 
 - The active project material identifier is **194**.
-- The documented master-data attributes are carried forward from the previously recorded laptop material implementation because the requested revision changes the material identifier.
-- Exact Material Group coding is not stated where the earlier evidence did not preserve the selected code.
+- The material attributes documented here are the active values used by the core O2C workstream.
+- Exact Material Group coding is not stated where the execution evidence did not preserve the selected code.
 - Practice-system values such as Plant `0001` remain explicitly identified as executed environment values.
+- The separate supplied SD-FI billing evidence records material `10194`; that source identifier remains unchanged inside the evidence package for traceability.
 
 ## 5. Integration Value
 
@@ -81,4 +80,4 @@ Material 194 is a shared master-data object across the end-to-end model:
 
 **Status: Active project material — 194**
 
-The project now uses Material **194** as the current TechNova Business Laptop identifier. The next O2C execution milestone remains outbound delivery creation with `VL01N` using Sales Order `12`.
+The project now uses Material **194** as the current TechNova Business Laptop identifier. The next core O2C execution milestone remains outbound delivery creation with `VL01N` using Sales Order `12`.
