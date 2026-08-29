@@ -16,19 +16,23 @@ Screenshot mapping:
 
 `evidence/screenshots/SCREENSHOT-MANIFEST.md`
 
-### SD-FI Billing Release & Account Determination Resolution
+The core O2C execution remains at Sales Order `12`; `VL01N` is the next operational step in that separate execution chain.
 
-The supplied update package covers:
+### SD-FI-AR Billing Release & Customer Clearing
+
+The supplied update package and case-study documentation now cover the completed billing-to-cash accounting lifecycle:
 
 - VF02 initial billing account-determination failure
-- VKOA revenue account determination for ERL
-- OB40 output-tax account assignment for MWS
+- VKOA revenue account determination for `ERL`
+- OB40 output-tax account assignment for `MWS`
 - FS00 validation/creation of G/L accounts `2300000` and `6010131`
-- FBN1 number-range configuration for `Z1` / fiscal year `2026`
+- FBN1 / OBA7 FI document-number configuration
+- OBA3 customer tolerance-group configuration
 - Successful VF02 release of billing document `90000032`
 - FB03 verification of FI document `9000000000`
-- Final accounting split of receivable, revenue, and output tax
-- FBL5N and F-28 as the next customer-accounting milestone
+- FBL5N verification of the `€5,950.00` customer receivable
+- F-28 incoming payment document `6000000000` for `€5,950.00`
+- Final FBL5N clearing verification with customer balance `€0.00`
 
 The professional case-study narrative is maintained in:
 
@@ -44,11 +48,11 @@ The main project master-data identifier is **194**. The supplied billing evidenc
 
 ## Evidence Policy
 
-Source evidence is separated from project narrative. A screenshot or PDF is treated as completed repository evidence only when the corresponding binary file is actually committed to GitHub. Documentation does not claim unsupported standalone screenshots.
+Source evidence is separated from project narrative. A screenshot or PDF is treated as completed repository evidence only when the corresponding source evidence supports the result. The repository does not invent standalone SAP screenshots for stages where only source-document evidence is available.
 
 ## Naming Convention
 
-For future evidence packs I use:
+For future evidence packs use:
 
 `TechNova_SAP_Implementation_Evidence_Pack_vX.pdf`
 
