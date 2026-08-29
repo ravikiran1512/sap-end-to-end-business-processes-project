@@ -26,17 +26,17 @@ The register records values actually assigned, verified, or explicitly documente
 
 | Object | Value | Status |
 |---|---|---|
-| Plant | `TN01` | Completed |
-| Plant description | TechNova Manufacturing Plant | Completed |
-| Plant → Company Code | `TN01` → `9000` | Confirmed |
-| Storage Location | `RM10` | Completed / verified |
-| Purchasing Organization | `TN01` | Created |
-| Sales Organization | `TN01` | Created |
-| Distribution Channel | `10` | Existing system entry used / assigned |
-| Division | `00` | Existing system entry used / assigned |
-| Sales Area | `TN01 / 10 / 00` | Created / confirmed |
+| Company Code | `9000` | Completed |
+| Sales Organization | `9000` | Completed / case-study scope |
+| Distribution Channel | `10` | Case-study scope |
+| Division | `00` | Case-study scope |
+| Plant | `9000` | Case-study scope |
+| Storage Location | `0001` | Case-study scope |
+| Chart of Accounts | `BKMG` | Case-study scope |
+| Fiscal Year / Period | `2026 / 08` | Case-study scope |
+| Customer / Sold-to / Payer | `1000000021` | Case-study scope |
 
-## 3. FI — G/L Account 1020131
+## 3. FI — Existing G/L Documentation
 
 | Field | Value | Status |
 |---|---|---|
@@ -47,7 +47,7 @@ The register records values actually assigned, verified, or explicitly documente
 | Account Type | Balance Sheet Account | Assigned |
 | Field Status Group | `G019` | Assigned |
 | Currency | `EUR` | Assigned |
-| Chart of Accounts | `BMKG` | Used |
+| Chart of Accounts | `BMKG` | Existing documentation |
 
 **Review item:** The earlier evidence shows the account group **Liquid funds accounts** while the business description is Receivables. This remains a configuration-review item before downstream Accounts Receivable use.
 
@@ -92,7 +92,7 @@ This combination was added/saved for the executed practice scenario after SAP in
 
 ## 6. SD-FI Billing Resolution Configuration
 
-| Area | Transaction | Executed result |
+| Area | Transaction | Executed / documented result |
 |---|---|---|
 | Revenue account determination | `VKOA` | `ERL` → G/L `6010131` for `BKMG` / Sales Org `9000` |
 | Output tax account determination | `OB40` | `MWS` → G/L `2300000` |
@@ -103,14 +103,17 @@ This combination was added/saved for the executed practice scenario after SAP in
 
 Detailed case study: `docs/integration/sd-fi-billing-resolution.md`
 
-## 7. Traceability Note
+## 7. Material Traceability
 
-The main project material identifier is **194**. The supplied billing-resolution evidence records material **10194**. The evidence value is preserved exactly in the billing case study rather than silently rewritten.
+The **core project material identifier is 194**.
+
+The supplied billing-resolution evidence records material **10194**. That source value is retained exactly inside the billing evidence for auditability and is not used as the active core O2C material identifier.
 
 ## 8. Status Legend
 
 - **Created / Completed** — explicitly executed.
 - **Verified** — existing object checked and confirmed for project use.
+- **Case-study scope** — supplied as part of the billing-resolution implementation context.
 - **Existing system entry used** — pre-existing object used in the scenario.
 - **Review** — configuration exists but requires validation.
 - **TODO** — not yet configured.
