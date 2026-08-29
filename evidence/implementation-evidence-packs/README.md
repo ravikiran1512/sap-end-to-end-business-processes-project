@@ -1,28 +1,24 @@
 # Implementation Evidence Packs
 
-I store versioned evidence packs here as the project grows.
+This directory contains source-level evidence and implementation summaries for major SAP milestones.
 
 ## Current Project Evidence
 
 ### Material 194 → Sales Order 12
 
-The active project material is **194 — TechNova Business Laptop**.
+The active core-project material is **194 — TechNova Business Laptop**.
 
-The related implementation narrative is maintained in:
+Implementation narrative:
 
 `docs/sd/material-verification-to-sales-order-12.md`
 
-The screenshot mapping is maintained in:
+Screenshot mapping:
 
 `evidence/screenshots/SCREENSHOT-MANIFEST.md`
 
 ### SD-FI Billing Release & Account Determination Resolution
 
-New evidence package integrated on **29 August 2026**:
-
-`SAP_SD_FI_Billing_Release_Documentation.pdf`
-
-The package covers:
+The supplied update package covers:
 
 - VF02 initial billing account-determination failure
 - VKOA revenue account determination for ERL
@@ -32,14 +28,15 @@ The package covers:
 - Successful VF02 release of billing document `90000032`
 - FB03 verification of FI document `9000000000`
 - Final accounting split of receivable, revenue, and output tax
+- FBL5N and F-28 as the next customer-accounting milestone
 
 The professional case-study narrative is maintained in:
 
 `docs/integration/sd-fi-billing-resolution.md`
 
-The standalone screenshots are maintained in:
+The supplied screenshot filenames and evidence mapping are maintained in:
 
-`evidence/screenshots/sd/billing-resolution/`
+`evidence/screenshots/SCREENSHOT-MANIFEST.md`
 
 ## Material Traceability
 
@@ -47,7 +44,7 @@ The main project master-data identifier is **194**. The supplied billing evidenc
 
 ## Evidence Policy
 
-Binary evidence supplied for a milestone is stored alongside its explanatory documentation. Screenshots are organized by SAP area and process step so that the diagnostic sequence can be reviewed independently of the narrative.
+Source evidence is separated from project narrative. A screenshot or PDF is treated as completed repository evidence only when the corresponding binary file is actually committed to GitHub. Documentation does not claim unsupported standalone screenshots.
 
 ## Naming Convention
 
