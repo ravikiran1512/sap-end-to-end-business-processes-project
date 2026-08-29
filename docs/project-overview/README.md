@@ -1,16 +1,28 @@
 # Project Overview
 
-## My Project
+## Project Context
 
-I am building an end-to-end SAP S/4HANA implementation portfolio around the fictional manufacturing company **TechNova Manufacturing GmbH**.
+The TechNova Manufacturing GmbH project is a hands-on SAP S/4HANA end-to-end implementation portfolio focused on integrated business processes, configuration, master data, transactional execution, validation, and cross-module integration.
 
-I am using this repository to document my business context, implementation methodology, scope, milestones, configuration decisions, validation evidence, and project governance.
+This repository serves as the central project record for business context, implementation methodology, scope, milestones, configuration decisions, validation evidence, and project governance.
 
-## My Implementation Philosophy
+## Implementation Approach
 
-I am documenting the project as an integrated business-process implementation rather than as a collection of isolated SAP exercises. For each important configuration, I will record the organizational dependencies, exact values, validation evidence, transport/change-control information, business purpose, and downstream integration impact.
+The project is documented as an integrated business-process implementation rather than a collection of isolated SAP exercises. Each significant configuration and execution milestone captures:
 
-## Core Business Processes I Will Build
+- Organizational dependencies
+- Exact executed values
+- SAP transactions and configuration areas
+- Validation evidence
+- Transport and change-control information where applicable
+- Business purpose
+- Downstream integration impact
+
+This approach provides traceability from business requirement through SAP execution and validation.
+
+## Core Business Processes
+
+The implementation roadmap covers the following end-to-end business processes:
 
 - Record-to-Report (R2R)
 - Source-to-Pay (S2P)
@@ -18,8 +30,10 @@ I am documenting the project as an integrated business-process implementation ra
 - Lead-to-Cash (L2C)
 - Service
 
-I will expand each process with actual SAP configuration and execution evidence as I complete it.
+Each process is expanded with SAP configuration, master data, transactional execution, integration points, and evidence as milestones are completed.
 
-## Project Documentation Principle
+## Documentation Governance
 
-I will clearly distinguish between work I have completed in SAP and work that is still planned. Planned activities will remain roadmap items until I execute and validate them in my SAP system.
+Completed activities are clearly distinguished from planned work. A milestone is marked complete only after the relevant SAP configuration or transaction has been executed and validated with supporting evidence.
+
+Planned activities remain part of the implementation roadmap until execution and validation are complete. This keeps the portfolio accurate, reproducible, and suitable for professional review.
