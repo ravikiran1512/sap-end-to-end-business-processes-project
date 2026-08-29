@@ -23,8 +23,6 @@ The active material identifier is **194 — TechNova Business Laptop**.
 | `material-194-loading-group-0002.jpg` | `MM02` Loading Group `0002` |
 | `material-194-transportation-group-0004.jpg` | `MM02` Transportation Group `0004` |
 
-> The current billing upload does not contain a new standalone MM screenshot set. The repository therefore documents Material 194 without fabricating additional MM evidence.
-
 ## SD — Sales Order 12
 
 | Evidence | SAP step |
@@ -38,13 +36,13 @@ The active material identifier is **194 — TechNova Business Laptop**.
 | `sales-order-pr00-price.jpg` | PR00 maintained |
 | `sales-order-12-saved.jpg` | Sales Order 12 saved |
 
-## SD-FI — Billing Resolution Evidence
+## SD-FI — Billing Resolution Source Package
 
-Stored under:
+The uploaded billing update contains **18 SAP screenshots**. Their intended repository location is:
 
 `evidence/screenshots/sd/billing-resolution/`
 
-| File | Step |
+| Source file | SAP step |
 |---|---|
 | `01_vf02_billing_error_initial.png` | Initial VF02 account-determination error |
 | `02_vf02_release_to_accounting_click.png` | VF02 release action |
@@ -64,16 +62,23 @@ Stored under:
 | `16_fs00_gl_2300000_cash_flow_validation.png` | Cash-flow validation |
 | `17_fs00_gl_2300000_saved_display.png` | G/L 2300000 saved |
 | `18_vf02_gl_6010131_not_defined_cocode_9000.png` | Missing revenue G/L error |
-| `19_vf02_revenue_account_6010131_error.jpg` | VF02 revenue-account validation |
-| `20_fs00_gl_6010131_saved.jpg` | G/L 6010131 successfully created |
-| `21_vf02_fi_number_range_z1_error.jpg` | VF02 FI number-range error |
-| `22_fbn1_number_ranges_before_maintenance.jpg` | FBN1 before Z1 maintenance |
-| `23_fbn1_z1_2026_saved.jpg` | FBN1 Z1 / 2026 interval saved |
-| `24_vf02_successful_release.jpg` | Final VF02 release to accounting |
-| `25_fb03_posted_document.jpg` | FB03 posted FI document |
+
+## Final-Stage Evidence
+
+The supplied PDF documents the later stages as completed:
+
+- FBN1 — number range Z1 for fiscal year 2026
+- VF02 — successful release of billing document 90000032
+- FB03 — FI document 9000000000 and balanced journal entry
+- FBL5N — identified as the next customer open-item verification step
+- F-28 — identified as the next incoming-payment clearing step
+
+The source PDF is the authoritative evidence package for these stages. No standalone SAP screenshot is claimed here unless it is actually present in the supplied source files.
 
 ## Source Document
 
 `evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`
 
-The supplied PDF contains the complete source evidence. Screenshots `19`–`25` correspond to the final revenue-account, FBN1, VF02, and FB03 stages extracted from that evidence package.
+## Material Governance
+
+The core O2C project uses **Material 194 — TechNova Business Laptop**. The supplied billing evidence records **10194**; that source identifier is preserved in the billing case study for traceability.
