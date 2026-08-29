@@ -6,19 +6,19 @@ All notable project implementation milestones are recorded here.
 
 ### Material Master Revision — Material 194
 
-- Standardized the active project material as **194 — TechNova Business Laptop** across the MM and O2C documentation.
-- Updated the Material Master documentation and Sales Order 12 execution record to use Material **194**.
-- Updated the O2C process flow, SD documentation, configuration register, evidence index, and screenshot manifest.
-- Retired superseded material references from the active portfolio narrative.
+- Standardized the active core O2C material as **194 — TechNova Business Laptop**.
+- Removed the superseded material identifier from the active material documentation and configuration narrative.
+- Kept Material 194 consistent across the material master, Sales Order 12, configuration register, and portfolio README.
+- Preserved the separate billing-evidence identifier **10194** only where it is explicitly recorded by the supplied source evidence.
 
-### SD-FI Billing Resolution Evidence Integration
+### SD-FI Billing Resolution Case Study Integration
 
-- Integrated the supplied SD-FI billing-resolution evidence package into the existing end-to-end SAP repository.
-- Added the supplied diagnostic/configuration evidence covering VF02, VKOA, OB40, and FS00.
-- Added the final evidence extracted from the supplied PDF: revenue-account validation, FBN1 diagnosis, FBN1 correction, successful VF02 release, and FB03 verification.
-- Added the professional SD-FI case-study documentation covering root cause, configuration dependencies, and final accounting impact.
-- Reorganized billing evidence under `evidence/screenshots/sd/billing-resolution/`.
-- Preserved material **10194** inside the supplied billing evidence because that is the identifier recorded by the source execution; the core project master-data identifier remains **194**.
+- Integrated the supplied SD-FI billing-release case study into the existing end-to-end SAP repository.
+- Consolidated the diagnostic sequence covering `VF02`, `VKOA`, `OB40`, `FS00`, `FBN1`, final `VF02`, and `FB03`.
+- Updated the enterprise-scope documentation for Company Code `9000`, Sales Organization `9000`, Distribution Channel `10`, Division `00`, Plant `9000`, Storage Location `0001`, Chart of Accounts `BKMG`, and fiscal year/period `2026/08`.
+- Added the documented customer-accounting milestone: `FBL5N` open-item verification followed by `F-28` incoming-payment clearing.
+- Reorganized the billing evidence documentation under the existing `evidence/` and `docs/integration/` structure.
+- Corrected the screenshot manifest so it reflects the 18 supplied SAP screenshots and does not claim standalone screenshots that were not present in the uploaded source package.
 
 ## 2026-08-24
 
