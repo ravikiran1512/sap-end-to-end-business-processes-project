@@ -2,9 +2,9 @@
 
 ## FI Implementation Overview
 
-The Financial Accounting (FI) foundation for **TechNova Manufacturing GmbH** is being established in SAP S/4HANA as part of an integrated business-process implementation. FI is documented as a connected component of the broader enterprise model rather than as isolated transaction practice.
+The Financial Accounting (FI) foundation for **TechNova Manufacturing GmbH** is established in SAP S/4HANA as part of an integrated business-process implementation. FI is documented as a connected component of the broader enterprise model rather than as isolated transaction practice.
 
-The FI configuration provides the accounting foundation for integration with Controlling, Materials Management, Sales and Distribution, Production, and subsequent end-to-end financial postings.
+The FI configuration provides the accounting foundation for integration with Controlling, Materials Management, Sales and Distribution, Production, and end-to-end financial postings.
 
 ## 1. FI Organizational Foundation
 
@@ -22,7 +22,9 @@ Company Code **9000** serves as the financial accounting foundation for TechNova
 | Fiscal Year Variant | K4 |
 | Client | 300 |
 
-These values establish the accounting framework for subsequent financial transactions and validation activities.
+These values establish the accounting framework for the documented FI foundation.
+
+> **Chart-of-accounts traceability:** The existing G/L account `1020131` documentation records `BMKG`, while the separate supplied SD-FI billing case uses `BKMG`. These are retained as separate documented contexts and are not silently reconciled.
 
 ## 2. General Ledger Foundation
 
@@ -41,11 +43,11 @@ The initial General Ledger configuration includes the creation and maintenance o
 | Field Status Group | G019 |
 | Account Group shown during creation | Liquid funds accounts |
 
-The account was created as a balance-sheet G/L account in EUR within chart of accounts **BMKG**. Field status group **G019** controls the fields available or required during postings to the account.
+The account was created as a balance-sheet G/L account in EUR within the documented chart-of-accounts context. Field status group **G019** controls the fields available or required during postings to the account.
 
 ## 3. Language / Translation Maintenance
 
-A German translation was maintained for the G/L account so that the account description is available consistently in the relevant language context.
+A German translation was maintained for the G/L account.
 
 | Language | Description |
 |---|---|
@@ -56,13 +58,42 @@ A German translation was maintained for the G/L account so that the account desc
 
 During validation, the account creation process displayed a configuration warning related to the selected account group. The implementation evidence records **1020131** as intended for Receivables, while the displayed account-group selection was **Liquid funds accounts**.
 
-This remains a configuration review point rather than a resolved item. Before downstream Accounts Receivable or Order-to-Cash processing, the account-group assignment should be reviewed and corrected if required by the final design.
+This remains a configuration review item rather than a resolved item. It should be reviewed before using this specific G/L account as part of a downstream Accounts Receivable design.
 
-The documentation therefore records both successful configuration steps and findings that require further review.
+## 5. Completed O2C Financial Lifecycle — Supplied Billing Case
 
-## 5. FI Configuration Management
+A separate supplied SD-FI-AR case demonstrates a completed financial lifecycle in Company Code `9000`.
 
-The FI configuration is associated with the project's SAP Customizing change-control process.
+### Billing to FI
+
+- Billing document: `90000032` / `F2`
+- Customer: `1000000021` — Berlin Office Solutions GmbH
+- Net revenue: `€5,000.00`
+- Output VAT: `€950.00`
+- Gross customer receivable: `€5,950.00`
+- FI document: `9000000000` / `RV`
+
+### FI Posting
+
+| Posting Key | G/L / Customer | Amount | Dr/Cr |
+|---:|---|---:|---|
+| `01` | Customer `1000000021` | €5,950.00 | Debit |
+| `50` | Revenue `6010131` | €5,000.00 | Credit |
+| `50` | Output Tax `2300000` | €950.00 | Credit |
+
+**Balance:** €5,950.00 debit = €5,950.00 credit.
+
+### Customer Accounting
+
+- `FBL5N` — customer receivable of `€5,950.00` documented
+- `F-28` — incoming payment document `6000000000` for `€5,950.00`
+- `FBL5N` — final clearing confirmed with customer balance `€0.00`
+
+The detailed SD-FI-AR case study is maintained at `docs/integration/sd-fi-billing-resolution.md`.
+
+## 6. FI Configuration Management
+
+The FI foundation is associated with the project's SAP Customizing change-control process.
 
 | Change-Control Field | Value |
 |---|---|
@@ -71,9 +102,7 @@ The FI configuration is associated with the project's SAP Customizing change-con
 | SAP Client | **300** |
 | Configuration User | **RAVI** |
 
-The transport information provides traceability for the configuration changes within the SAP change-control process.
-
-## 6. Business Purpose
+## 7. Business Purpose
 
 The FI foundation establishes a consistent accounting structure for TechNova and supports:
 
@@ -83,48 +112,36 @@ The FI foundation establishes a consistent accounting structure for TechNova and
 - Integration with Controlling
 - Integration with procurement and inventory accounting
 - Integration with sales and billing accounting
+- Customer open-item management
+- Incoming-payment processing and clearing
 - Subsequent financial posting and validation scenarios
 
-## 7. Integration Perspective
+## 8. Integration Perspective
 
-FI serves as the financial backbone of the end-to-end implementation rather than an isolated module.
+FI serves as the financial backbone of the end-to-end implementation.
 
-Planned integration includes:
+**MM → FI** — financial impacts generated by procurement and inventory transactions.
 
-**MM → FI**
+**SD → FI** — financial postings generated by sales and billing processes, including receivables and tax impacts.
 
-Validation of financial impacts generated by procurement and inventory transactions.
+**PP → FI / CO** — material and cost impacts generated by production activity.
 
-**SD → FI**
+**FI ↔ CO** — financial and management-accounting integration.
 
-Validation of financial postings generated by sales and billing processes, including receivables-related impacts.
-
-**PP → FI / CO**
-
-Evaluation of material and cost impacts generated by production activity and their flow into financial and controlling processes.
-
-**FI ↔ CO**
-
-Integration of Financial Accounting and Controlling to support internal cost and profitability analysis.
-
-## 8. Evidence
+## 9. Evidence
 
 FI configuration screenshots are maintained under:
 
 `evidence/screenshots/fi/`
 
-Recommended evidence naming:
+The supplied SD-FI billing case evidence is maintained under:
 
-- `gl-account-1020131-receivables.png`
-- `gl-account-1020131-control-data.png`
-- `gl-account-1020131-bank-interest.png`
-- `gl-account-1020131-translation.png`
-- `gl-account-1020131-save-warning.png`
+`evidence/screenshots/sd/billing-resolution/`
 
-## 9. Current FI Status
+and the implementation evidence-pack area.
 
-**Status: In Progress**
+## 10. Current FI Status
 
-The initial FI organizational and General Ledger foundation has been documented. Additional FI configuration, integration, posting scenarios, validation, and end-to-end testing will be added only after execution in SAP and capture of supporting implementation evidence.
+**Status: Active — the supplied SD-FI-AR billing case is documented through customer clearing, while the broader FI implementation remains in progress.**
 
 > **Documentation principle:** Only configured and validated activities are presented as completed. Future FI activities remain roadmap items until execution and supporting evidence are available.
