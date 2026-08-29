@@ -2,9 +2,11 @@
 
 ## Portfolio Case Study
 
-This implementation case study documents the diagnostic and configuration workflow required to release billing document **90000032** from Sales & Distribution (SD) to Financial Accounting (FI) in the TechNova SAP S/4HANA practice environment.
+This case study documents the diagnostic and configuration workflow used to transfer billing document **90000032** from Sales and Distribution (SD) to Financial Accounting (FI) in the TechNova SAP S/4HANA practice environment, followed by customer open-item verification, incoming payment, and final clearing.
 
-The supplied source document identifies the case as a standard Order-to-Cash flow in which a billing document existed but could not initially be released to FI because multiple downstream prerequisites were incomplete.
+The scenario demonstrates an important O2C integration principle: successful billing does not automatically guarantee successful FI posting. Revenue determination, tax account determination, G/L master data, document numbering, and customer-account configuration must all be available before the financial document can be posted and cleared.
+
+> **Material traceability:** The supplied billing scenario records **`10194 — TechNova Business Laptop`**. This identifier is preserved exactly for evidence traceability. The broader repository also contains the core project material revision **`194`**; these identifiers are not silently merged.
 
 ## Enterprise Context
 
@@ -17,161 +19,277 @@ The supplied source document identifies the case as a standard Order-to-Cash flo
 | Chart of Accounts | `BKMG` |
 | Fiscal Year / Posting Period | `2026 / 08` |
 | Customer / Sold-to / Payer | `1000000021` — Berlin Office Solutions GmbH |
+| Material recorded in billing evidence | `10194` — TechNova Business Laptop |
+| Invoiced Quantity | `5 EA` |
 | Billing Document | `90000032` — F2 |
 | FI Accounting Document | `9000000000` — RV |
-| Material recorded in supplied billing evidence | `10194` — TechNova Business Laptop |
-| Invoiced Quantity | `5 EA` |
+| Incoming Payment Document | `6000000000` — DZ |
 
-> **Material governance:** The core O2C project uses **Material 194**. The supplied billing evidence records **10194**. The source identifier is preserved in this case study for evidence traceability and is not presented as the active core-project material master.
+---
 
-## Resolution Sequence
+## Diagnostic & Resolution Sequence
 
-### 1. VF02 — Initial Release Failure
+### 1. `VF02` — Initial Billing Release Failure
 
-When the release-to-accounting function was executed in `VF02`, billing document `90000032` could not post to FI and returned an account-determination error.
+The initial release of billing document `90000032` to Financial Accounting returned an account-determination error.
 
-**Root cause:** the SD condition technique could not determine a valid revenue G/L account for the relevant pricing/account-key path. The source case identifies this as the initial integration failure.
+**Root cause:** the SD condition technique could not determine a valid revenue G/L account for the relevant pricing/account-key path.
 
-### 2. VKOA — Revenue Account Determination
+**Resolution path:** trace the SD pricing/account-key combination into revenue account determination rather than bypassing the accounting interface.
 
-The revenue condition/account-key path was maintained in `VKOA` Table 005:
+### 2. `VKOA` — Revenue Account Determination
 
-```text
-Application        V
-Condition Type     KOFI
-Chart of Accounts  BKMG
-Sales Organization 9000
-Account Key        ERL
-G/L Account        6010131
-```
-
-**Result:** the revenue determination record was saved successfully.
-
-### 3. OB40 — Output Tax Account Assignment
-
-The next release attempt exposed a tax-account determination issue for table `T030K` and transaction key `MWS`.
-
-The output-tax account assignment was configured as:
+The required revenue determination record was maintained in Table `005`:
 
 ```text
-Transaction Key    MWS
-Chart of Accounts BKMG
-G/L Account        2300000
-Tax                19% VAT / Tax Code A1
+Application          V
+Condition Type       KOFI
+Chart of Accounts    BKMG
+Sales Organization   9000
+Account Key          ERL
+Revenue G/L Account  6010131
 ```
 
-**Result:** automatic posting account `2300000` was assigned for MWS.
+**Result:** the `ERL` revenue account determination was established for the documented sales context.
 
-### 4. FS00 — G/L Master Data for Output Tax
+### 3. `OB40` — Output Tax Account Determination
 
-The next release attempt reported that G/L account `2300000` was not defined in chart of accounts `BKMG`.
+The next billing-release attempt exposed a missing automatic posting assignment for transaction key `MWS` in table `T030K`.
 
-The account was created/activated in `FS00` for Company Code `9000` with the documented output-tax control settings.
+The documented configuration was:
 
-**Result:** G/L `2300000` became available for automatic posting.
+```text
+Transaction Key     MWS
+Chart of Accounts   BKMG
+G/L Account         2300000
+Tax                 19% VAT / Tax Code A1
+```
 
-### 5. FS00 — G/L Master Data for Sales Revenue
+**Result:** output-tax account `2300000` was assigned for automatic tax posting.
 
-The next release attempt reported that G/L account `6010131` was not defined in Company Code `9000`.
+### 4. `FS00` — Output Tax G/L Master Data
 
-The revenue account was created/extended in `FS00` for Company Code `9000` and saved as the current-revenue account used by the VKOA determination.
+The tax-account determination required G/L account `2300000` to exist in the relevant accounting structure.
+
+The account was created/extended in `FS00` for Company Code `9000` with the documented output-tax control settings.
+
+**Result:** G/L `2300000` became available for automatic tax posting.
+
+### 5. `FS00` — Revenue G/L Master Data
+
+The subsequent release attempt identified G/L account `6010131` as unavailable for Company Code `9000`.
+
+The revenue account was created/extended in `FS00` and established as the current-revenue account used by the `VKOA` determination.
 
 **Result:** G/L `6010131` became available for company-code posting.
 
-### 6. FBN1 — FI Document Number Range
+### 6. `FBN1` / `OBA7` — FI Document Number Ranges
 
-After the account-determination and G/L prerequisites were resolved, the release exposed a missing FI document number range:
+The next release attempt exposed missing FI document-number prerequisites.
+
+The documented configuration is:
+
+| Document Type | Number Range | Fiscal Year | Interval |
+|---|---|---:|---|
+| `RV` — Billing Accounting Document | `Z1` | 2026 | `9000000000–9999999999` |
+| `DZ` — Incoming Payment | `06` | 2026 | `6000000000–6999999999` |
+
+The document-type and number-range relationship was configured so that both billing and incoming-payment documents could receive valid FI document numbers.
+
+### 7. `OBA3` — Customer Tolerance Group
+
+The customer-accounting process also required a tolerance-group entry in table `T043G` for Company Code `9000`.
+
+A default blank tolerance group was configured with:
+
+- Amount tolerance: **`10.00 EUR`**
+- Percentage tolerance: **`5.0%`**
+
+**Result:** the required tolerance configuration was available for customer payment processing and clearing.
+
+### 8. `VF02` — Successful Release to Accounting
+
+After the revenue determination, tax account assignment, G/L master data, FI number ranges, and customer-account prerequisites were resolved, billing document `90000032` was successfully released to Financial Accounting.
+
+**Result:** the billing transaction generated FI accounting document `9000000000`.
+
+---
+
+## Financial Accounting Verification — `FB03`
+
+The generated accounting document is:
+
+- **Document:** `9000000000`
+- **Document Type:** `RV`
+- **Company Code:** `9000`
+
+| Posting Key | Account | Description | Tax | Amount (EUR) | Debit / Credit |
+|---:|---|---|---|---:|---|
+| `01` | `1000000021` | Berlin Office Solutions GmbH — Customer Receivable | `A1` | `5,950.00` | Debit |
+| `50` | `6010131` | Current Revenues | `A1` | `5,000.00` | Credit |
+| `50` | `2300000` | Output Tax — 19% VAT | `A1` | `950.00` | Credit |
+
+### Accounting Reconciliation
+
+**Debit:** €5,950.00  
+**Credit:** €5,950.00  
+**Difference:** €0.00
+
+The accounting document is balanced and represents the financial impact of the customer billing transaction.
+
+---
+
+## Customer Accounting & Clearing
+
+### 1. `FBL5N` — Open Customer Item
+
+The posted receivable is reviewed in `FBL5N` for customer `1000000021`.
+
+- Customer: `1000000021 — Berlin Office Solutions GmbH`
+- Open receivable: **€5,950.00**
+- Source accounting document: `9000000000`
+
+This establishes the outstanding customer balance created by the billing transaction.
+
+### 2. `F-28` — Incoming Payment
+
+The customer payment is recorded against the outstanding receivable.
+
+| Field | Value |
+|---|---|
+| Payment Document | `6000000000` |
+| Document Type | `DZ` |
+| Posting Date | `29.08.2026` |
+| Bank Account | `110000` |
+| Payment Amount | `€5,950.00` |
+| Customer Account | `1000000021` |
+
+The incoming payment matches the outstanding customer receivable in full.
+
+### 3. `FBL5N` — Final Clearing Verification
+
+The final customer-account review confirms that the invoice and incoming payment are linked through clearing document `6000000000`.
+
+**Final reconciliation:**
+
+| Item | Result |
+|---|---:|
+| Invoice / Receivable | €5,950.00 |
+| Incoming Payment | €5,950.00 |
+| Remaining Open Items | **0** |
+| Final Customer Balance | **€0.00** |
+
+The customer account is fully cleared.
+
+---
+
+## End-to-End SD-FI / AR Flow
 
 ```text
-Object / Company Code  RF_BELEG / 9000
-Number Range           Z1
-Fiscal Year            2026
-From Number            9000000000
-To Number              9999999999
-Numbering              Internal
+Customer Requirement
+        ↓
+Sales Order
+        ↓
+Outbound Delivery
+        ↓
+Post Goods Issue
+        ↓
+Billing Document 90000032
+        ↓
+VF02 — Release to Accounting
+        ↓
+VKOA — Revenue Account Determination
+        ↓
+OB40 — Output Tax Account Determination
+        ↓
+FS00 — G/L Master Data
+        ↓
+FBN1 / OBA7 — FI Number Ranges
+        ↓
+FB03 — FI Document 9000000000
+        ↓
+FBL5N — Customer Open Item
+        ↓
+F-28 — Incoming Payment 6000000000
+        ↓
+FBL5N — Final Clearing Verification
+        ↓
+Customer Balance = €0.00
 ```
 
-The source case explains that standard F2 billing creates FI document type `RV`, which uses the configured number-range interval. The interval was added for fiscal year 2026.
-
-**Result:** number-range interval `Z1` was saved.
-
-### 7. VF02 — Successful Release
-
-With revenue determination, tax determination, G/L master data, and FI numbering prerequisites active, the release action in `VF02` succeeded.
-
-**System result:** `Document 90000032 has been saved.`
-
-### 8. FB03 — Financial Verification
-
-The generated accounting document **9000000000** was inspected in `FB03`.
-
-| Line | PK | Account | Description | Tax | Amount (EUR) | Dr/Cr |
-|---:|---:|---|---|---|---:|---|
-| 1 | `01` | `1000000021` | Berlin Office Solutions GmbH | `A1` | 5,950.00 | Debit |
-| 2 | `50` | `6010131` | Current Revenues | `A1` | 5,000.00 | Credit |
-| 3 | `50` | `2300000` | Output Tax (19% VAT) | `A1` | 950.00 | Credit |
-
-**Balance:** €5,950.00 debit = €5,950.00 credit.
-
-**Status:** the FI accounting document posted in full balance.
+---
 
 ## Business Significance
 
-This case demonstrates that successful SD billing does not by itself guarantee successful FI posting. The billing-to-accounting interface depends on a chain of configuration and master-data prerequisites.
+The case demonstrates how an SAP implementation consultant approaches a cross-module O2C issue: identify the first integration error, trace the underlying dependency, configure the missing prerequisite, retest, and continue until the complete business outcome is validated.
 
-The troubleshooting sequence demonstrates practical implementation capability in:
+The scenario demonstrates practical capability in:
 
-- Error diagnosis and root-cause isolation
-- SD revenue account determination
+- O2C business-process execution
+- SD billing and accounting integration
+- Revenue account determination
 - Automatic tax account determination
 - G/L master-data provisioning
 - FI document-number-range configuration
-- Cross-module SD-FI validation
-- Financial-document verification
+- Customer tolerance-group configuration
+- Error diagnosis and root-cause isolation
+- Accounting-document validation
+- Customer open-item management
+- Incoming-payment processing
+- Customer-account clearing
+- End-to-end financial reconciliation
 
-## Final O2C / FI Position
+### Key Implementation Lesson
 
-The supplied case study establishes the following completed flow:
+The critical dependency chain is:
+
+**VKOA → OB40 → FS00 → FBN1/OBA7 → VF02 → FB03 → FBL5N → F-28 → FBL5N**
+
+Resolving each dependency transformed an initially blocked billing-to-accounting interface into a fully reconciled customer transaction. The final state confirms that the revenue and tax postings were balanced, the customer payment was received in full, and the customer account was cleared to zero.
+
+---
+
+## Evidence & Repository Organization
+
+The case-study documentation is maintained within the existing SAP portfolio repository:
 
 ```text
-Sales Order
-   ↓
-Outbound Delivery
-   ↓
-Post Goods Issue
-   ↓
-Billing Document 90000032
-   ↓
-VF02 Release to Accounting ✓
-   ↓
-FI Document 9000000000
-   ↓
-FB03 Balanced Journal Entry ✓
+process-flows/
+└── order-to-cash/
+    └── README.md
+
+docs/
+├── sd/
+├── fi/
+└── integration/
+    └── sd-fi-billing-resolution.md
+
+evidence/
+├── screenshots/
+│   ├── sd/
+│   ├── fi/
+│   └── integration/
+└── implementation-evidence-packs/
 ```
 
-The supplied source document states that the O2C process through SD-FI financial posting is fully verified.
+Recommended O2C evidence naming:
 
-## Next Customer Accounting Milestone
+```text
+01_Sales_Order_VA01.png
+02_Outbound_Delivery_VL01N.png
+03_Goods_Issue_VL02N.png
+04_Billing_Document_VF01.png
+05_Accounting_Document_FB03.png
+06_Open_Items_FBL5N.png
+07_Incoming_Payment_F-28.png
+08_Cleared_Items_FBL5N.png
+O2C_Case_Study_TechNova.pdf
+```
 
-The next steps are explicitly documented in the supplied source:
+Evidence must distinguish between actual SAP screenshots and documentation derived from the supplied case-study source. No screenshot should be presented as captured SAP evidence unless the corresponding image is available in the repository.
 
-1. **FBL5N** — display the open customer line item for customer `1000000021`, expected at **€5,950.00**.
-2. **F-28** — record the incoming customer bank transfer and clear the open invoice line item.
+## Status
 
-These steps are **planned next execution steps**, not completed evidence in the supplied package.
+**End-to-End O2C case study documented through customer-account clearing.**
 
-## Evidence Map
-
-The supplied update contains 18 SAP screenshots covering the initial and intermediate diagnostic/configuration stages. They should be stored under:
-
-`evidence/screenshots/sd/billing-resolution/`
-
-The source PDF is stored as:
-
-`evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`
-
-The PDF itself documents the later FBN1, successful VF02 release, and FB03 verification stages. The repository deliberately does not invent standalone SAP screenshots for those stages when the supplied package does not contain them.
-
-## Implementation Learning
-
-The key implementation lesson is the dependency chain: **VKOA → OB40 → FS00 → FBN1 → VF02 → FB03**. Each correction removed a distinct blocker, and the final accounting document provided objective evidence that the SD-FI integration was restored.
+The documented lifecycle now covers commercial demand, logistics execution, billing, SD-FI integration, financial posting, customer open-item management, incoming payment, and final clearing.
