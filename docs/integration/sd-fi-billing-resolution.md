@@ -37,12 +37,12 @@ When the release-to-accounting function was executed in `VF02`, billing document
 The revenue condition/account-key path was maintained in `VKOA` Table 005:
 
 ```text
-Application       V
-Condition Type    KOFI
-Chart of Accounts BKMG
+Application        V
+Condition Type     KOFI
+Chart of Accounts  BKMG
 Sales Organization 9000
-Account Key       ERL
-G/L Account       6010131
+Account Key        ERL
+G/L Account        6010131
 ```
 
 **Result:** the revenue determination record was saved successfully.
@@ -54,10 +54,10 @@ The next release attempt exposed a tax-account determination issue for table `T0
 The output-tax account assignment was configured as:
 
 ```text
-Transaction Key   MWS
+Transaction Key    MWS
 Chart of Accounts BKMG
-G/L Account       2300000
-Tax               19% VAT / Tax Code A1
+G/L Account        2300000
+Tax                19% VAT / Tax Code A1
 ```
 
 **Result:** automatic posting account `2300000` was assigned for MWS.
@@ -149,7 +149,7 @@ FI Document 9000000000
 FB03 Balanced Journal Entry ✓
 ```
 
-The source document states that the O2C process through SD-FI financial posting is fully verified. fileciteturn0file0L113-L115
+The supplied source document states that the O2C process through SD-FI financial posting is fully verified.
 
 ## Next Customer Accounting Milestone
 
@@ -158,7 +158,7 @@ The next steps are explicitly documented in the supplied source:
 1. **FBL5N** — display the open customer line item for customer `1000000021`, expected at **€5,950.00**.
 2. **F-28** — record the incoming customer bank transfer and clear the open invoice line item.
 
-These steps are **planned next execution steps**, not completed evidence in the supplied package. fileciteturn0file0L116-L120
+These steps are **planned next execution steps**, not completed evidence in the supplied package.
 
 ## Evidence Map
 
