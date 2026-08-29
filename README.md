@@ -144,8 +144,6 @@ The supplied case study documents billing document **90000032** (type `F2`) and 
 
 **Balance check:** €5,950.00 debit = €5,950.00 credit.
 
-The source PDF records the implementation as fully verified through SD billing, FI posting, and journal-entry validation. fileciteturn0file0L98-L108
-
 Detailed case study: [`docs/integration/sd-fi-billing-resolution.md`](docs/integration/sd-fi-billing-resolution.md)
 
 Source evidence package: [`evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`](evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf)
@@ -157,7 +155,7 @@ The supplied case study establishes the completed sequence through `FB03`. The n
 1. **FBL5N** — verify the open customer item for customer `1000000021` with a receivable of **€5,950.00**.
 2. **F-28** — record the incoming customer bank transfer and clear the open invoice item.
 
-These are documented as the **next execution milestone**, not as completed SAP evidence. fileciteturn0file0L113-L120
+These are documented as the **next execution milestone**, not as completed SAP evidence.
 
 ## Evidence & Traceability
 
