@@ -4,22 +4,21 @@ All notable project implementation milestones are recorded here.
 
 ## 2026-08-29
 
-### Material Identifier Revision — 194
+### Material Master Revision — Material 194
 
-- Replaced the active project material identifier **184** with **194** across the MM and O2C documentation.
-- Updated the Material Master documentation and Sales Order 12 execution record to use Material **194 — TechNova Business Laptop**.
+- Standardized the active project material as **194 — TechNova Business Laptop** across the MM and O2C documentation.
+- Updated the Material Master documentation and Sales Order 12 execution record to use Material **194**.
 - Updated the O2C process flow, SD documentation, configuration register, evidence index, and screenshot manifest.
-- Retired the old Material 184 documentation file.
+- Retired superseded material references from the active portfolio narrative.
 
 ### SD-FI Billing Resolution Evidence Integration
 
-- Added the supplied SD-FI billing-resolution evidence package.
-- Added 18 diagnostic/configuration screenshots covering VF02, VKOA, OB40, FS00, and the revenue-account determination error path.
-- Added standalone final-release and FB03 screenshots extracted from the supplied evidence PDF.
-- Added the complete billing-resolution PDF to the implementation evidence area.
-- Added a professional SD-FI billing-resolution case-study document covering root cause, configuration dependencies, and final accounting impact.
-- Reorganized billing screenshots under `evidence/screenshots/sd/billing-resolution/`.
-- Preserved material **10194** inside the billing evidence documentation because that is the identifier recorded by the supplied billing evidence; it was not silently rewritten to the project's current master-data identifier 194.
+- Integrated the supplied SD-FI billing-resolution evidence package into the existing end-to-end SAP repository.
+- Added the supplied diagnostic/configuration evidence covering VF02, VKOA, OB40, and FS00.
+- Added the final evidence extracted from the supplied PDF: revenue-account validation, FBN1 diagnosis, FBN1 correction, successful VF02 release, and FB03 verification.
+- Added the professional SD-FI case-study documentation covering root cause, configuration dependencies, and final accounting impact.
+- Reorganized billing evidence under `evidence/screenshots/sd/billing-resolution/`.
+- Preserved material **10194** inside the supplied billing evidence because that is the identifier recorded by the source execution; the core project master-data identifier remains **194**.
 
 ## 2026-08-24
 
