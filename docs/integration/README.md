@@ -1,14 +1,33 @@
 # Integration
 
-## My Integration Plan
+## Integration Strategy
 
-I will use the Integration layer to demonstrate how the individual SAP modules operate as one end-to-end business system. My goal is to connect organizational assignments, master data, operational transactions, and accounting impacts across the TechNova implementation.
+The Integration layer demonstrates how SAP modules operate as one end-to-end business system. The project connects organizational assignments, master data, operational transactions, configuration dependencies, and accounting impacts across TechNova.
 
-This section is **planned and not yet completed**. I will expand it with actual execution evidence as I implement the corresponding modules and business scenarios.
+## Active Integration Evidence
 
-## What I Plan to Demonstrate
+The project now contains an executed **SD → FI billing integration resolution** case study.
 
-I will document the relationships between:
+### SD-FI Billing Release
+
+**Billing Document `90000032` → VF02 → VKOA → OB40 → FS00 → FBN1 → VF02 → FB03**
+
+The case study demonstrates:
+
+- Revenue account determination using `VKOA` and account key `ERL`
+- Output-tax account determination using `OB40` and transaction key `MWS`
+- G/L master-data validation using `FS00`
+- FI document number-range maintenance using `FBN1`
+- Successful SD billing release to accounting using `VF02`
+- Financial posting verification using `FB03`
+
+Detailed case study: [`sd-fi-billing-resolution.md`](sd-fi-billing-resolution.md)
+
+Evidence PDF: [`../../evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`](../../evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf)
+
+Screenshots: `../../evidence/screenshots/sd/billing-resolution/`
+
+## Other Planned Integration Flows
 
 - **FI ↔ CO** — financial accounting and controlling impacts
 - **MM → FI/CO** — procurement, inventory, invoice, and cost impacts
@@ -16,35 +35,29 @@ I will document the relationships between:
 - **PP → MM/CO/FI** — production materials, consumption, confirmations, costs, and financial impacts
 - **Service ↔ core processes** — service-related operational and financial impacts where applicable
 
-## Planned End-to-End Business Flows
+## O2C Integration Position
 
-I will eventually connect the major business cycles:
+The main O2C chain currently uses Material **194** and Sales Order **12**:
 
-### Procure-to-Pay
-**Procurement Requirement → Purchase Order → Goods Receipt → Invoice Receipt → FI Posting**
+```text
+Material 194
+   ↓
+Sales Order 12
+   ↓
+Outbound Delivery
+   ↓
+Post Goods Issue
+   ↓
+Billing
+   ↓
+FI / Accounts Receivable
+```
 
-### Order-to-Cash
-**Customer Requirement → Sales Order → Delivery → Goods Issue → Billing → FI Posting**
-
-### Plan-to-Produce
-**Demand → Planning → Production Order → Material Issue → Confirmation → Goods Receipt → Cost/Financial Impact**
-
-### Record-to-Report
-**Business Transactions → Financial Postings → Period-End Processing → Reporting**
-
-I will document these flows only after I complete their underlying configuration and execution.
-
-## Future Evidence
-
-I will store cross-module screenshots and process evidence under:
-
-`evidence/screenshots/integration/`
-
-I will show the source transaction, relevant master and organizational dependencies, resulting postings or status changes, and the business relationship between modules.
+The separate billing-resolution artifact preserves material **10194** exactly as shown in the supplied source evidence.
 
 ## Validation Approach
 
-For each integration scenario, I will record:
+For each integration scenario, I record:
 
 1. Business objective
 2. Prerequisites and master data
@@ -57,6 +70,4 @@ For each integration scenario, I will record:
 
 ## Current Status
 
-**Status: Planned**
-
-I will begin integration testing only after I have the relevant module configurations and executable business scenarios available.
+**Status: In Progress — SD-FI integration evidence established; broader integration testing continues.**
