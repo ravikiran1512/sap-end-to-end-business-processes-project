@@ -59,8 +59,6 @@ FI / Accounts Receivable
 
 ### SD-FI Billing Release Resolution
 
-The integrated diagnostic path is:
-
 ```text
 VF02 — Release Billing Document 90000032
         ↓
@@ -146,11 +144,9 @@ The supplied case study documents billing document **90000032** (type `F2`) and 
 
 Detailed case study: [`docs/integration/sd-fi-billing-resolution.md`](docs/integration/sd-fi-billing-resolution.md)
 
-Source evidence package: [`evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`](evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf)
-
 ## Final Billing-to-FI Milestone
 
-The supplied case study establishes the completed sequence through `FB03`. The next customer-accounting milestone is explicitly identified as:
+The supplied case study establishes the completed sequence through `FB03`. The next customer-accounting milestone is:
 
 1. **FBL5N** — verify the open customer item for customer `1000000021` with a receivable of **€5,950.00**.
 2. **F-28** — record the incoming customer bank transfer and clear the open invoice item.
@@ -158,8 +154,6 @@ The supplied case study establishes the completed sequence through `FB03`. The n
 These are documented as the **next execution milestone**, not as completed SAP evidence.
 
 ## Evidence & Traceability
-
-The repository uses separate evidence areas for master-data, SD execution, and integrated SD-FI diagnostics:
 
 ```text
 evidence/
@@ -170,10 +164,9 @@ evidence/
 │   ├── integration/
 │   └── SCREENSHOT-MANIFEST.md
 └── implementation-evidence-packs/
-    └── SAP_SD_FI_Billing_Release_Documentation.pdf
 ```
 
-The uploaded billing package contains **18 SAP screenshots** covering the initial VF02 error, VKOA, OB40, FS00, and the subsequent revenue-account validation stage. The supplied PDF provides the documented completion of FBN1, final VF02 release, and FB03 verification.
+The uploaded billing package contains **18 SAP screenshots** covering the initial and intermediate diagnostic/configuration stages. The source PDF was used to document the later FBN1, final VF02 release, and FB03 verification stages.
 
 ## Documentation Standard
 
