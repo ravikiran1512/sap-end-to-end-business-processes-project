@@ -6,7 +6,7 @@ The Integration layer demonstrates how SAP modules operate as one end-to-end bus
 
 ## Active Integration Evidence
 
-The project now contains an executed **SD → FI billing integration resolution** case study.
+The project now contains an executed **SD → FI billing integration resolution** case study based on the supplied TechNova evidence package.
 
 ### SD-FI Billing Release
 
@@ -20,20 +20,27 @@ The case study demonstrates:
 - FI document number-range maintenance using `FBN1`
 - Successful SD billing release to accounting using `VF02`
 - Financial posting verification using `FB03`
+- Customer open-item and incoming-payment clearing as the next milestone through `FBL5N` and `F-28`
 
 Detailed case study: [`sd-fi-billing-resolution.md`](sd-fi-billing-resolution.md)
 
 Evidence PDF: [`../../evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`](../../evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf)
 
-Screenshots: `../../evidence/screenshots/sd/billing-resolution/`
+Screenshot target: `../../evidence/screenshots/sd/billing-resolution/`
 
-## Other Planned Integration Flows
+## Enterprise Scope of Billing Case
 
-- **FI ↔ CO** — financial accounting and controlling impacts
-- **MM → FI/CO** — procurement, inventory, invoice, and cost impacts
-- **SD → FI/CO** — billing, receivables, revenue, and profitability impacts
-- **PP → MM/CO/FI** — production materials, consumption, confirmations, costs, and financial impacts
-- **Service ↔ core processes** — service-related operational and financial impacts where applicable
+| Object | Value |
+|---|---|
+| Company Code | `9000` |
+| Sales Organization | `9000` |
+| Distribution Channel / Division | `10 / 00` |
+| Plant / Storage Location | `9000 / 0001` |
+| Chart of Accounts | `BKMG` |
+| Fiscal Year / Period | `2026 / 08` |
+| Customer | `1000000021` — Berlin Office Solutions GmbH |
+| Billing Document | `90000032` — F2 |
+| FI Document | `9000000000` — RV |
 
 ## O2C Integration Position
 
@@ -55,6 +62,15 @@ FI / Accounts Receivable
 
 The separate billing-resolution artifact preserves material **10194** exactly as shown in the supplied source evidence.
 
+## Evidence Governance
+
+The uploaded billing update contains 18 SAP screenshots for the initial and intermediate diagnostic/configuration stages. The supplied PDF documents the later FBN1, successful VF02 release, and FB03 stages.
+
+The repository intentionally distinguishes:
+
+- **Executed SAP evidence** — supported by screenshots or the supplied case-study document.
+- **Next execution milestone** — FBL5N and F-28, which remain to be executed and evidenced.
+
 ## Validation Approach
 
 For each integration scenario, I record:
@@ -70,4 +86,4 @@ For each integration scenario, I record:
 
 ## Current Status
 
-**Status: In Progress — SD-FI integration evidence established; broader integration testing continues.**
+**Status: In Progress — SD-FI integration is verified through balanced FI posting; customer open-item verification and incoming-payment clearing are the next execution milestone.**
