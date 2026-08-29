@@ -1,12 +1,12 @@
 # Service
 
-## My Service Implementation Plan
+## Service Implementation Plan
 
-I will extend the TechNova SAP implementation into customer service and service-related business processes. My objective is to document how service activities connect with the core enterprise processes and how service transactions can create operational and financial impacts.
+The TechNova SAP implementation will be extended into customer service and service-related business processes. The Service phase will document how service activities connect with core enterprise processes and how service transactions can create operational and financial impacts.
 
-## What I Will Configure
+## Planned Configuration Scope
 
-I plan to design the Service phase around the service processes relevant to the overall TechNova business scenario.
+The Service phase will cover the processes relevant to the overall TechNova business scenario.
 
 Planned areas include:
 
@@ -19,19 +19,19 @@ Planned areas include:
 - Financial and controlling impacts of service activities
 - Validation of service processes with the broader enterprise model
 
-I will confirm the exact configuration scope when the Service phase begins so that I document only activities that I actually require and execute in the SAP environment.
+The exact configuration scope will be confirmed when the Service phase begins so that documentation reflects only activities required and executed in the SAP environment.
 
 ## Planned Business Perspective
 
-I will focus on the complete business flow rather than isolated configuration:
+The focus will remain on the complete business flow rather than isolated configuration:
 
 **Service Requirement → Service Processing → Execution → Confirmation → Settlement/Billing → Financial Impact**
 
-If my actual SAP scenario differs from the planned flow, I will document the executed process rather than presenting planned activities as completed.
+Where the executed SAP scenario differs from the planned flow, the documented process will reflect the actual execution rather than presenting planned activities as completed.
 
 ## Evidence
 
-I will store Service screenshots under:
+Service screenshots will be stored under:
 
 `evidence/screenshots/service/`
 
@@ -39,7 +39,7 @@ Each completed configuration and business scenario will be documented with its r
 
 ## Planned Integration
 
-I will evaluate Service integration with:
+Service integration will be evaluated across:
 
 - **FI** — billing and financial impacts where applicable
 - **CO** — relevant cost and internal accounting impacts
@@ -50,4 +50,4 @@ I will evaluate Service integration with:
 
 **Status: Planned**
 
-I will not represent Service configuration as completed until I execute and validate it in SAP.
+Service configuration will not be represented as completed until execution and validation are performed in SAP.
