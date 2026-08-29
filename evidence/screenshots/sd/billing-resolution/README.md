@@ -1,6 +1,6 @@
-# SD-FI Billing Resolution Screenshot Set
+# SD-FI-AR Billing Resolution Evidence
 
-The supplied update contains 18 SAP screenshots for the initial and intermediate diagnostic/configuration stages of billing release.
+The supplied update contains **18 SAP screenshots** covering the initial and intermediate diagnostic/configuration stages of billing release.
 
 ## Source Screenshot Set
 
@@ -23,8 +23,23 @@ The supplied update contains 18 SAP screenshots for the initial and intermediate
 17. FS00 G/L 2300000 saved display
 18. VF02 G/L 6010131 not defined in Company Code 9000
 
-The later FBN1, successful VF02 release, and FB03 verification are documented in the supplied case-study PDF and in `docs/integration/sd-fi-billing-resolution.md`.
+## Completed Case-Study Results
+
+The supplied case-study source documents the subsequent completed stages:
+
+- `FBN1 / OBA7` — FI document-number configuration for fiscal year `2026`
+- `VF02` — billing document `90000032` successfully released to FI
+- `FB03` — accounting document `9000000000` verified and balanced
+- `FBL5N` — customer receivable of `€5,950.00` identified
+- `F-28` — incoming payment `6000000000` posted for `€5,950.00`
+- `FBL5N` — invoice/payment cleared; final customer balance `€0.00`
+
+The detailed implementation narrative is maintained in `docs/integration/sd-fi-billing-resolution.md`.
+
+## Evidence Governance
+
+The 18 screenshots in this directory are the actual supplied screenshot set. The final-stage results above are documented from the supplied case-study source; no additional SAP screenshots are implied or fabricated.
 
 ## Material Governance
 
-The core project uses **Material 194 — TechNova Business Laptop**. The billing source evidence records **10194**; that source identifier is retained for traceability.
+The core project uses **Material 194 — TechNova Business Laptop**. The billing source evidence records **10194**; that source identifier is retained unchanged for traceability.
