@@ -2,13 +2,11 @@
 
 Updated: **29 August 2026**
 
-This manifest separates master-data evidence, SD execution evidence, and the newly integrated SD-FI billing-resolution evidence.
+This manifest separates master-data evidence, SD execution evidence, and the integrated SD-FI billing-resolution evidence.
 
 ## MM — Current Material 194
 
-The active material identifier is **194 — TechNova Business Laptop**. Previous references to the retired identifier have been removed from the active documentation.
-
-Expected evidence naming standard for the current material:
+The active material identifier is **194 — TechNova Business Laptop**.
 
 | Screenshot | SAP step |
 |---|---|
@@ -16,7 +14,7 @@ Expected evidence naming standard for the current material:
 | `material-194-basic-data.png` | Basic Data |
 | `material-194-organizational-levels.png` | Plant / Sales Organization / Distribution Channel |
 | `material-194-classification-1000.png` | Class Type `001` / Class `1000` |
-| `material-194-sales-tax.png` | Sales Organization 1 / tax classification |
+| `material-194-sales-tax.png` | Sales Organization / tax classification |
 | `material-194-sales-org-2-item-category-review.png` | Sales Organization 2 review |
 | `material-194-plant-profit-center.png` | Plant data / Profit Center `PC0001` |
 | `material-194-spp-basic-data.png` | Extended SPP Basic Data |
@@ -25,7 +23,7 @@ Expected evidence naming standard for the current material:
 | `material-194-loading-group-0002.jpg` | `MM02` Loading Group `0002` |
 | `material-194-transportation-group-0004.jpg` | `MM02` Transportation Group `0004` |
 
-> The current upload does not contain a new standalone MM screenshot set proving Material 194. The documentation has therefore been updated to 194 without fabricating screenshot evidence.
+> The current billing upload does not contain a new standalone MM screenshot set. The repository therefore documents Material 194 without fabricating additional MM evidence.
 
 ## SD — Sales Order 12
 
@@ -42,7 +40,7 @@ Expected evidence naming standard for the current material:
 
 ## SD-FI — Billing Resolution Evidence
 
-The new billing-resolution evidence is stored under:
+Stored under:
 
 `evidence/screenshots/sd/billing-resolution/`
 
@@ -66,11 +64,16 @@ The new billing-resolution evidence is stored under:
 | `16_fs00_gl_2300000_cash_flow_validation.png` | Cash-flow validation |
 | `17_fs00_gl_2300000_saved_display.png` | G/L 2300000 saved |
 | `18_vf02_gl_6010131_not_defined_cocode_9000.png` | Missing revenue G/L error |
-| `19_vf02_successful_release.png` | Final VF02 release to accounting |
-| `20_fb03_posted_document.png` | FB03 posted FI document |
+| `19_vf02_revenue_account_6010131_error.jpg` | VF02 revenue-account validation |
+| `20_fs00_gl_6010131_saved.jpg` | G/L 6010131 successfully created |
+| `21_vf02_fi_number_range_z1_error.jpg` | VF02 FI number-range error |
+| `22_fbn1_number_ranges_before_maintenance.jpg` | FBN1 before Z1 maintenance |
+| `23_fbn1_z1_2026_saved.jpg` | FBN1 Z1 / 2026 interval saved |
+| `24_vf02_successful_release.jpg` | Final VF02 release to accounting |
+| `25_fb03_posted_document.jpg` | FB03 posted FI document |
 
 ## Source Document
 
 `evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`
 
-The final release and accounting-verification evidence is documented in the supplied PDF. Standalone final screenshots `19` and `20` were extracted from that evidence package for easier repository navigation.
+The supplied PDF contains the complete source evidence. Screenshots `19`–`25` correspond to the final revenue-account, FBN1, VF02, and FB03 stages extracted from that evidence package.
