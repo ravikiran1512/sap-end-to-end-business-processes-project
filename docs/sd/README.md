@@ -1,38 +1,38 @@
 # Sales and Distribution (SD)
 
-## My Current SD Execution
+## Current SD Execution
 
-**Status: In Progress — Sales Order milestone completed**
+**Status: In Progress — Sales Order milestone completed; SD-FI billing resolution evidence integrated**
 
-I have completed the first executed Order-to-Cash milestone in the available SAP practice/server environment. I verified Material `184`, maintained shipping-relevant material data, corrected the shipping-point determination required by the executed scenario, and successfully saved Standard Sales Order `12`.
+The active O2C material is **194 — TechNova Business Laptop**. The first executed sales milestone is Standard Sales Order **12**.
 
 ## Executed Milestone — 24 August 2026
 
-I completed the following steps:
-
-- `MM03` — I verified Material `184 — TechNova Business Laptop`.
-- `MM02` — I maintained Loading Group `0002 — Forklift`.
-- `MM02` — I maintained Transportation Group `0004 — Parcel`.
-- Shipping Point Determination — I added/saved the combination Shipping Condition `01` + Loading Group `0002` + Plant `0001` → Shipping Point `0001`.
-- `VA01` — I created Standard Sales Order `12`.
-- Sold-to / Ship-to Party — `1000000020 — TechNova GmbH`.
+- `MM03` — verified Material `194`.
+- `MM02` — maintained Loading Group `0002 — Forklift`.
+- `MM02` — maintained Transportation Group `0004 — Parcel`.
+- Shipping Point Determination — Shipping Condition `01` + Loading Group `0002` + Plant `0001` → Shipping Point `0001`.
+- `VA01` — created Standard Sales Order `12`.
+- Customer — `1000000020 — TechNova GmbH`.
 - Customer Reference — `TECHNOVA-001`.
-- Material — `184`.
+- Material — `194 — TechNova Business Laptop`.
 - Quantity — `10 EA`.
 - Pricing — `PR00`, `1.00 EUR / EA`.
 - Net Value — `10.00 EUR`.
 
-Detailed evidence: [`material-verification-to-sales-order-12.md`](material-verification-to-sales-order-12.md)
+Detailed execution: [`material-verification-to-sales-order-12.md`](material-verification-to-sales-order-12.md)
 
-## Why This Milestone Matters
+## SD-FI Billing Resolution
 
-I used this execution to demonstrate the dependency between material master data, SD configuration, shipping-point determination, pricing, and the sales document.
+The project now also contains a separate billing-release troubleshooting case study covering:
 
-When SAP initially could not determine a shipping point, I traced the problem to the executed shipping-point determination combination and added the required entry. I then returned to VA01 and completed the order by maintaining the missing PR00 price.
+**VF02 → VKOA → OB40 → FS00 → FBN1 → VF02 → FB03**
 
-This gives me a traceable starting point for the next logistics execution step.
+The evidence documents revenue account determination, output-tax account assignment, G/L master-data validation, FI number-range maintenance, successful billing release, and accounting-document verification.
 
-## Planned End-to-End Process
+Detailed integration case study: [`../integration/sd-fi-billing-resolution.md`](../integration/sd-fi-billing-resolution.md)
+
+## End-to-End SD Flow
 
 **Customer Requirement → Sales Order → Outbound Delivery → Picking → Post Goods Issue → Billing → Financial Posting**
 
@@ -40,17 +40,10 @@ This gives me a traceable starting point for the next logistics execution step.
 
 `VL01N` — Create Outbound Delivery with reference to Sales Order `12`.
 
-## Important Environment Note
+## Environment Note
 
-The executed screenshots contain practice/server values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020`. I record these as actual execution evidence and do not silently reclassify them as the confirmed TechNova enterprise IDs from the project master plan.
+The executed O2C milestone contains practice/server values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020`. These are retained as execution evidence and are not silently reclassified as confirmed TechNova enterprise IDs.
 
-## Planned Integration
+## Portfolio Focus
 
-I will connect SD with:
-
-- **FI** — billing, customer receivables, and revenue-related accounting impacts
-- **MM** — material availability and inventory movements
-- **CO** — relevant cost and profitability impacts
-- **PP** — supply and production dependencies where applicable
-
-I will mark the SD/O2C milestone complete only after I execute and document the downstream delivery, goods issue, billing, and integration validation steps.
+The SD documentation emphasizes document flow, master-data dependencies, configuration troubleshooting, and cross-module integration rather than isolated transaction steps.
