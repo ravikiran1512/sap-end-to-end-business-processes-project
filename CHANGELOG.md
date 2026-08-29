@@ -4,6 +4,15 @@ All notable project implementation milestones are recorded here.
 
 ## 2026-08-29
 
+### Repository-Wide O2C Documentation Synchronization
+
+- Synchronized the root README, O2C process-flow, SD, FI, integration, configuration, and evidence documentation with the completed supplied SD-FI-AR billing case.
+- Updated the integration layer to show the completed `FBL5N → F-28 → FBL5N` customer-clearing lifecycle.
+- Updated the configuration register with `OBA3`, incoming-payment, and final-clearing results.
+- Updated the FI documentation with the completed billing, receivable, payment, and clearing results while preserving the separate G/L `1020131` review item.
+- Updated evidence indexes and the screenshot manifest so final-stage results are clearly identified as source-document evidence rather than fabricated standalone screenshots.
+- Preserved the distinction between the **core O2C execution** (Material `194` / Sales Order `12`, next step `VL01N`) and the **separate supplied billing case** (Material `10194`, billing `90000032`, FI `9000000000`, payment `6000000000`).
+
 ### Completed O2C Case Study — Through Customer Clearing
 
 - Expanded the Order-to-Cash case study from billing/FI posting through customer open-item verification, incoming payment, and final clearing.
