@@ -36,7 +36,27 @@ The register records values actually assigned, verified, or explicitly documente
 | Fiscal Year / Period | `2026 / 08` | Case-study scope |
 | Customer / Sold-to / Payer | `1000000021` | Case-study scope |
 
-## 3. FI — Existing G/L Documentation
+## 3. CO / Universal Journal Integration
+
+| Configuration / Process | Value | Status |
+|---|---|---|
+| Controlling Area | `9000` | Executed |
+| CO Version | `0` | Executed |
+| Leading Ledger | `0L` | Assigned to CO Version `0` |
+| Configuration Table | `FINSC_CMP_VERSNC` | Updated |
+| Consistency Check | `FINS_CUST_CONS_CHK` | Blocking version/ledger error cleared |
+| Mass Data Project | `PRJ_9000` | Executed |
+| Activity | `B2K` | Successfully completed |
+| Posting Simulation | `FINS_CUST_CONS_CHK_P` | Posting block resolved |
+| Processing Result | `0` errors / `0` warnings | Completed |
+
+### CO Integration Milestone
+
+The executed configuration aligns CO Area `9000`, Version `0`, and Leading Ledger `0L`. Mass Data Project `PRJ_9000` / Activity `B2K` was subsequently completed to remove the posting restriction associated with the incomplete journal-entry update.
+
+Detailed documentation: `docs/co/README.md`
+
+## 4. FI — Existing G/L Documentation
 
 | Field | Value | Status |
 |---|---|---|
@@ -51,7 +71,7 @@ The register records values actually assigned, verified, or explicitly documente
 
 **Review item:** The earlier evidence shows the account group **Liquid funds accounts** while the business description is Receivables. This remains a configuration-review item before downstream Accounts Receivable use. The separate O2C billing case uses chart of accounts `BKMG`; these two documented contexts are not silently merged.
 
-## 4. MM — Current Material Master
+## 5. MM — Current Material Master
 
 ### Material 194 — TechNova Business Laptop
 
@@ -79,7 +99,28 @@ The register records values actually assigned, verified, or explicitly documente
 
 Detailed material documentation: `docs/mm/material-194-tech-nova-business-laptop.md`
 
-## 5. SD — Shipping Point Determination
+## 6. MM — Inbound Procurement & Goods Receipt
+
+| Field | Value | Status |
+|---|---|---|
+| Purchase Order | `4500000149` | Executed scenario |
+| Vendor | Apex Industrial Supplies GmbH | Executed scenario |
+| Material | TechNova 15.6" Display Panel | Executed scenario |
+| Quantity | `10 EA` | Executed |
+| Cost Center | `CC9000` | Documented |
+| Profit Center | `PC9000` | Documented |
+| Target G/L | `5010032` | Documented |
+| Transaction | `MIGO` | Executed |
+| Operation | `A01` Goods Receipt | Executed |
+| Reference | `R01` Purchase Order | Executed |
+| Movement Type | `101` | Executed |
+| Material Document | `5000000062` | Posted successfully |
+| Posting Date | `30.08.2026` | Confirmed |
+| Downstream Process | `MIRO` | Next milestone |
+
+The Goods Receipt was successfully posted after the CO/Universal Journal posting prerequisite was resolved. The transaction established the documented GR/IR interim position for subsequent invoice verification.
+
+## 7. SD — Shipping Point Determination
 
 | Field | Value |
 |---|---|
@@ -90,7 +131,7 @@ Detailed material documentation: `docs/mm/material-194-tech-nova-business-laptop
 
 This combination was added/saved for the executed practice scenario after SAP initially could not determine a shipping point.
 
-## 6. SD-FI-AR Billing Resolution Configuration
+## 8. SD-FI-AR Billing Resolution Configuration
 
 | Area | Transaction | Executed / documented result |
 |---|---|---|
@@ -107,13 +148,13 @@ This combination was added/saved for the executed practice scenario after SAP in
 
 Detailed case study: `docs/integration/sd-fi-billing-resolution.md`
 
-## 7. Material Traceability
+## 9. Material Traceability
 
 The **core project material identifier is 194**.
 
 The supplied billing-resolution evidence records material **10194**. That source value is retained exactly inside the billing evidence for auditability and is not used as the active core O2C material identifier.
 
-## 8. Status Legend
+## 10. Status Legend
 
 - **Created / Completed** — explicitly executed.
 - **Verified** — existing object checked and confirmed for project use.
@@ -123,19 +164,22 @@ The supplied billing-resolution evidence records material **10194**. That source
 - **TODO** — not yet configured.
 - **TBD** — project-specific value not yet confirmed.
 
-## 9. Evidence
+## 11. Evidence
 
 Screenshots are organized under:
 
 - `evidence/screenshots/mm/`
+- `evidence/screenshots/co/`
 - `evidence/screenshots/sd/`
 - `evidence/screenshots/sd/billing-resolution/`
 - `evidence/screenshots/fi/`
 - `evidence/screenshots/integration/`
 
-The configuration register is expanded as new SAP milestones are executed and validated.
+## 12. Current Configuration Status
 
-## 10. Current Configuration Status
+**CO / Universal Journal milestone: Completed for the 30 August configuration scope.**
+
+**MM inbound milestone: Goods Receipt `5000000062` completed; `MIRO` remains next.**
 
 **SD-FI-AR billing case: Completed through customer clearing.**
 
