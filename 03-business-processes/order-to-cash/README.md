@@ -8,10 +8,13 @@
 
 - Core execution: Sales Order `12`; `VL01N` is next.
 - Billing case: Billing `90000032` → FI `9000000000` → Payment `6000000000` → Customer balance `€0.00`.
-- SD-FI diagnostic documentation is preserved under the integration section during the repository migration.
+- SD-FI integration diagnostics are documented in the consolidated integration section.
 
-## Key Documents
+## Detailed Case Study
 
+- [O2C End-to-End Case Study](case-study.md)
 - [SD-FI Integration Resolution](../../06-integration/sd-fi-billing-resolution.md)
 
-The detailed O2C execution narrative is retained during restructuring; this page serves as the business-process navigation point.
+## Process Position
+
+The core O2C implementation continues from Sales Order `12` toward outbound delivery. The separate billing-resolution case demonstrates a complete SD-FI and customer-clearing lifecycle.
