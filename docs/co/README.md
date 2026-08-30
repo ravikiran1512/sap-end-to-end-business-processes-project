@@ -1,45 +1,122 @@
 # Controlling (CO)
 
-## CO Implementation Plan
+## 1. CO Implementation Status
 
-The Controlling (CO) foundation for TechNova Manufacturing GmbH is planned after establishing the required FI and organizational foundations.
+The CO workstream has progressed from planning into executed **Controlling Area / ledger alignment and Universal Journal prerequisite processing** for Company Code / Controlling Area `9000`.
 
-## Planned Configuration Scope
+The current milestone addresses system consistency required for S/4HANA financial postings. Additional CO master data, allocations, planning, and management-accounting scenarios remain future scope.
 
-The planned CO scope includes:
+## 2. Controlling Area & Ledger Version Alignment
 
-- Controlling organizational assignments
-- Cost centers and cost center structures
-- Cost elements and relevant master data
-- Internal allocations
-- Planning and budgeting foundations
-- Actual cost postings and validation
-- FI/CO integration
-- Management-accounting reporting scenarios
+### Issue Diagnosed
 
-## Planned Business Process
+The financial customizing consistency check `FINS_CUST_CONS_CHK` returned:
 
-CO will be used to explain how financial values are transformed into management-accounting information. The scenarios will connect operational activities with cost collection, allocation, and analysis.
+```text
+The version 0 of CO area 9000 is not assigned to any ledger
+```
 
-## Planned Integration
+The blocking condition indicated that CO Version `0` was not mapped to the corresponding ledger structure.
 
-CO integration will be validated across:
+### Resolution
 
-- **FI** — financial postings and accounting integration
-- **MM** — procurement, inventory, and consumption-related costs
-- **PP** — production costs and activity-related postings
-- **SD** — sales and profitability-related analysis
+**IMG Path:**
 
-## Evidence
+`Controlling → General Controlling → Organization → Define Ledger for CO Version`
 
-CO screenshots and configuration evidence will be maintained under:
+**Configuration Table:** `FINSC_CMP_VERSNC`
+
+| Field | Value |
+|---|---|
+| Controlling Area | `9000` — TechNova Mfg. GmbH |
+| CO Version | `0` — Plan/Actual Version |
+| Ledger | `0L` — Leading Ledger / Legal Valuation |
+
+The configuration was saved and validated. A subsequent `FINS_CUST_CONS_CHK` run confirmed that the blocking version-to-ledger assignment error was cleared.
+
+## 3. Mass Data Project `PRJ_9000` — Cockpit B2K
+
+### Issue Diagnosed
+
+Posting simulation `FINS_CUST_CONS_CHK_P` subsequently returned:
+
+```text
+Mass data project PRJ_9000 not yet completed: Posting is not allowed (9000 / 0L)
+```
+
+The message identified an incomplete subsequent-assignment/mass-data processing step for the Company Code / Controlling Area integration.
+
+### Resolution
+
+**IMG Path:**
+
+`Controlling → General Controlling → Organization → Subsequent Assignment of Company Codes → Run Project for Updating Existing Journal Entries`
+
+**Execution:**
+
+- Mass Data Project: `PRJ_9000`
+- Activity: `B2K` — Assign Company Code to Controlling Area
+- Company Code: `9000`
+- Ledger: `0L`
+
+### Result
+
+The background processing completed across the assigned data packages with:
+
+- **Errors:** `0`
+- **Warnings:** `0`
+- **Status:** Successfully completed
+
+The posting block associated with the incomplete `PRJ_9000` processing was removed.
+
+## 4. Universal Journal Integration Context
+
+In SAP S/4HANA, financial and management-accounting information is integrated through the Universal Journal. The executed configuration therefore establishes the required organizational relationship between the Controlling Area, CO Version, and leading ledger before downstream financial postings are validated.
+
+```text
+Controlling Area 9000
+        ↓
+CO Version 0
+        ↓
+Ledger 0L
+        ↓
+Universal Journal / ACDOCA Context
+        ↓
+Financial Posting Validation
+```
+
+The current milestone demonstrates configuration consistency and posting-prerequisite resolution. It does not by itself represent completion of the entire CO workstream.
+
+## 5. Evidence
+
+The 30 August 2026 progress package contains evidence for:
+
+- CO Area / Version settings
+- Fiscal-year settings used during the checks
+- IMG activity for ledger assignment
+- Version `0` assigned to Ledger `0L`
+- `FINS_CUST_CONS_CHK` resolution
+- `FINS_ACDOC_CUST201` posting block
+- `PRJ_9000` cockpit execution
+- Successful `PRJ_9000` completion
+
+Evidence location:
 
 `evidence/screenshots/co/`
 
-Each completed configuration object will document the relevant fields, values, business purpose, validation result, and SAP evidence.
+## 6. Remaining CO Scope
+
+The following areas remain to be executed and validated:
+
+- Cost center master data
+- Cost center structures
+- Cost elements / relevant master data
+- Internal allocations
+- Planning and budgeting
+- Actual cost postings
+- FI/CO integration scenarios
+- Management-accounting reporting
 
 ## Status
 
-**Status: Planned**
-
-The planned CO configuration is not represented as completed. This section will be updated with actual SAP configuration details after execution and validation of each step.
+**Status: In Progress — foundational CO/Universal Journal alignment completed; broader CO implementation remains open.**
