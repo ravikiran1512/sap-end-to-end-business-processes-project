@@ -29,9 +29,9 @@ The completed case study demonstrates:
 
 Detailed case study: [`sd-fi-billing-resolution.md`](sd-fi-billing-resolution.md)
 
-Evidence PDF: [`../../evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf`](../../evidence/implementation-evidence-packs/SAP_SD_FI_Billing_Release_Documentation.pdf)
+Evidence pack: [`08-evidence/evidence-packs/SAP_SD_FI_Billing_Release_Documentation.md`](../../08-evidence/evidence-packs/SAP_SD_FI_Billing_Release_Documentation.md)
 
-Screenshot evidence: `../../evidence/screenshots/sd/billing-resolution/`
+Screenshot evidence: `../../08-evidence/screenshots/sd/billing-resolution/`
 
 ## Enterprise Scope of Billing Case
 
