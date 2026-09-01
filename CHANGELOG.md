@@ -2,6 +2,25 @@
 
 All notable project implementation milestones are recorded here.
 
+## 2026-08-31
+
+### Procure-to-Pay Lifecycle — Completed
+
+- Completed the end-to-end P2P lifecycle for Company Code `9000` and Vendor `12026` — Apex Industrial Supplies.
+- Purchase Order `4500000149` progressed through Goods Receipt, invoice verification, FI posting, outgoing payment, and final vendor clearing.
+- Goods Receipt remained represented by Material Document `5000000062` using Movement Type `101`.
+- Resolved missing MIRO number range `51` for fiscal year `2026` using `FBN1 / OMRJ`, interval `5100000000–5199999999`.
+- Aligned the MIRO posting date to active MM period `08/2026`, using `31.08.2026` for the documented invoice posting.
+- Validated the 3-way match for `10 EA` at `€500.00` net.
+- Applied Tax Code `A1` and calculated `€95.00` input VAT, producing a gross vendor payable of `€595.00`.
+- Resolved tax-control restrictions on G/L accounts `5010032` and `2010621` through `FS00` tax-category maintenance.
+- Posted Logistics Invoice `5105600101` and verified follow-on FI Document `5100000000`.
+- Configured vendor payment number range `05` for Document Type `KZ` using interval `0500000000–0599999999` for year `2026`.
+- Completed F-53 payment processing for `€595.00` from Bank Account `110000`.
+- Posted Payment Document `5000000000`.
+- Reconciled GR/IR account `2010621` to `€0.00` and Vendor `12026` to `€0.00`.
+- Added consolidated P2P documentation under `03-business-processes/source-to-pay/`, MM-FI integration documentation under `06-integration/`, and evidence indexing under `08-evidence/`.
+
 ## 2026-08-30
 
 ### Controlled Repository Restructuring
