@@ -2,6 +2,19 @@
 
 All notable project implementation milestones are recorded here.
 
+## 2026-09-01
+
+### Evidence Structure Consolidation
+
+- Removed the duplicate legacy top-level `evidence/` folder.
+- Standardized all portfolio evidence under `08-evidence/`.
+- Established `08-evidence/evidence-packs/` as the single evidence-pack location.
+- Established `08-evidence/screenshots/` as the single screenshot location.
+- Added the centralized `08-evidence/SCREENSHOT-MANIFEST.md`.
+- Added process-oriented screenshot navigation instead of duplicating evidence by SAP module.
+- Retained the P2P screenshot area at `08-evidence/screenshots/p2p/` for the completed lifecycle.
+- Updated the evidence navigation README to make the new structure explicit.
+
 ## 2026-08-31
 
 ### Procure-to-Pay Lifecycle — Completed
