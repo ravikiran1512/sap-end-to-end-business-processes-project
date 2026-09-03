@@ -1,137 +1,145 @@
-# SAP S/4HANA Order-to-Cash (O2C) End-to-End Implementation & Execution Case Study
+# SAP S/4HANA Order-to-Cash (O2C) End-to-End Execution Case Study
 
 ## Executive Summary
 
-This case study documents the end-to-end **Order-to-Cash (O2C)** business cycle executed for **TechNova Mfg. GmbH**, Company Code `9000`. The scenario connects master data and enterprise structure with transactional execution, logistics processing, billing, SD-FI account determination, financial posting, incoming payment, and customer-account clearing.
+This case study documents the completed Order-to-Cash lifecycle for **TechNova Manufacturing GmbH**, Company Code `9000`, using the core project material **`194 — TechNova Laptop`** and customer **`1000000029 — Delta Electronics`**.
 
-The implementation is documented as a business-process case study rather than a collection of isolated SAP transactions. Each phase records the relevant business object, SAP transaction, configuration dependency, execution result, and financial impact.
+The process was executed from Sales Order through outbound delivery, picking, Post Goods Issue, billing, automatic SD-FI posting, incoming customer payment, and final Accounts Receivable clearing.
 
-> **Material traceability:** The supplied billing scenario identifies the material as **`10194 — TechNova Business Laptop`**. The broader repository core project uses **Material `194`**. These identifiers are intentionally kept distinct where the source evidence requires it.
+## Business Context
 
-## Phase 1 — Master Data & Enterprise Structure Foundation
+| Object | Value |
+|---|---|
+| Company Code | `9000` |
+| Chart of Accounts | `BKMG` |
+| Customer | `1000000029 — Delta Electronics` |
+| Material | `194 — TechNova Laptop` |
+| Quantity | `10 EA` |
+| Unit Price | `€850.00` |
+| Net Value | `€8,500.00` |
+| Output VAT | `€1,615.00` |
+| Gross Settlement | `€10,115.00` |
 
-| Object | Value | Business Role |
-|---|---|---|
-| Company Code | `9000` — TechNova Mfg. GmbH | Financial accounting entity |
-| Sales Organization | `9000` — Domestic & Export Sales | Sales responsibility |
-| Distribution Channel | `10` | Distribution route |
-| Division | `00` | Product/business division |
-| Plant | `9000` | Logistics/operational location |
-| Storage Location | `0001` | Inventory storage subdivision |
-| Chart of Accounts | `BKMG` | Accounting structure used by billing case |
-| Fiscal Year / Period | `2026 / 08` | Financial posting context |
-| Customer / Sold-to / Payer | `1000000021` — Berlin Office Solutions GmbH | Customer accounting and sales relationship |
-| Material | `10194` — TechNova Business Laptop | Product sold in billing case |
-| Invoiced Quantity | `5 EA` | Billing quantity |
+## End-to-End Execution
 
-## Phase 2 — Transactional Execution
+### 1. Sales Order — `VA01`
 
-```text
-Customer Requirement
- ↓
-Sales Order
- ↓
-Outbound Delivery
- ↓
-Goods Issue
- ↓
-Billing Document
- ↓
-SD → FI Account Determination
- ↓
-Accounting Document
- ↓
-Customer Open Item
- ↓
-Incoming Payment
- ↓
-Customer Account Clearing
- ↓
-Zero Open Balance
-```
+- Sales Order: `18`
+- Quantity: `10 EA`
+- Net Value: `€8,500.00`
+- VAT: `€1,615.00`
+- Gross Value: `€10,115.00`
 
-### Sales Order — `VA01`
+### 2. Outbound Delivery & Picking — `VL01N`
 
-- Order Type: `OR` — Standard Order
-- Material: `10194`
-- Quantity: `5 EA`
-- Net Price: `€1,000.00 / EA`
-- Net Value: `€5,000.00`
-- Output VAT: `€950.00`
-- Gross Value: `€5,950.00`
+- Delivery: `80000029`
+- Shipping Point: `TN01`
+- Storage Location: `FG10`
+- Picked Quantity: `10 EA`
 
-### Outbound Delivery — `VL01N`
-
-- Shipping Point: `9000`
-- Reference: Sales Order `12` where applicable to the executed chain
-
-### Goods Issue — `VL02N`
+### 3. Post Goods Issue — `VL02N`
 
 - Movement Type: `601`
-- Storage Location: `0001`
-- Quantity: `5 EA`
+- Material Document: `4900000105`
 
-### Billing — `VF01`
+The PGI reduced finished-goods inventory and triggered the COGS/inventory accounting interface.
 
-- Billing Type: `F2`
-- Billing Document: `90000032`
-- Net Value: `€5,000.00`
-- Output VAT: `€950.00`
-- Gross Value: `€5,950.00`
+## PGI Troubleshooting
 
-## Phase 3 — SD-FI Integration Diagnostics
+### MM Posting Period — `MMPV`
 
-The initial billing release exposed configuration dependencies that were resolved systematically.
+PGI was initially blocked by error `M7 053` because the Materials Management posting period had not been rolled forward to September 2026.
 
-| Area | Transaction | Resolution |
-|---|---|---|
-| Revenue determination | `VKOA` | `ERL → 6010131` |
-| Output tax | `OB40` | `MWS → 2300000` |
-| G/L master data | `FS00` | G/L `6010131` and `2300000` established |
-| FI number ranges | `FBN1 / OBA7` | `RV → Z1`, `DZ → 06` for 2026 |
-| Customer tolerance | `OBA3` | Default tolerance group configured |
-| Billing release | `VF02` | Billing `90000032` released successfully |
+Resolution:
 
-## Phase 4 — Financial Verification
+`MMPV → close 08/2026 → open 09/2026 → Company Code 9000`
 
-FI document `9000000000` (`RV`) was generated for Company Code `9000`.
+### Automatic Account Determination — `OBYC`
 
-| Account | Amount | Posting |
-|---|---:|---|
-| Customer `1000000021` | €5,950.00 | Debit |
-| Revenue `6010131` | €5,000.00 | Credit |
-| Output Tax `2300000` | €950.00 | Credit |
+After the period issue was resolved, error `M8 147` identified a missing account-determination entry:
 
-**Debit = Credit = €5,950.00**
+`BKMG / GBB / 0001 / VAX / 7920`
 
-## Phase 5 — Incoming Payment & Clearing
+The COGS assignment was maintained using G/L `6010531`.
 
-### `FBL5N`
+Result: PGI posted successfully and Material Document `4900000105` was generated.
 
-Customer `1000000021` showed the outstanding receivable of `€5,950.00` generated by FI document `9000000000`.
+## Billing & FI Integration
 
-### `F-28`
+### 4. Billing — `VF01`
 
-- Payment Document: `6000000000`
-- Document Type: `DZ`
-- Posting Date: `29.08.2026`
+- Billing Document: `90000037`
+- Net Value: `€8,500.00`
+- Output VAT: `€1,615.00`
+- Gross Value: `€10,115.00`
+
+### 5. FI Journal Entry
+
+Automatic SD-FI integration generated Journal Entry `9000000001`.
+
+| Account | Debit | Credit |
+|---|---:|---:|
+| Customer `1000000029` | €10,115.00 | — |
+| Revenue `6010131` | — | €8,500.00 |
+| Output VAT `2300000` | — | €1,615.00 |
+
+**Debit = Credit = €10,115.00**
+
+## Incoming Payment & Clearing
+
+### 6. Incoming Payment — `F-28`
+
+- Payment Document: `1000000000`
 - Bank Account: `110000`
-- Amount: `€5,950.00`
-- Customer: `1000000021`
+- Amount: `€10,115.00`
+- Customer: `1000000029`
+- Unassigned Difference: `€0.00`
 
-### Final `FBL5N`
+Accounting effect:
 
-- Open customer items: **0**
-- Cleared invoice: `9000000000`
-- Cleared payment: `6000000000`
-- Final customer balance: **€0.00**
+- Debit Bank `110000`: `€10,115.00`
+- Credit Customer `1000000029`: `€10,115.00`
+
+### 7. Final AR Verification — `FBL5N`
+
+The invoice and payment were fully cleared.
+
+- Open Items: `0`
+- Final Customer Balance: **`€0.00`**
+
+## Final Document Flow
+
+```text
+VA01 Order 18
+   ↓
+VL01N Delivery 80000029
+   ↓
+VL02N PGI / Material Document 4900000105
+   ↓
+VF01 Billing 90000037
+   ↓
+SD-FI Journal Entry 9000000001
+   ↓
+F-28 Payment 1000000000
+   ↓
+FBL5N Customer Balance €0.00
+```
 
 ## Implementation Significance
 
-The case demonstrates the dependency chain between SD billing and Financial Accounting and shows how configuration errors can be isolated, resolved, retested, and validated through the final customer-account outcome.
-
-**Key chain:** `VKOA → OB40 → FS00 → FBN1/OBA7 → OBA3 → VF02 → FB03 → FBL5N → F-28 → FBL5N`.
+This execution demonstrates a complete O2C lifecycle together with practical integration troubleshooting. The scenario proves capability across SD logistics, MM period control, MM-FI automatic account determination, FI-AR posting, customer payment processing, and final reconciliation.
 
 ## Evidence
 
-Supporting screenshots and evidence packs are maintained in the consolidated `08-evidence/` section.
+- Evidence pack: [`../../08-evidence/evidence-packs/SAP_O2C_Execution_Report.md`](../../08-evidence/evidence-packs/SAP_O2C_Execution_Report.md)
+- Screenshot location: `../../08-evidence/screenshots/o2c/`
+
+The supplied execution report contains 9 pages and 14 documented figures, while the accompanying screenshot package contains 18 high-resolution SAP captures.
+
+## Historical Note
+
+The repository also preserves an earlier separate SD-FI billing-resolution case involving Customer `1000000021`, Billing `90000032`, and Material `10194`. That case remains useful as a troubleshooting reference but is no longer the current core O2C execution.
+
+## Status
+
+**PASS — complete O2C lifecycle executed, financially posted, paid, and cleared.**
