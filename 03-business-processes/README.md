@@ -12,8 +12,21 @@ This section presents the implementation from a business-process perspective rat
 
 ## Current Execution
 
-### Order-to-Cash
-Sales Order `12` is established; the next core execution milestone is `VL01N`.
+### Order-to-Cash — Completed
+
+The core O2C lifecycle using Material `194` and Customer `1000000029 — Delta Electronics` is complete:
+
+`VA01 → VL01N → VL02N/PGI → VF01 → FI Posting → F-28 → FBL5N`
+
+Key documents:
+
+- Sales Order: `18`
+- Outbound Delivery: `80000029`
+- Material Document: `4900000105`
+- Billing Document: `90000037`
+- FI Journal Entry: `9000000001`
+- Incoming Payment: `1000000000`
+- Final customer balance: `€0.00`
 
 ### Procure-to-Pay — Completed
 
