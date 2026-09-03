@@ -6,9 +6,10 @@ This is the **single evidence-pack location** for the portfolio repository. Evid
 
 | Evidence Pack | Scope | Status |
 |---|---|---|
-| `SAP_Material_Verification_to_Sales_Order_12.md` | Material 194 verification → shipping data → shipping-point determination → Sales Order 12 | Completed milestone |
-| `SAP_SD_FI_Billing_Release_Documentation.md` | SD billing → FI account determination → accounting → incoming payment → customer clearing | Completed case study |
-| `p2p-lifecycle-report.md` | Purchase Order → Goods Receipt → MIRO → FI posting → F-53 → vendor clearing | Completed lifecycle |
+| `SAP_O2C_Execution_Report.md` | Core O2C: Sales Order → Delivery → PGI → Billing → FI → F-28 → customer clearing | **Completed lifecycle** |
+| `p2p-lifecycle-report.md` | Purchase Order → Goods Receipt → MIRO → FI posting → F-53 → vendor clearing | **Completed lifecycle** |
+| `SAP_SD_FI_Billing_Release_Documentation.md` | Historical SD billing → FI account determination → accounting → incoming payment → customer clearing | Completed troubleshooting case |
+| `SAP_Material_Verification_to_Sales_Order_12.md` | Material 194 verification → shipping data → shipping-point determination → Sales Order 12 | Historical milestone |
 
 ## Evidence Organization
 
@@ -16,25 +17,35 @@ This is the **single evidence-pack location** for the portfolio repository. Evid
 08-evidence/
 ├── evidence-packs/
 │   ├── README.md
-│   ├── SAP_Material_Verification_to_Sales_Order_12.md
+│   ├── SAP_O2C_Execution_Report.md
+│   ├── p2p-lifecycle-report.md
 │   ├── SAP_SD_FI_Billing_Release_Documentation.md
-│   └── p2p-lifecycle-report.md
+│   └── SAP_Material_Verification_to_Sales_Order_12.md
 │
 └── screenshots/
-    ├── p2p/
-    ├── mm/
-    ├── sd/
-    ├── fi/
-    ├── co/
-    ├── integration/
-    └── enterprise-structure/
+    ├── o2c/
+    └── p2p/
 ```
+
+## Current Core O2C Evidence
+
+The latest O2C evidence uses the active project material **`194`** and documents:
+
+- Sales Order `18`
+- Delivery `80000029`
+- PGI Material Document `4900000105`
+- Billing `90000037`
+- FI Journal Entry `9000000001`
+- F-28 Payment `1000000000`
+- Final customer balance `€0.00`
+
+The supplied O2C report contains 9 pages and 14 documented figures; the accompanying screenshot package contains 18 high-resolution captures.
 
 ## Evidence Policy
 
 Evidence packs summarize completed implementation milestones and point to the detailed process documentation and screenshot evidence. A result is marked completed only when the available source material supports it.
 
-The repository distinguishes between the **core project Material 194** and the separate supplied billing-case identifier **10194**. Historical or superseded identifiers are not silently rewritten in source-specific evidence.
+The repository preserves older source-specific identifiers and historical case studies for traceability, but the current core O2C execution is based on Material `194`.
 
 ## Naming Convention
 
