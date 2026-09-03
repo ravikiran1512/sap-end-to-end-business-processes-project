@@ -9,8 +9,8 @@ Screenshots are grouped by business process rather than duplicated by module:
 ```text
 08-evidence/
 └── screenshots/
-    ├── p2p/
     ├── o2c/
+    ├── p2p/
     ├── r2r/
     ├── plan-to-produce/
     ├── service/
@@ -19,30 +19,27 @@ Screenshots are grouped by business process rather than duplicated by module:
 
 ## Current Evidence
 
+### O2C — Completed
+
+`o2c/` is the dedicated location for the current core O2C execution using Material `194` and Customer `1000000029`.
+
+The supplied package contains 18 screenshots covering:
+
+`MMPV period error/resolution → OBYC account determination → Delivery/PGI → VF01 Billing → FI Journal Entry → F-28 Payment → Cleared Document Flow → FBL5N zero balance`
+
+See [`o2c/README.md`](o2c/README.md) for the complete filename sequence.
+
 ### P2P — Completed
 
 `p2p/` contains the evidence for the completed Procure-to-Pay lifecycle:
 
 `ME21N → MIGO → MIRO → MIR4/FI Verification → F-53 → Vendor Clearing`
 
-### O2C
-
-Future screenshots for the core O2C execution should be stored under `o2c/`. The separate supplied SD-FI billing case should also be kept under the O2C evidence area when its screenshots are available.
+See [`p2p/README.md`](p2p/README.md) for the active naming convention.
 
 ## Naming Standard
 
-Use descriptive, numbered filenames that follow the business process:
-
-```text
-01_ME21N_Purchase_Order.png
-02_MIGO_Goods_Receipt.png
-03_MIRO_Invoice.png
-04_MIR4_FI_Document.png
-05_F53_Payment.png
-06_Vendor_Clearing.png
-```
-
-Troubleshooting screenshots should use the same process sequence with a concise diagnostic description.
+Use descriptive, numbered filenames that follow the business-process chronology. Troubleshooting screenshots should remain in the same process folder so that error, correction, retest, and final result can be followed sequentially.
 
 ## Evidence Principle
 
