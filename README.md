@@ -23,16 +23,48 @@
 | Enterprise Structure | In Progress | Company Code `9000` foundation |
 | MM Material Master | In Progress | Material `194` established |
 | Procure-to-Pay (P2P) | **Completed** | PO → GR → MIRO → FI → F-53 → vendor cleared |
+| Order-to-Cash (O2C) | **Completed** | Order `18` → Delivery → PGI → Billing → FI → F-28 → customer cleared |
 | CO / Universal Journal | **Foundation Completed** | Version `0` → Ledger `0L`; `PRJ_9000/B2K` completed |
-| SD O2C | In Progress | Sales Order `12`; `VL01N` next |
-| SD-FI Billing Case | Completed through clearing | Final customer balance `€0.00` |
+| Historical SD-FI Billing Case | Completed | Preserved as troubleshooting reference |
 | PP | Planned | Pending execution |
 | Service | Planned | Pending execution |
-| Testing | In Progress | Integrated validation |
+| Testing | In Progress | P2P and O2C validated end-to-end |
+
+## Completed Order-to-Cash Lifecycle
+
+The core O2C execution uses Material `194 — TechNova Laptop` and Customer `1000000029 — Delta Electronics`.
+
+```text
+VA01 — Sales Order 18
+        ↓
+VL01N — Outbound Delivery 80000029
+        ↓
+VL02N — PGI / Material Document 4900000105
+        ↓
+VF01 — Billing Document 90000037
+        ↓
+SD-FI — Journal Entry 9000000001
+        ↓
+F-28 — Incoming Payment 1000000000
+        ↓
+FBL5N — Customer Balance €0.00
+```
+
+### O2C Financial Result
+
+| Position | Result |
+|---|---:|
+| Net Sales | €8,500.00 |
+| Output VAT | €1,615.00 |
+| Customer Receivable | €10,115.00 |
+| Incoming Payment | €10,115.00 |
+| Final Customer Balance | **€0.00** |
+
+Key troubleshooting: `MMPV` resolved MM period error `M7 053`; `OBYC` resolved account-determination error `M8 147` with GBB-VAX / Valuation Class `7920` → COGS G/L `6010531`.
+
+Detailed case: [Order-to-Cash](03-business-processes/order-to-cash/README.md)
 
 ## Completed Procure-to-Pay Lifecycle
-
-The TechNova procurement case is now complete from purchase order through financial settlement.
 
 ```text
 ME21N — Purchase Order 4500000149
@@ -67,12 +99,6 @@ Vendor Balance = €0.00
 
 Detailed case: [Procure-to-Pay](03-business-processes/source-to-pay/README.md)
 
-## Order-to-Cash
-
-`Sales Order → Delivery → Goods Issue → Billing → FI → Receivable → Payment → Clearing`
-
-The supplied billing case is completed through customer clearing; the core Sales Order `12` execution remains in progress with `VL01N` next.
-
 ## Finance / Universal Journal
 
 `CO Area 9000 + Version 0 → Leading Ledger 0L → PRJ_9000/B2K → Posting Enabled`
@@ -81,7 +107,7 @@ The supplied billing case is completed through customer clearing; the core Sales
 
 **Material `194` — TechNova Business Laptop** remains the core project material.
 
-A separate supplied billing case records Material `10194`; that identifier is retained only where it belongs to the source evidence and is not silently merged with Material `194`.
+A separate historical billing case records Material `10194`; that identifier is retained only within its original evidence context.
 
 ## Portfolio Focus
 
