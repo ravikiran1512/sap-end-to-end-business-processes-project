@@ -60,36 +60,26 @@ During validation, the account creation process displayed a configuration warnin
 
 This remains a configuration review item rather than a resolved item. It should be reviewed before using this specific G/L account as part of a downstream Accounts Receivable design.
 
-## 5. Completed O2C Financial Lifecycle — Supplied Billing Case
+## 5. Completed O2C Financial Lifecycle — Current Core Scenario
 
-A separate supplied SD-FI-AR case demonstrates a completed financial lifecycle in Company Code `9000`.
+The current core O2C scenario demonstrates a completed SD-FI-AR lifecycle in Company Code `9000`.
 
 ### Billing to FI
 
-- Billing document: `90000032` / `F2`
-- Customer: `1000000021` — Berlin Office Solutions GmbH
-- Net revenue: `€5,000.00`
-- Output VAT: `€950.00`
-- Gross customer receivable: `€5,950.00`
-- FI document: `9000000000` / `RV`
-
-### FI Posting
-
-| Posting Key | G/L / Customer | Amount | Dr/Cr |
-|---:|---|---:|---|
-| `01` | Customer `1000000021` | €5,950.00 | Debit |
-| `50` | Revenue `6010131` | €5,000.00 | Credit |
-| `50` | Output Tax `2300000` | €950.00 | Credit |
-
-**Balance:** €5,950.00 debit = €5,950.00 credit.
+- Billing document: `90000037`
+- Customer: `1000000029` — Delta Electronics
+- Net revenue: `€8,500.00`
+- Output VAT: `€1,615.00`
+- Gross customer receivable: `€10,115.00`
+- FI Journal Entry: `9000000001`
 
 ### Customer Accounting
 
-- `FBL5N` — customer receivable of `€5,950.00` documented
-- `F-28` — incoming payment document `6000000000` for `€5,950.00`
+- `FBL5N` — customer receivable of `€10,115.00` documented
+- `F-28` — incoming payment document `1000000000` for `€10,115.00`
 - `FBL5N` — final clearing confirmed with customer balance `€0.00`
 
-The detailed SD-FI-AR case study is maintained at `docs/integration/sd-fi-billing-resolution.md`.
+The detailed current O2C case study is maintained at `03-business-processes/order-to-cash/README.md`.
 
 ## 6. FI Configuration Management
 
@@ -132,16 +122,18 @@ FI serves as the financial backbone of the end-to-end implementation.
 
 FI configuration screenshots are maintained under:
 
-`evidence/screenshots/fi/`
+`08-evidence/screenshots/fi/`
 
-The supplied SD-FI billing case evidence is maintained under:
+Current O2C evidence is maintained under:
 
-`evidence/screenshots/sd/billing-resolution/`
+`08-evidence/screenshots/o2c/`
 
-and the implementation evidence-pack area.
+The consolidated evidence-pack area is:
+
+`08-evidence/evidence-packs/`
 
 ## 10. Current FI Status
 
-**Status: Active — the supplied SD-FI-AR billing case is documented through customer clearing, while the broader FI implementation remains in progress.**
+**Status: Active — O2C, P2P, and manufacturing execution have validated financial integration milestones; broader R2R period-end activities remain in progress.**
 
 > **Documentation principle:** Only configured and validated activities are presented as completed. Future FI activities remain roadmap items until execution and supporting evidence are available.
