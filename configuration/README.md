@@ -116,11 +116,33 @@ Detailed material documentation: `docs/mm/material-194-tech-nova-business-laptop
 | Movement Type | `101` | Executed |
 | Material Document | `5000000062` | Posted successfully |
 | Posting Date | `30.08.2026` | Confirmed |
-| Downstream Process | `MIRO` | Next milestone |
+| Downstream Process | `MIRO` → FI → `F-53` | Completed |
+| Vendor Clearing | `€0.00` | Completed |
 
-The Goods Receipt was successfully posted after the CO/Universal Journal posting prerequisite was resolved. The transaction established the documented GR/IR interim position for subsequent invoice verification.
+The Goods Receipt was successfully posted after the CO/Universal Journal posting prerequisite was resolved. The complete P2P case subsequently covered MIRO invoice verification, FI verification, F-53 payment, and vendor clearing.
 
-## 7. SD — Shipping Point Determination
+## 7. PP — Plan-to-Produce / Manufacturing Configuration
+
+| Configuration / Process | Value | Status |
+|---|---|---|
+| Production Order | `1000020` | Executed |
+| Order Type | `PP01` | Executed |
+| Material | `194 — TechNova Business Laptop` | Executed |
+| Plant | `TN01` | Executed |
+| Storage Location | `FG10` | Executed |
+| Confirmation Parameters | `OPK4` | Configured |
+| Production Confirmation | `CO15` | `10 EA` confirmed |
+| Goods Receipt | `MIGO` / Movement `101` | Posted |
+| Material Document | `5000000063` | Generated |
+| Inventory Verification | `MMBE` | `95 EA` unrestricted |
+| Production Order Review | `CO03` | `REL / CNF / PDLV` validated |
+| GBB-AUF Account Determination | `OBYC` / Valuation Class `7920` | Resolved |
+| CO Cost Element Compatibility | `KI280` | Resolved |
+| GR Valuation Variant | `OPK9` / `TN01` → `001` | Configured |
+
+Detailed manufacturing documentation: `03-business-processes/plan-to-produce/README.md`
+
+## 8. SD — Shipping Point Determination
 
 | Field | Value |
 |---|---|
@@ -131,7 +153,7 @@ The Goods Receipt was successfully posted after the CO/Universal Journal posting
 
 This combination was added/saved for the executed practice scenario after SAP initially could not determine a shipping point.
 
-## 8. SD-FI-AR Billing Resolution Configuration
+## 9. SD-FI-AR Billing Resolution Configuration
 
 | Area | Transaction | Executed / documented result |
 |---|---|---|
@@ -148,13 +170,13 @@ This combination was added/saved for the executed practice scenario after SAP in
 
 Detailed case study: `docs/integration/sd-fi-billing-resolution.md`
 
-## 9. Material Traceability
+## 10. Material Traceability
 
 The **core project material identifier is 194**.
 
-The supplied billing-resolution evidence records material **10194**. That source value is retained exactly inside the billing evidence for auditability and is not used as the active core O2C material identifier.
+The supplied historical billing-resolution evidence records material **10194**. That source value is retained exactly inside the historical billing evidence for auditability and is not used as the active core project material identifier.
 
-## 10. Status Legend
+## 11. Status Legend
 
 - **Created / Completed** — explicitly executed.
 - **Verified** — existing object checked and confirmed for project use.
@@ -164,23 +186,25 @@ The supplied billing-resolution evidence records material **10194**. That source
 - **TODO** — not yet configured.
 - **TBD** — project-specific value not yet confirmed.
 
-## 11. Evidence
+## 12. Evidence
 
-Screenshots are organized under:
+Current evidence is organized under the consolidated structure:
 
-- `evidence/screenshots/mm/`
-- `evidence/screenshots/co/`
-- `evidence/screenshots/sd/`
-- `evidence/screenshots/sd/billing-resolution/`
-- `evidence/screenshots/fi/`
-- `evidence/screenshots/integration/`
+- `08-evidence/evidence-packs/`
+- `08-evidence/screenshots/o2c/`
+- `08-evidence/screenshots/p2p/`
+- `08-evidence/screenshots/plan-to-produce/`
 
-## 12. Current Configuration Status
+## 13. Current Configuration Status
 
-**CO / Universal Journal milestone: Completed for the 30 August configuration scope.**
+**CO / Universal Journal:** Completed for the executed configuration scope.
 
-**MM inbound milestone: Goods Receipt `5000000062` completed; `MIRO` remains next.**
+**MM / P2P:** Completed through MIRO, FI verification, F-53 payment, and vendor clearing.
 
-**SD-FI-AR billing case: Completed through customer clearing.**
+**O2C:** Completed through delivery, PGI, billing, FI posting, incoming payment, and customer clearing for the current core scenario.
 
-**Core O2C execution: In Progress — Sales Order `12` remains at the pre-delivery milestone, with `VL01N` as the next operational step.**
+**Plan-to-Produce:** Completed through production confirmation, finished-goods receipt, inventory verification, and production-order validation.
+
+**R2R:** In Progress — production-order period-end activities `TECO`, `KKS2`, and `KO88` remain for the next phase.
+
+**Service:** Planned — execution not yet started.
