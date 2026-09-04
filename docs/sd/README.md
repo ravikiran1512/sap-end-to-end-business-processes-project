@@ -2,29 +2,58 @@
 
 ## Current SD Execution
 
-**Status: In Progress — Core Sales Order milestone completed; separate SD-FI-AR billing case documented through customer clearing.**
+**Status: Completed — Core O2C lifecycle executed through delivery, PGI, billing, FI posting, incoming payment, and customer clearing.**
 
-The active core O2C material is **194 — TechNova Business Laptop**. The first executed sales milestone is Standard Sales Order **12**.
+The active core O2C material is **194 — TechNova Business Laptop**. The current completed execution is based on Sales Order **18**.
 
-## Executed Core Milestone — 24 August 2026
+## Current Core O2C Milestone
 
-- `MM03` — verified Material `194`.
-- `MM02` — maintained Loading Group `0002 — Forklift`.
-- `MM02` — maintained Transportation Group `0004 — Parcel`.
-- Shipping Point Determination — Shipping Condition `01` + Loading Group `0002` + Plant `0001` → Shipping Point `0001`.
-- `VA01` — created Standard Sales Order `12`.
-- Customer — `1000000020 — TechNova GmbH`.
-- Customer Reference — `TECHNOVA-001`.
-- Material — `194 — TechNova Business Laptop`.
-- Quantity — `10 EA`.
-- Pricing — `PR00`, `1.00 EUR / EA`.
-- Net Value — `10.00 EUR`.
+- Material: `194 — TechNova Business Laptop`.
+- Customer: `1000000029 — Delta Electronics`.
+- Quantity: `10 EA`.
+- Sales Order: `18`.
+- Outbound Delivery: `80000029`.
+- PGI Material Document: `4900000105`.
+- Billing Document: `90000037`.
+- FI Journal Entry: `9000000001`.
+- Incoming Payment: `1000000000`.
+- Final customer balance: `€0.00`.
 
-Detailed core execution: [`material-verification-to-sales-order-12.md`](material-verification-to-sales-order-12.md)
+The supplied execution package documents the logistics, billing, FI integration, payment settlement, and final reconciliation sequence.
 
-## Completed SD-FI-AR Billing Case
+## End-to-End SD Flow — Current Project
 
-The project also contains a separate supplied billing-release and customer-accounting case covering:
+```text
+VA01 — Sales Order 18
+        ↓
+VL01N — Outbound Delivery 80000029
+        ↓
+VL02N — Picking / Post Goods Issue
+        ↓
+Material Document 4900000105
+        ↓
+VF01 — Billing 90000037
+        ↓
+FI Journal Entry 9000000001
+        ↓
+F-28 — Incoming Payment 1000000000
+        ↓
+FBL5N — Customer Balance €0.00
+```
+
+## Current O2C Financial Result
+
+| Position | Result |
+|---|---:|
+| Net Sales | `€8,500.00` |
+| Output VAT | `€1,615.00` |
+| Customer Receivable | `€10,115.00` |
+| Incoming Payment | `€10,115.00` |
+| Final Customer Balance | **`€0.00`** |
+
+## Historical SD-FI-AR Billing Case
+
+A separate supplied billing-release and customer-accounting case remains preserved as a historical troubleshooting reference. It covers:
 
 **VF02 → VKOA → OB40 → FS00 → FBN1/OBA7 → OBA3 → VF02 → FB03 → FBL5N → F-28 → FBL5N**
 
@@ -38,21 +67,25 @@ Key documented result:
 
 Detailed integration case study: [`../integration/sd-fi-billing-resolution.md`](../integration/sd-fi-billing-resolution.md)
 
-## End-to-End SD Flow — Core Project
+## Historical Core Milestone — 24 August 2026
 
-**Customer Requirement → Sales Order → Outbound Delivery → Picking → Post Goods Issue → Billing → Financial Posting**
+Sales Order `12` remains preserved in its original execution documentation as a historical milestone. It is not the current O2C status.
 
-## Next Core Execution Step
+Detailed historical execution: [`material-verification-to-sales-order-12.md`](material-verification-to-sales-order-12.md)
 
-`VL01N` — Create Outbound Delivery with reference to Sales Order `12`.
+## Evidence
 
-This next step applies to the **core Material 194 / Sales Order 12 execution chain**. It is not a status indicator for the separate supplied billing case, which is already documented through customer clearing.
+Current O2C evidence is maintained under:
+
+`08-evidence/screenshots/o2c/`
+
+Evidence pack:
+
+`08-evidence/evidence-packs/SAP_O2C_Execution_Report.md`
 
 ## Environment Note
 
-The executed core O2C milestone contains practice/server values such as Plant `0001`, Shipping Point `0001`, and customer `1000000020`. These are retained as execution evidence and are not silently reclassified as confirmed TechNova enterprise IDs.
-
-The separate billing case records customer `1000000021` and material `10194`; those source values remain preserved in their case-study context.
+Practice/server values are retained as execution evidence and are not silently reclassified as confirmed enterprise IDs. The separate historical billing case also preserves its source customer/material identifiers in its original case-study context.
 
 ## Portfolio Focus
 
