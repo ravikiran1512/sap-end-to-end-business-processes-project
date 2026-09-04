@@ -2,7 +2,7 @@
 
 ## 1. Current MM Implementation
 
-The active TechNova laptop material is **194 — TechNova Business Laptop**. The current MM workstream now covers both the material-master foundation and an executed inbound procurement / Goods Receipt milestone.
+The active TechNova laptop material is **194 — TechNova Business Laptop**. The MM workstream now covers the material-master foundation, inbound procurement, Goods Receipt, invoice verification, and vendor settlement evidence documented in the completed P2P lifecycle.
 
 ## 2. Material 194 Profile
 
@@ -32,7 +32,7 @@ The material master is a shared SAP business object. Its different views support
 
 ## 3. O2C Dependency
 
-Material 194 remains the current product identifier for the project's Sales Order 12 milestone:
+Material `194` is the current product identifier used by the completed core O2C scenario, which progressed through Sales Order `18` and downstream logistics and financial execution:
 
 ```text
 Material 194
@@ -43,14 +43,14 @@ MM02 Shipping Data
    ↓
 Shipping Point Determination
    ↓
-VA01 Sales Order 12
+VA01 Sales Order 18
    ↓
-VL01N Outbound Delivery
+VL01N / VL02N
+   ↓
+VF01 Billing
 ```
 
 ## 4. Inbound Procurement & Goods Receipt
-
-### 4.1 Purchase Order
 
 The inbound logistics scenario uses Purchase Order `4500000149`.
 
@@ -64,9 +64,9 @@ The inbound logistics scenario uses Purchase Order `4500000149`.
 | Profit Center | `PC9000` |
 | Target G/L Account | `5010032` |
 
-### 4.2 Goods Receipt — `MIGO`
+### 4.1 Goods Receipt — `MIGO`
 
-The Goods Receipt was executed using the following transaction context:
+The Goods Receipt was executed using:
 
 - Transaction: `MIGO`
 - Business Operation: `A01` — Goods Receipt
@@ -74,27 +74,48 @@ The Goods Receipt was executed using the following transaction context:
 - Movement Type: `101`
 - Purchase Order: `4500000149`
 - Quantity: `10 EA`
+- Material Document: `5000000062`
+- Posting Date: `30.08.2026`
 
-**Execution result:** posted successfully after the CO/Universal Journal prerequisite was resolved.
+### 4.2 P2P Invoice Verification & Settlement
 
-**Material Document:** `5000000062`  
-**Posting Date:** `30.08.2026`
+The subsequent procurement steps were completed and documented:
 
-### 4.3 Business and Financial Impact
+```text
+MIGO / Material Document 5000000062
+        ↓
+MIRO / Logistics Invoice 5105600101
+        ↓
+FI Document 5100000000
+        ↓
+F-53 / Payment Document 5000000000
+        ↓
+Vendor Clearing
+        ↓
+Vendor Balance = €0.00
+```
 
-The Goods Receipt establishes the inbound inventory/consumption-side posting and the corresponding GR/IR interim position for the purchase-order process.
+The completed P2P case records a net procurement value of `€500.00`, input VAT of `€95.00`, and gross payable of `€595.00`, with the documented GR/IR and vendor balances reconciled to `€0.00`.
 
-The documented case records:
+## 5. PP / Manufacturing Dependency
 
-- Stock/expense accounts updated by the goods receipt
-- GR/IR interim clearing account credited
-- `MIRO` invoice verification as the downstream procurement step
+Material `194` is also used as the finished product in the completed Plan-to-Produce execution case:
 
-No `MIRO` result is marked complete until the invoice-verification transaction is executed and supported by evidence.
+```text
+Production Order 1000020
+        ↓
+CO15 — 10 EA Confirmation
+        ↓
+MIGO — Movement 101
+        ↓
+Material Document 5000000063
+        ↓
+MMBE — 95 EA Unrestricted Stock
+```
 
-## 5. Integration Dependency
+This demonstrates the shared role of the material master across MM, PP, inventory, and controlling processes.
 
-The inbound logistics milestone is connected to the financial configuration work completed in the CO/Universal Journal stream:
+## 6. Integration Dependency
 
 ```text
 CO / Universal Journal Prerequisite
@@ -107,29 +128,29 @@ MIGO — Goods Receipt 101
         ↓
 Material Document 5000000062
         ↓
-GR/IR Interim Position
-        ↓
 MIRO — Invoice Verification
+        ↓
+FI / AP
+        ↓
+F-53 — Vendor Payment
+        ↓
+Vendor Clearing
 ```
 
 This illustrates how financial-system consistency can become a prerequisite for successful operational posting.
 
-## 6. Evidence
+## 7. Evidence
 
-MM evidence is maintained under:
+MM/P2P evidence is maintained under:
 
-`evidence/screenshots/mm/`
+`08-evidence/screenshots/p2p/`
 
-The 30 August 2026 evidence package contains the successful MIGO screenshot for Material Document `5000000062`. The associated CO/Universal Journal screenshots are maintained under `evidence/screenshots/co/`.
+The associated evidence pack is:
 
-## 7. Remaining MM Scope
+`08-evidence/evidence-packs/p2p-lifecycle-report.md`
 
-- MIRO invoice verification
-- Invoice/GR/IR reconciliation
-- Additional inventory validation
-- Procurement-to-FI integration validation
-- Further MM master-data and procurement scenarios
+## 8. Current Status
 
-## Current Status
+**Status: Completed for the documented P2P execution.**
 
-**Status: In Progress — Material Master foundation established and inbound Goods Receipt completed; MIRO remains the next inbound milestone.**
+Material `194` remains the active core project material. The inbound procurement scenario is complete through Goods Receipt, MIRO invoice verification, FI verification, F-53 payment, and vendor clearing.
