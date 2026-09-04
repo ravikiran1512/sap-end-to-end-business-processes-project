@@ -11,13 +11,23 @@ Screenshots are grouped by business process rather than duplicated by module:
 └── screenshots/
     ├── o2c/
     ├── p2p/
-    ├── r2r/
     ├── plan-to-produce/
+    ├── r2r/
     ├── service/
     └── enterprise-structure/
 ```
 
 ## Current Evidence
+
+### Plan-to-Produce — Completed Through Goods Receipt
+
+`plan-to-produce/` is the dedicated location for the completed manufacturing execution using Production Order `1000020` and Material `194`.
+
+The supplied execution report references 18 screenshots covering:
+
+`OPK4 → CO15 → MIGO → OBYC GBB-AUF troubleshooting → KI280 resolution → OPK9 valuation variant → Material Document 5000000063 → MMBE → CO03`
+
+See [`plan-to-produce/README.md`](plan-to-produce/README.md) for the complete filename sequence.
 
 ### O2C — Completed
 
