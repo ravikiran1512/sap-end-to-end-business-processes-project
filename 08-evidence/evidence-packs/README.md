@@ -6,6 +6,7 @@ This is the **single evidence-pack location** for the portfolio repository. Evid
 
 | Evidence Pack | Scope | Status |
 |---|---|---|
+| `SAP_Plan_to_Produce_Execution_Report.md` | Production Order → confirmation → goods receipt → inventory verification → final order review | **Completed through Goods Receipt** |
 | `SAP_O2C_Execution_Report.md` | Core O2C: Sales Order → Delivery → PGI → Billing → FI → F-28 → customer clearing | **Completed lifecycle** |
 | `p2p-lifecycle-report.md` | Purchase Order → Goods Receipt → MIRO → FI posting → F-53 → vendor clearing | **Completed lifecycle** |
 | `SAP_SD_FI_Billing_Release_Documentation.md` | Historical SD billing → FI account determination → accounting → incoming payment → customer clearing | Completed troubleshooting case |
@@ -17,35 +18,35 @@ This is the **single evidence-pack location** for the portfolio repository. Evid
 08-evidence/
 ├── evidence-packs/
 │   ├── README.md
+│   ├── SAP_Plan_to_Produce_Execution_Report.md
 │   ├── SAP_O2C_Execution_Report.md
 │   ├── p2p-lifecycle-report.md
 │   ├── SAP_SD_FI_Billing_Release_Documentation.md
 │   └── SAP_Material_Verification_to_Sales_Order_12.md
 │
 └── screenshots/
+    ├── plan-to-produce/
     ├── o2c/
     └── p2p/
 ```
 
-## Current Core O2C Evidence
+## Current Manufacturing Evidence
 
-The latest O2C evidence uses the active project material **`194`** and documents:
+The Plan-to-Produce evidence uses active Material `194` and Production Order `1000020` and documents:
 
-- Sales Order `18`
-- Delivery `80000029`
-- PGI Material Document `4900000105`
-- Billing `90000037`
-- FI Journal Entry `9000000001`
-- F-28 Payment `1000000000`
-- Final customer balance `€0.00`
-
-The supplied O2C report contains 9 pages and 14 documented figures; the accompanying screenshot package contains 18 high-resolution captures.
+- `OPK4` confirmation parameters for Plant `TN01` / Order Type `PP01`
+- `CO15` confirmation of `10 EA`
+- `MIGO` Movement Type `101`
+- `OBYC` GBB-AUF troubleshooting for Valuation Class `7920`
+- `KI280` cost-element category resolution
+- `OPK9` Valuation Area `TN01` → Variant `001`
+- Material Document `5000000063`
+- `MMBE` stock confirmation of `95 EA` unrestricted
+- `CO03` final operational order status including `REL`, `CNF`, `PDLV`
 
 ## Evidence Policy
 
 Evidence packs summarize completed implementation milestones and point to the detailed process documentation and screenshot evidence. A result is marked completed only when the available source material supports it.
-
-The repository preserves older source-specific identifiers and historical case studies for traceability, but the current core O2C execution is based on Material `194`.
 
 ## Naming Convention
 
