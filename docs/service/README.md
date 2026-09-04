@@ -33,7 +33,7 @@ Where the executed SAP scenario differs from the planned flow, the documented pr
 
 Service screenshots will be stored under:
 
-`evidence/screenshots/service/`
+`08-evidence/screenshots/service/`
 
 Each completed configuration and business scenario will be documented with its relevant fields, values, business purpose, validation result, and SAP evidence.
 
