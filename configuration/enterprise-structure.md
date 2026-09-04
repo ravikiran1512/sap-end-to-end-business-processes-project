@@ -60,4 +60,4 @@ Existing server/demo objects must not be silently reclassified as TechNova-creat
 
 Screenshots belong under:
 
-`evidence/screenshots/enterprise-structure/`
+`08-evidence/screenshots/enterprise-structure/`
