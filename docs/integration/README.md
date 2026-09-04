@@ -4,85 +4,127 @@
 
 The Integration layer demonstrates how SAP modules operate as one end-to-end business system. The project connects organizational assignments, master data, operational transactions, configuration dependencies, and accounting impacts across TechNova.
 
-## Active Integration Evidence
+## Completed Integration Scenarios
 
-The project contains an executed **SD → FI → Accounts Receivable** billing integration case study based on the supplied TechNova evidence package.
+### 1. SD → FI → Accounts Receivable — O2C
 
-### SD-FI-AR Billing & Clearing
-
-**Billing Document `90000032` → VF02 → VKOA → OB40 → FS00 → FBN1/OBA7 → VF02 → FB03 → FBL5N → F-28 → FBL5N**
-
-The completed case study demonstrates:
-
-- Revenue account determination using `VKOA` and account key `ERL`
-- Output-tax account determination using `OB40` and transaction key `MWS`
-- G/L master-data validation using `FS00`
-- FI document-number-range configuration using `FBN1 / OBA7`
-- Customer tolerance-group configuration using `OBA3`
-- Successful SD billing release to accounting using `VF02`
-- Financial posting verification using `FB03`
-- Customer open-item verification using `FBL5N`
-- Incoming-payment processing using `F-28`
-- Final customer-account clearing verified in `FBL5N`
-
-**Final result:** the `€5,950.00` customer receivable was matched by the `€5,950.00` incoming payment and the customer account reached a **€0.00** balance.
-
-Detailed case study: [`sd-fi-billing-resolution.md`](sd-fi-billing-resolution.md)
-
-Evidence pack: [`08-evidence/evidence-packs/SAP_SD_FI_Billing_Release_Documentation.md`](../../08-evidence/evidence-packs/SAP_SD_FI_Billing_Release_Documentation.md)
-
-Screenshot evidence: `../../08-evidence/screenshots/sd/billing-resolution/`
-
-## Enterprise Scope of Billing Case
-
-| Object | Value |
-|---|---|
-| Company Code | `9000` |
-| Sales Organization | `9000` |
-| Distribution Channel / Division | `10 / 00` |
-| Plant / Storage Location | `9000 / 0001` |
-| Chart of Accounts | `BKMG` |
-| Fiscal Year / Period | `2026 / 08` |
-| Customer | `1000000021` — Berlin Office Solutions GmbH |
-| Billing Document | `90000032` — F2 |
-| FI Document | `9000000000` — RV |
-| Incoming Payment | `6000000000` — DZ |
-
-## O2C Integration Position
-
-The **core O2C execution** remains on Material **194** and Sales Order **12**. Its next operational milestone is still `VL01N` because the core-project sales-order chain and the separate supplied billing case are intentionally kept distinct.
+The current core O2C scenario demonstrates the complete logistics-to-finance chain:
 
 ```text
-Core O2C:
-Material 194 → Sales Order 12 → VL01N → Picking → PGI → Billing → FI/AR
-
-Completed Billing Case:
-Billing 90000032 → FI 9000000000 → Open Item → Payment 6000000000 → Cleared → €0.00
+Material 194 / Sales Order 18
+        ↓
+Outbound Delivery 80000029
+        ↓
+PGI / Material Document 4900000105
+        ↓
+Billing Document 90000037
+        ↓
+FI Journal Entry 9000000001
+        ↓
+Incoming Payment 1000000000
+        ↓
+Customer Clearing / €0.00
 ```
 
-The separate billing-resolution artifact preserves material **10194** exactly as shown in the supplied source evidence.
+The execution package also documents the supporting SD-FI troubleshooting performed for billing integration, including `VKOA`, `OB40`, `FS00`, `FBN1/OBA7`, `OBA3`, `VF02`, `FB03`, and `F-28`.
 
-## Evidence Governance
+### 2. MM → FI / AP — P2P
 
-The billing update contains 18 SAP screenshots for the initial and intermediate diagnostic/configuration stages. The supplied case-study source documents the later FBN1, successful VF02 release, FB03, FBL5N, and F-28 outcomes.
+The completed procurement integration demonstrates:
 
-The repository distinguishes **execution completion** from **screenshot availability**: a process result may be documented from the supplied source package without inventing standalone screenshots that are not present.
+```text
+Purchase Order 4500000149
+        ↓
+MIGO / Goods Receipt 5000000062
+        ↓
+MIRO / Logistics Invoice 5105600101
+        ↓
+FI Document 5100000000
+        ↓
+F-53 / Payment 5000000000
+        ↓
+Vendor Clearing / €0.00
+```
 
-## Validation Approach
+This validates the MM-FI relationship between goods receipt, GR/IR, invoice verification, vendor liability, and payment settlement.
 
-For each integration scenario, the documentation records:
+### 3. PP → MM → CO — Manufacturing
 
-1. Business objective
-2. Prerequisites and master data
-3. SAP execution steps
-4. Source and target modules
-5. Expected integration result
-6. Actual result
-7. Accounting or logistical impact
-8. Evidence and validation status
+The completed Plan-to-Produce execution demonstrates the operational and controlling integration around a production order:
+
+```text
+Production Order 1000020
+        ↓
+CO15 — Confirmation / 10 EA Yield
+        ↓
+MIGO — Goods Receipt 101
+        ↓
+Material Document 5000000063
+        ↓
+MMBE — 95 EA Unrestricted Stock
+        ↓
+CO03 — REL / CNF / PDLV Validation
+```
+
+The manufacturing case includes troubleshooting and configuration resolution for `OBYC` GBB-AUF / Valuation Class `7920`, `KI280` cost-element compatibility, and `OPK9` valuation-variant assignment.
+
+## O2C Financial Result
+
+The current O2C billing package records:
+
+| Position | Result |
+|---|---:|
+| Billing Document | `90000037` |
+| Net Sales | `€8,500.00` |
+| Output VAT | `€1,615.00` |
+| Customer Receivable | `€10,115.00` |
+| Incoming Payment | `€10,115.00` |
+| Final Customer Balance | `€0.00` |
+
+## P2P Financial Result
+
+The completed P2P package records:
+
+| Position | Result |
+|---|---:|
+| Purchase Order | `4500000149` |
+| Net Procurement | `€500.00` |
+| Input VAT | `€95.00` |
+| Vendor Payable | `€595.00` |
+| GR/IR Final Balance | `€0.00` |
+| Vendor Final Balance | `€0.00` |
+
+## Manufacturing Result
+
+The production execution records:
+
+| Position | Result |
+|---|---|
+| Production Order | `1000020` |
+| Material | `194` |
+| Confirmed Yield | `10 EA` |
+| Goods Receipt | Movement `101` |
+| Material Document | `5000000063` |
+| Finished-Goods Stock | `95 EA` unrestricted |
+| Order Status | `REL / CNF / PDLV` |
+
+## Evidence
+
+Consolidated evidence is maintained under `08-evidence/`:
+
+- O2C: `08-evidence/screenshots/o2c/`
+- P2P: `08-evidence/screenshots/p2p/`
+- Plan-to-Produce: `08-evidence/screenshots/plan-to-produce/`
+- Evidence packs: `08-evidence/evidence-packs/`
+
+## Remaining Integration Scope
+
+The next integration phase is manufacturing period-end / R2R processing:
+
+`CO02 / TECO → KKS2 → KO88`
+
+Service integration remains planned and will be added after execution and validation.
 
 ## Current Status
 
-**Status: Completed for the supplied SD-FI-AR billing case through customer-account clearing.**
-
-The broader core O2C implementation remains **In Progress** because Sales Order `12` still requires delivery, picking, PGI, billing, and subsequent validation in the core execution chain.
+**Status: O2C, P2P, and Plan-to-Produce integration milestones completed for the documented execution scope. R2R period-end integration remains in progress; Service integration is planned.**
