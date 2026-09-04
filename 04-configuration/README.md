@@ -5,9 +5,10 @@ Centralized technical configuration reference for the implementation.
 ## Domains
 
 - **FI** — Company Code, G/L, tax, document numbering, customer/vendor accounting
-- **CO** — Controlling Area, CO Version-to-Ledger alignment, Universal Journal prerequisites
+- **CO** — Controlling Area, CO Version-to-Ledger alignment, Universal Journal prerequisites, production-order cost assignment
 - **MM** — material/logistics dependencies, procurement, goods receipt, invoice verification, period control
 - **SD** — shipping-point determination, revenue determination, billing integration
+- **PP** — confirmation parameters, production-order goods receipt, valuation configuration
 
 ## Current Configuration Milestones
 
@@ -17,9 +18,22 @@ Centralized technical configuration reference for the implementation.
 
 `PRJ_9000 / B2K → 0 errors / 0 warnings`
 
-### Core O2C — Completed
+### Plan-to-Produce / Manufacturing — Completed Execution Configuration
 
-The completed core O2C execution required two configuration corrections during PGI:
+The manufacturing execution for Production Order `1000020` required the following configuration and troubleshooting activities:
+
+| Area | Transaction / Object | Issue | Resolution |
+|---|---|---|---|
+| Confirmation parameters | `OPK4` | Production confirmation setup required | Maintained Plant `TN01` / Order Type `PP01` confirmation parameters |
+| Production GR account determination | `OBYC` / `GBB-AUF` | Missing `BKMG / GBB / 0001 / AUF / 7920` assignment | Maintained production-order offsetting account determination |
+| CO cost-element compatibility | `KI280` / G/L `6010531` | Cost Element Category missing for order assignment | Re-routed `GBB-AUF` to G/L `5010032` with Cost Element Category `1` |
+| Goods-receipt valuation | `OPK9` | `TFBEFU_CR` valuation-variant entry missing | Assigned Valuation Area `TN01` to Valuation Variant `001` |
+
+Successful downstream result:
+
+`CO15 → MIGO 101 → Material Document 5000000063 → MMBE 95 EA → CO03 REL/CNF/PDLV`
+
+### Core O2C — Completed
 
 | Area | Transaction | Issue | Resolution |
 |---|---|---|---|
@@ -34,11 +48,7 @@ Core O2C document chain:
 
 `VKOA → OB40 → FS00 → FBN1/OBA7 → VF02 → FB03`
 
-The earlier billing-resolution case remains preserved as a separate troubleshooting reference.
-
 ### Procure-to-Pay — Completed
-
-The completed P2P lifecycle required the following technical configuration and master-data corrections:
 
 | Area | Transaction / Object | Configuration |
 |---|---|---|
@@ -56,4 +66,4 @@ The completed P2P lifecycle required the following technical configuration and m
 
 The final GR/IR and vendor payable positions are both cleared to zero.
 
-Detailed integration case: [`../06-integration/mm-fi-p2p-settlement.md`](../06-integration/mm-fi-p2p-settlement.md)
+Detailed P2P integration case: [`../06-integration/mm-fi-p2p-settlement.md`](../06-integration/mm-fi-p2p-settlement.md)
