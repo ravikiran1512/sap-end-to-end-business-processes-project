@@ -4,11 +4,11 @@
 
 Testing provides the final validation layer for the SAP implementation. The objective is to demonstrate that configuration works not only at the individual-module level, but also across complete business processes and their expected accounting and logistical impacts.
 
-This section is **planned and not yet completed**. Test scenarios will be added after the corresponding SAP processes have been configured and executed.
+Testing is now **in progress**, with completed validation evidence available for P2P, O2C, and Plan-to-Produce execution.
 
 ## Test Scope
 
-The planned validation scope includes:
+The validation scope includes:
 
 - Individual configuration and master-data prerequisites
 - Module-level transactional scenarios
@@ -17,25 +17,23 @@ The planned validation scope includes:
 - Expected accounting and logistical impacts
 - Exception and validation behavior where relevant
 
-## Planned End-to-End Scenarios
+## Executed End-to-End Scenarios
 
-### Procure-to-Pay
-**Requirement → Purchase Order → Goods Receipt → Invoice Receipt → Financial Posting**
+### Procure-to-Pay — Validated
 
-### Order-to-Cash
-**Customer Requirement → Sales Order → Delivery → Goods Issue → Billing → Financial Posting**
+**Purchase Order `4500000149` → Goods Receipt `5000000062` → MIRO `5105600101` → FI `5100000000` → F-53 `5000000000` → Vendor Clearing `€0.00`**
 
-### Plan-to-Produce
-**Demand → Planning → Production Order → Material Issue → Confirmation → Goods Receipt**
+### Order-to-Cash — Validated
 
-### Record-to-Report
-**Business Transactions → Financial Postings → Period-End Validation → Reporting**
+**Sales Order `18` → Delivery `80000029` → PGI / Material Document `4900000105` → Billing `90000037` → FI `9000000001` → F-28 `1000000000` → Customer Clearing `€0.00`**
 
-Additional scenarios will be introduced as the Service and broader cross-module processes are implemented.
+### Plan-to-Produce — Validated Through Goods Receipt
+
+**Production Order `1000020` → CO15 `10 EA` → MIGO / Material Document `5000000063` → MMBE `95 EA` → CO03 final status**
 
 ## Test Case Structure
 
-Each completed scenario will record:
+Each completed scenario records:
 
 | Test Attribute | Documentation Requirement |
 |---|---|
@@ -49,20 +47,28 @@ Each completed scenario will record:
 | Evidence | Screenshot or supporting SAP evidence |
 | Status | Pass / Fail / Review |
 
-## Future Evidence
+## Evidence
 
-Testing screenshots and execution evidence will be stored under:
+Testing evidence is maintained within the consolidated evidence structure:
 
-`evidence/screenshots/testing/`
+- `08-evidence/screenshots/o2c/`
+- `08-evidence/screenshots/p2p/`
+- `08-evidence/screenshots/plan-to-produce/`
+- `08-evidence/evidence-packs/`
 
-A traceable relationship will be maintained between each test objective, SAP execution, expected result, actual result, and supporting evidence.
+A traceable relationship is maintained between each test objective, SAP execution, expected result, actual result, accounting/logistics impact, and supporting evidence.
 
 ## Validation Principle
 
-A scenario will not be marked **Passed** simply because a transaction can be executed. The expected business and integration result must also be validated, including relevant accounting, inventory, customer, supplier, production, or controlling impacts.
+A scenario is not marked **Passed** simply because a transaction can be executed. The expected business and integration result must also be validated, including relevant accounting, inventory, customer, supplier, production, or controlling impacts.
+
+## Remaining Validation Scope
+
+- Manufacturing period-end / R2R validation: `TECO → KKS2 → KO88`
+- Broader R2R scenarios and financial reporting validation
+- Service process testing after execution
+- Additional negative and exception test scenarios
 
 ## Current Status
 
-**Status: Planned**
-
-Testing will be performed progressively as each business process becomes executable and will culminate in end-to-end validation of the integrated SAP landscape.
+**Status: In Progress — P2P, O2C, and Plan-to-Produce execution has been validated; broader end-to-end and period-end testing remains open.**
