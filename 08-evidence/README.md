@@ -10,23 +10,32 @@ All implementation evidence is organized here by purpose rather than duplicated 
 
 ## Current Evidence Sets
 
-### O2C Lifecycle — Completed
+### Plan-to-Produce / Manufacturing — Completed Through Goods Receipt
 
-The latest O2C execution covers the complete core lifecycle:
+The manufacturing execution for Production Order `1000020` covers:
+
+`OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03`
+
+Key results:
+
+- Material `194 — TechNova Business Laptop`
+- Plant / Storage Location `TN01 / FG10`
+- Confirmed Yield `10 EA`
+- Material Document `5000000063`
+- Final unrestricted stock `95 EA`
+- Final operational status includes `REL`, `CNF`, `PDLV`
+
+The supplied 12-page execution report documents production confirmation, goods receipt, inventory realization, `OBYC` GBB-AUF troubleshooting, the `KI280` cost-element issue, and `OPK9` valuation-variant configuration. It references an 18-screenshot audit sequence.
+
+Evidence pack: [`evidence-packs/SAP_Plan_to_Produce_Execution_Report.md`](evidence-packs/SAP_Plan_to_Produce_Execution_Report.md)
+
+Screenshot folder: `screenshots/plan-to-produce/`
+
+### O2C Lifecycle — Completed
 
 `VA01 → VL01N → VL02N/PGI → VF01 → FI Posting → F-28 → FBL5N`
 
-Key documents:
-
-- Sales Order `18`
-- Outbound Delivery `80000029`
-- Material Document `4900000105`
-- Billing Document `90000037`
-- FI Journal Entry `9000000001`
-- Payment Document `1000000000`
-- Final Customer Balance `€0.00`
-
-The supplied 9-page execution report documents MMPV period control, OBYC account determination, logistics execution, billing, FI integration, payment, and final audit verification. The accompanying screenshot package contains 18 high-resolution captures.
+Key documents include Sales Order `18`, Delivery `80000029`, Material Document `4900000105`, Billing `90000037`, FI Journal Entry `9000000001`, Payment `1000000000`, and final customer balance `€0.00`.
 
 Evidence pack: [`evidence-packs/SAP_O2C_Execution_Report.md`](evidence-packs/SAP_O2C_Execution_Report.md)
 
@@ -36,14 +45,6 @@ Screenshot folder: `screenshots/o2c/`
 
 `ME21N → MIGO → MIRO → MIR4/FI Verification → F-53 → Vendor Clearing`
 
-Key documents:
-
-- PO `4500000149`
-- Material Document `5000000062`
-- Logistics Invoice `5105600101`
-- FI Invoice Document `5100000000`
-- Payment Document `5000000000`
-
 Evidence index: [`evidence-packs/p2p-lifecycle-report.md`](evidence-packs/p2p-lifecycle-report.md)
 
 ### CO / Universal Journal
@@ -52,7 +53,7 @@ Documents the `FINS_CUST_CONS_CHK` issue, Version `0` → Ledger `0L` configurat
 
 ### Historical SD-FI Billing Resolution
 
-The earlier billing-resolution case remains preserved as a separate troubleshooting reference for `VKOA`, `OB40`, `FS00`, number ranges, customer accounting, payment, and clearing.
+The earlier billing-resolution case remains preserved as a separate troubleshooting reference.
 
 ## Evidence Rule
 
