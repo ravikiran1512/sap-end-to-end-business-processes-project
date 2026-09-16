@@ -2,6 +2,21 @@
 
 All notable project implementation milestones are recorded here.
 
+## 2026-09-16
+
+### Manufacturing CO-PC Period-End Close — Completed
+
+- Documented the period-end Controlling close for Production Order `1000020` in Period `09/2026` with posting date `30.09.2026`.
+- Documented `KKS2` variance-assessment message `KV 017` and the applicable settlement path using `TECO` / `SETC` and `KO88`.
+- Resolved `KD522` by assigning Controlling Area `9000` to the active `CO_ABRECHN` settlement number-range group containing interval `01` (`0100000000–0199999999`).
+- Resolved `M8147` by configuring `OBYC / PRD` for Chart of Accounts `BKMG` with P&L account `5010032`.
+- Resolved `KI235` through `OKB9` default assignment of Cost Element `5010032` to Cost Center `CC9000`.
+- Executed the `KO88` actual settlement update run.
+- Verified `KKBC_ORD` with actual debit costs of `€6,000.00`, settlement offset of `-€6,000.00`, and remaining order balance of `€0.00`.
+- Verified FI settlement document `1000000001` / Document Type `SA` dated `30.09.2026` in `FB03`.
+- Added the dedicated period-end case study under `03-business-processes/plan-to-produce/period-end-controlling-close.md`.
+- Updated project status, PP, CO, integration, testing, evidence, process-flow, and root README navigation to reflect the completed manufacturing close.
+
 ## 2026-09-04
 
 ### Plan-to-Produce / Manufacturing Execution — Completed Through Goods Receipt
@@ -18,7 +33,6 @@ All notable project implementation milestones are recorded here.
 - Verified `95 EA` unrestricted stock for finished Material `194` in Storage Location `FG10` using `MMBE`.
 - Verified Production Order `1000020` in `CO03`, including confirmed and delivered quantity `10 EA` and operational status containing `REL`, `CNF`, and `PDLV`.
 - Added Plan-to-Produce process documentation, configuration notes, integration status, testing validation, evidence pack, screenshot manifest, and dedicated `08-evidence/screenshots/plan-to-produce/` folder.
-- Recorded `CO02/TECO`, `KKS2`, and `KO88` as the next manufacturing period-end / R2R activities rather than marking them complete.
 
 ## 2026-09-03
 
@@ -33,7 +47,7 @@ All notable project implementation milestones are recorded here.
 - Created Billing Document `90000037` for a gross customer amount of `€10,115.00`.
 - Verified automatic FI Journal Entry `9000000001`: Customer debit `€10,115.00`, Revenue credit `€8,500.00`, Output VAT credit `€1,615.00`.
 - Posted Incoming Payment Document `1000000000` using Bank G/L `110000` for the full `€10,115.00` receivable.
-- Verified open-item assignment difference of `€0.00` and final customer clearing in `FBL5N` with account balance `€0.00`.
+- Verified final customer clearing in `FBL5N` with account balance `€0.00`.
 
 ## 2026-09-01
 
