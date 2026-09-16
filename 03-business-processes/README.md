@@ -39,9 +39,11 @@ Key documents:
 - Payment Document: `5000000000`
 - Final vendor payable balance: `€0.00`
 
-### Plan-to-Produce / Manufacturing — Completed Through Finished-Goods Receipt
+### Plan-to-Produce / Manufacturing — Completed
 
-`Production Order 1000020 → OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03`
+The manufacturing case now covers both production execution and the documented CO-PC period-end close:
+
+`Production Order 1000020 → OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03 → CO02/TECO + SETC → KKS2 → CO_ABRECHN → OBYC/PRD → OKB9 → KO88 → KKBC_ORD → FB03`
 
 Key results:
 
@@ -51,14 +53,21 @@ Key results:
 - Confirmed Yield: `10 EA`
 - Goods Receipt Material Document: `5000000063`
 - Final unrestricted stock: `95 EA`
-- Final order status includes `REL`, `CNF`, `PDLV`
+- Period-end settlement period: `09/2026`
+- Settlement document: FI `1000000001` / `SA`
+- Remaining production-order balance after settlement: `€0.00`
 
-Troubleshooting resolved during the manufacturing cycle:
+Troubleshooting resolved during the manufacturing and close lifecycle:
 
 - `OBYC` GBB-AUF account determination for Valuation Class `7920`
-- `KI280` cost-element category issue
+- `KI280` cost-element category compatibility
 - `OPK9` valuation variant assignment `TN01 → 001`
+- `KD522` settlement number range assignment in `CO_ABRECHN`
+- `M8147` `OBYC/PRD` account determination
+- `KI235` default CO assignment through `OKB9`
 
-The manufacturing execution cycle is complete through confirmation, finished-goods receipt, inventory reconciliation, and final production-order validation. Technical completion, variance calculation, and settlement remain part of the next period-end/R2R phase.
+The manufacturing case is complete through production execution, finished-goods receipt, inventory reconciliation, period-end settlement, order-balance verification, and FI posting verification.
+
+Detailed period-end case: [Period-End Controlling Close](plan-to-produce/period-end-controlling-close.md)
 
 The business-process structure is intentionally separated from configuration and evidence so that an interviewer can understand the business flow first and then drill into technical details.
