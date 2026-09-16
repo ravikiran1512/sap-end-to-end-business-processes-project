@@ -10,26 +10,32 @@ All implementation evidence is organized here by purpose rather than duplicated 
 
 ## Current Evidence Sets
 
-### Plan-to-Produce / Manufacturing — Completed Through Goods Receipt
+### Plan-to-Produce / Manufacturing — Completed Through CO-PC Period-End Close
 
-The manufacturing execution for Production Order `1000020` covers:
+The manufacturing evidence now covers both production execution and the documented period-end settlement:
 
-`OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03`
+`OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03 → TECO/SETC → KKS2 → CO_ABRECHN → OBYC/PRD → OKB9 → KO88 → KKBC_ORD → FB03`
 
 Key results:
 
 - Material `194 — TechNova Business Laptop`
+- Production Order `1000020`
 - Plant / Storage Location `TN01 / FG10`
 - Confirmed Yield `10 EA`
 - Material Document `5000000063`
 - Final unrestricted stock `95 EA`
-- Final operational status includes `REL`, `CNF`, `PDLV`
+- Settlement Period `09/2026`
+- FI Settlement Document `1000000001`
+- Remaining order balance `€0.00`
 
-The supplied 12-page execution report documents production confirmation, goods receipt, inventory realization, `OBYC` GBB-AUF troubleshooting, the `KI280` cost-element issue, and `OPK9` valuation-variant configuration. It references an 18-screenshot audit sequence.
+Evidence packs:
 
-Evidence pack: [`evidence-packs/SAP_Plan_to_Produce_Execution_Report.md`](evidence-packs/SAP_Plan_to_Produce_Execution_Report.md)
+- [`evidence-packs/SAP_Plan_to_Produce_Execution_Report.md`](evidence-packs/SAP_Plan_to_Produce_Execution_Report.md)
+- [`../03-business-processes/plan-to-produce/period-end-controlling-close.md`](../03-business-processes/plan-to-produce/period-end-controlling-close.md)
 
 Screenshot folder: `screenshots/plan-to-produce/`
+
+The period-end documentation specifies six additional screenshot placeholders for `CO_ABRECHN`, `OBYC/PRD`, `OKB9`, `KO88`, `KKBC_ORD`, and `FB03`. These are to be treated as repository evidence only after the corresponding images are uploaded.
 
 ### O2C Lifecycle — Completed
 
