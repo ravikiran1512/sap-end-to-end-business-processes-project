@@ -2,7 +2,7 @@
 
 > **Portfolio-grade SAP S/4HANA implementation covering enterprise structure, master data, end-to-end business processes, configuration, cross-module integration, troubleshooting, validation, and evidence.**
 
-> **Last synchronized:** 4 September 2026 — current portfolio status includes completed O2C, P2P, and Plan-to-Produce execution milestones.
+> **Last synchronized:** 16 September 2026 — current portfolio status includes completed O2C, P2P, Plan-to-Produce execution, and manufacturing CO-PC period-end settlement milestones.
 
 ## Start Here
 
@@ -26,14 +26,15 @@
 | MM Material Master | In Progress | Material `194` established |
 | Procure-to-Pay (P2P) | **Completed** | PO → GR → MIRO → FI → F-53 → vendor cleared |
 | Order-to-Cash (O2C) | **Completed** | Order `18` → Delivery → PGI → Billing → FI → F-28 → customer cleared |
-| Plan-to-Produce / Manufacturing | **Completed through Goods Receipt** | Order `1000020` → CO15 → MIGO `5000000063` → MMBE → CO03 |
+| Plan-to-Produce / Manufacturing | **Completed** | Production → GR → inventory reconciliation → CO-PC period-end settlement |
 | CO / Universal Journal | **Foundation Completed** | Version `0` → Ledger `0L`; `PRJ_9000/B2K` completed |
-| Record-to-Report (R2R) | In Progress | Finance foundation complete; production period-end still pending |
+| Manufacturing CO-PC Period-End Close | **Completed** | `CO_ABRECHN` → `OBYC/PRD` → `OKB9` → `KO88` → `KKBC_ORD` → `FB03` |
+| Record-to-Report (R2R) | **In Progress** | Manufacturing settlement completed; broader R2R scope remains |
 | Historical SD-FI Billing Case | Completed | Preserved as troubleshooting reference |
 | Service | Planned | Pending execution |
-| Testing | In Progress | P2P, O2C, and manufacturing execution validated |
+| Testing | In Progress | O2C, P2P, manufacturing execution, and CO-PC close validated |
 
-## Completed Plan-to-Produce / Manufacturing Execution
+## Completed Plan-to-Produce / Manufacturing Lifecycle
 
 The manufacturing case uses Production Order `1000020` for Material `194 — TechNova Business Laptop` at Plant `TN01` / Storage Location `FG10`.
 
@@ -48,8 +49,23 @@ Material Document 5000000063
         ↓
 MMBE — 95 EA Unrestricted Stock
         ↓
-CO03 — Final Order Review
-REL / CNF / PDLV
+CO03 — Production Order Validation
+        ↓
+CO02 / TECO + SETC
+        ↓
+KKS2 — Variance Assessment
+        ↓
+CO_ABRECHN — Settlement Number Range
+        ↓
+OBYC / PRD — Account Determination
+        ↓
+OKB9 — Default CO Assignment
+        ↓
+KO88 — Actual Settlement
+        ↓
+KKBC_ORD — Order Balance €0.00
+        ↓
+FB03 — FI Document 1000000001
 ```
 
 ### Manufacturing Result
@@ -62,17 +78,16 @@ REL / CNF / PDLV
 | Goods Receipt | Movement Type `101` |
 | Material Document | `5000000063` |
 | Final Unrestricted Stock | `95 EA` |
-| Operational Status | `REL / CNF / PDLV` |
-
-Key troubleshooting included `OBYC` GBB-AUF account determination for Valuation Class `7920`, `KI280` Cost Element Category resolution, and `OPK9` assignment of Valuation Area `TN01` to Valuation Variant `001`.
+| Settlement Period | `09/2026` |
+| Settlement | `KO88` |
+| Remaining Order Balance | **€0.00** |
+| FI Settlement Document | `1000000001` / `SA` |
 
 Detailed case: [Plan-to-Produce / Manufacturing](03-business-processes/plan-to-produce/README.md)
 
-> Manufacturing execution is complete through production confirmation and finished-goods receipt. `TECO`, `KKS2`, and `KO88` remain part of the next manufacturing period-end / R2R phase.
+Detailed close: [Period-End Controlling Close](03-business-processes/plan-to-produce/period-end-controlling-close.md)
 
 ## Completed Order-to-Cash Lifecycle
-
-The core O2C execution uses Material `194 — TechNova Laptop` and Customer `1000000029 — Delta Electronics`.
 
 ```text
 VA01 — Sales Order 18
@@ -149,8 +164,6 @@ A separate historical billing case records Material `10194`; that identifier is 
 
 ## Portfolio Focus
 
-The repository is organized around the consultant's implementation journey:
-
-**Business requirement → Enterprise structure → Master data → Configuration → Transaction execution → Integration → Troubleshooting → Validation → Evidence**
+**Business requirement → Enterprise structure → Master data → Configuration → Transaction execution → Integration → Troubleshooting → Period-End Close → Validation → Evidence**
 
 > **Documentation rule:** completed work is supported by execution and validation evidence; planned activities are not presented as completed.
