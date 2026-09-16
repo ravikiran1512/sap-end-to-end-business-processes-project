@@ -5,7 +5,7 @@ This section is the entry point for understanding the TechNova SAP S/4HANA imple
 ## Navigation
 
 - [Implementation Status](implementation-status.md)
-- [Latest Daily Progress — 4 September 2026](daily-progress/2026-09-04.md)
+- [Latest Daily Progress — 16 September 2026](daily-progress/2026-09-04.md)
 - [Daily Progress — 30 August 2026](daily-progress/2026-08-30.md)
 
 ## Current Focus
@@ -14,8 +14,9 @@ This section is the entry point for understanding the TechNova SAP S/4HANA imple
 - Mass Data Project `PRJ_9000` / Activity `B2K` completed with 0 errors and 0 warnings.
 - Procure-to-Pay is complete through PO, Goods Receipt, MIRO, FI verification, F-53 payment, and vendor clearing.
 - The core O2C lifecycle is complete through delivery, PGI, billing, FI posting, incoming payment, and customer clearing.
-- Plan-to-Produce manufacturing execution is complete through production confirmation, finished-goods receipt, inventory reconciliation, and production-order validation.
-- Remaining manufacturing-finance scope is `CO02/TECO → KKS2 → KO88`, which belongs to the next period-end / R2R phase.
+- Plan-to-Produce manufacturing execution and the documented CO-PC period-end close are complete through FI settlement verification.
+- Manufacturing close sequence completed: `CO02/TECO + SETC → KKS2 → CO_ABRECHN → OBYC/PRD → OKB9 → KO88 → KKBC_ORD → FB03`.
+- Remaining scope is broader R2R, enterprise/master-data expansion, testing expansion, and the planned Service workstream.
 
 ## Current Business-Process Milestones
 
@@ -23,8 +24,8 @@ This section is the entry point for understanding the TechNova SAP S/4HANA imple
 |---|---|---|
 | Procure-to-Pay (P2P) | **Completed** | PO `4500000149` → GR `5000000062` → MIRO `5105600101` → FI `5100000000` → F-53 `5000000000` → vendor cleared |
 | Order-to-Cash (O2C) | **Completed** | Sales Order `18` → Delivery `80000029` → PGI → Billing `90000037` → FI `9000000001` → F-28 `1000000000` → customer cleared |
-| Plan-to-Produce | **Completed through Goods Receipt** | Production Order `1000020` → CO15 → MIGO `5000000063` → MMBE → CO03 |
-| Record-to-Report (R2R) | **In Progress** | Finance foundation complete; manufacturing period-end settlement pending |
+| Plan-to-Produce | **Completed** | Production Order `1000020` → CO15 → MIGO `5000000063` → MMBE → CO03 → period-end settlement → FI `1000000001` |
+| Record-to-Report (R2R) | **In Progress** | Manufacturing CO-PC settlement completed; broader R2R scope remains |
 | Service | **Planned** | Pending execution |
 
 ## Documentation Principle
