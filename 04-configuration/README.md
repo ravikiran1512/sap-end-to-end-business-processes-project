@@ -5,7 +5,7 @@ Centralized technical configuration reference for the implementation.
 ## Domains
 
 - **FI** — Company Code, G/L, tax, document numbering, customer/vendor accounting
-- **CO** — Controlling Area, CO Version-to-Ledger alignment, Universal Journal prerequisites, production-order cost assignment
+- **CO** — Controlling Area, CO Version-to-Ledger alignment, Universal Journal prerequisites, production-order cost assignment, period-end settlement
 - **MM** — material/logistics dependencies, procurement, goods receipt, invoice verification, period control
 - **SD** — shipping-point determination, revenue determination, billing integration
 - **PP** — confirmation parameters, production-order goods receipt, valuation configuration
@@ -18,9 +18,9 @@ Centralized technical configuration reference for the implementation.
 
 `PRJ_9000 / B2K → 0 errors / 0 warnings`
 
-### Plan-to-Produce / Manufacturing — Completed Execution Configuration
+### Plan-to-Produce / Manufacturing — Completed
 
-The manufacturing execution for Production Order `1000020` required the following configuration and troubleshooting activities:
+The manufacturing lifecycle for Production Order `1000020` required the following configuration and troubleshooting activities:
 
 | Area | Transaction / Object | Issue | Resolution |
 |---|---|---|---|
@@ -28,10 +28,27 @@ The manufacturing execution for Production Order `1000020` required the followin
 | Production GR account determination | `OBYC` / `GBB-AUF` | Missing `BKMG / GBB / 0001 / AUF / 7920` assignment | Maintained production-order offsetting account determination |
 | CO cost-element compatibility | `KI280` / G/L `6010531` | Cost Element Category missing for order assignment | Re-routed `GBB-AUF` to G/L `5010032` with Cost Element Category `1` |
 | Goods-receipt valuation | `OPK9` | `TFBEFU_CR` valuation-variant entry missing | Assigned Valuation Area `TN01` to Valuation Variant `001` |
+| Settlement number range | `CO_ABRECHN` | `KD522` for Controlling Area `9000` | Assigned `9000` to active interval `01` group (`0100000000–0199999999`) |
+| Price difference account | `OBYC / PRD` | `M8147` for `BKMG PRD` | Assigned P&L account `5010032` |
+| Default CO assignment | `OKB9` | `KI235` on primary cost element `5010032` | Assigned default Cost Center `CC9000` |
 
-Successful downstream result:
+Successful manufacturing and close result:
 
-`CO15 → MIGO 101 → Material Document 5000000063 → MMBE 95 EA → CO03 REL/CNF/PDLV`
+`CO15 → MIGO 101 → Material Document 5000000063 → MMBE 95 EA → CO03 → TECO/SETC → KKS2 assessment → KO88 → KKBC_ORD €0.00 → FB03 1000000001`
+
+### Manufacturing Period-End Close
+
+For Period `09/2026`, the production-order close was executed and financially verified:
+
+- `KKS2` variance assessment issue `KV 017` documented and resolved through the applicable settlement path.
+- `CO_ABRECHN` settlement number range corrected for Controlling Area `9000`.
+- `OBYC / PRD` configured for Chart of Accounts `BKMG`.
+- `OKB9` default assignment established for Cost Element `5010032` to Cost Center `CC9000`.
+- `KO88` actual settlement completed.
+- `KKBC_ORD` verified remaining order balance of `€0.00`.
+- `FB03` verified FI settlement document `1000000001` / document type `SA` dated `30.09.2026`.
+
+Detailed case: [`03-business-processes/plan-to-produce/period-end-controlling-close.md`](../03-business-processes/plan-to-produce/period-end-controlling-close.md)
 
 ### Core O2C — Completed
 
