@@ -1,10 +1,10 @@
-# Plan-to-Produce (Manufacturing) — Completed Execution Case
+# Plan-to-Produce (Manufacturing) — Completed End-to-End Execution & Period-End Close
 
 ## Executive Summary
 
 The Plan-to-Produce manufacturing workflow for **TechNova Manufacturing GmbH** has been executed and validated in SAP S/4HANA using Production Order `1000020` for Material `194 — TechNova Business Laptop`.
 
-The completed manufacturing cycle covers production confirmation, goods receipt of finished goods, inventory reconciliation, configuration troubleshooting, and final production-order status validation.
+The completed case now covers production confirmation, finished-goods receipt, inventory reconciliation, production-order validation, manufacturing configuration troubleshooting, period-end Controlling processing, order settlement, and FI verification.
 
 ## Organizational & Master Data Scope
 
@@ -19,7 +19,9 @@ The completed manufacturing cycle covers production confirmation, goods receipt 
 | Material | `194` | TechNova Business Laptop (`FERT`) |
 | Chart of Accounts | `BKMG` | Multi-GAAP chart |
 | Valuation Class | `7920` | Finished Products |
-| Offsetting G/L | `5010032` | Factory Output / Change in Stock |
+| Settled / Offset Account | `5010032` | Primary cost element / variance offset |
+| Default Cost Center | `CC9000` | Production overhead / factory cost center |
+| Close Period | `09/2026` | Posting Date `30.09.2026` |
 
 ## End-to-End Manufacturing Flow
 
@@ -30,37 +32,44 @@ OPK4 — Confirmation Parameters
         ↓
 CO15 — Confirm 10 EA Yield
         ↓
-Order Status CNF
-        ↓
-MIGO — Goods Receipt
-Movement Type 101
+MIGO — Goods Receipt / Movement 101
         ↓
 Material Document 5000000063
         ↓
-MMBE — Stock Verification
-95 EA Unrestricted in FG10
+MMBE — 95 EA Unrestricted Stock
         ↓
-CO03 — Final Order Review
-REL / CNF / PDLV
+CO03 — Production Order Validation
+        ↓
+CO02 / TECO + SETC
+        ↓
+KKS2 — Variance Assessment
+        ↓
+CO_ABRECHN — Settlement Number Range
+        ↓
+OBYC / PRD — Account Determination
+        ↓
+OKB9 — Default CO Assignment
+        ↓
+KO88 — Actual Settlement
+        ↓
+KKBC_ORD — Order Balance €0.00
+        ↓
+FB03 — FI Document 1000000001
 ```
 
-## Phase 1 — Confirmation Configuration (`OPK4`)
+## Phase 1 — Production Execution
 
-Confirmation parameters were maintained for Plant `TN01` and Order Type `PP01`. The documented setup includes automatic optimization and component backflush behavior relevant to the execution scenario.
+### Confirmation Configuration (`OPK4`)
 
-## Phase 2 — Production Confirmation (`CO15`)
+Confirmation parameters were maintained for Plant `TN01` and Order Type `PP01` for the documented production scenario.
 
-Production Order `1000020` was confirmed with:
+### Production Confirmation (`CO15`)
 
-- Yield: `10 EA`
-- Confirmation status: `CNF`
-- Order status progression including `REL`, `CNF`, `PRC`, `CSER`, `MACM`, `SETC`
+Production Order `1000020` was confirmed with a yield of `10 EA`. The production confirmation established the actual output quantity and progressed the production order through the documented operational statuses.
 
-The production confirmation established the actual output quantity and cleared the applicable open confirmation requirements.
+### Goods Receipt (`MIGO`)
 
-## Phase 3 — Goods Receipt (`MIGO`)
-
-A Goods Receipt was posted for the finished material using Movement Type `101`.
+Finished-goods receipt was posted using Movement Type `101`:
 
 - Production Order: `1000020`
 - Material: `194`
@@ -69,86 +78,90 @@ A Goods Receipt was posted for the finished material using Movement Type `101`.
 - Storage Location: `FG10`
 - Material Document: `5000000063`
 
-The goods receipt transferred the completed production quantity into unrestricted finished-goods inventory.
+### Inventory & Order Validation
 
-## Phase 4 — Troubleshooting & Configuration Resolution
+`MMBE` confirmed `95 EA` unrestricted stock in `FG10`. `CO03` confirmed `10 EA` total confirmed quantity and `10 EA` delivered quantity, with the documented final operational status including `REL`, `CNF`, and `PDLV`.
 
-### Issue 1 — Missing `OBYC` GBB-AUF Account Determination
+## Phase 2 — Manufacturing Configuration & Troubleshooting
 
-**Error context:** `BKMG / GBB / 0001 / AUF / 7920` was not configured for the production-order goods receipt.
+The production execution required resolution of the following configuration issues:
 
-**Resolution:** Account determination was maintained in `OBYC` for:
+1. `OBYC` GBB-AUF account determination for `BKMG / GBB / 0001 / AUF / 7920`.
+2. `KI280` cost-element compatibility, resulting in use of G/L `5010032` for the documented production-order posting.
+3. `OPK9` valuation configuration, assigning Valuation Area `TN01` to Valuation Variant `001`.
 
-```text
-Chart of Accounts      BKMG
-Transaction Key        GBB
-Valuation Grouping     0001
-General Modifier       AUF
-Valuation Class        7920
-```
+After correction and validation, the MIGO document check returned **Document is O.K.** and the goods receipt posted successfully.
 
-An attempted assignment to account `6010531` exposed a subsequent CO cost-element issue.
+## Phase 3 — Period-End Controlling Close (CO-PC)
 
-### Issue 2 — Cost Element Category Required (`KI280`)
+The production order was subsequently processed for the documented Period `09/2026` close.
 
-**Root cause:** G/L `6010531` did not have the required Cost Element Category for the production-order CO assignment.
+### Variance Assessment (`KKS2`)
 
-**Resolution:** `OBYC` GBB-AUF was re-routed to G/L `5010032`, which is documented with Cost Element Category `1 — Primary costs / cost-reducing revenues`.
-
-### Issue 3 — Missing Production Goods Receipt Valuation Variant
-
-**Error context:** Table `TFBEFU_CR` entry `10` was not found during the goods-receipt process.
-
-**Root cause:** the production-order goods receipt valuation variant had not been assigned to Plant `TN01`.
-
-**Resolution:** `OPK9` was configured with:
+The initial variance calculation returned:
 
 ```text
-Valuation Area     TN01
-Valuation Variant  001 — Planned Valuation
+KV 017: No orders (order items) could be processed
 ```
 
-After the configuration was saved, the MIGO document check returned **Document is O.K.** and the goods receipt posted successfully.
+The documented resolution was to continue through the production-order settlement path using `TECO` / `SETC` and `KO88` rather than treating target-cost version splits as a prerequisite for this scenario.
 
-## Phase 5 — Inventory Reconciliation (`MMBE`)
+### Settlement Number Range (`CO_ABRECHN`)
 
-The stock overview confirmed that finished-goods inventory for Material `194` at Plant `TN01` / Storage Location `FG10` increased to:
+`KO88` initially returned `KD522`, requiring a settlement-document number range for Controlling Area `9000`.
 
-**95 EA unrestricted stock**
+Controlling Area `9000` was assigned to the active settlement number-range group containing interval `01` (`0100000000–0199999999`).
 
-This validates the physical inventory realization of the production output.
+### Price Difference Account Determination (`OBYC / PRD`)
 
-## Phase 6 — Final Production Order Validation (`CO03`)
+The subsequent settlement attempt returned `M8147` for missing `BKMG PRD` account determination. `OBYC → PRD` was configured for Chart of Accounts `BKMG` with P&L account `5010032`.
 
-The final order display confirmed:
+### Default CO Assignment (`OKB9`)
 
-- Confirmed Total Quantity: `10 EA`
-- Delivered Quantity: `10 EA`
-- Final operational status includes `REL`, `CNF`, `PRC`, `GMPS`, `PDLV`
+`KI235` identified the need for a cost-accounting assignment for G/L `5010032`. `OKB9` was configured to assign Company Code / CO context `9000` and Cost Element `5010032` to default Cost Center `CC9000`.
 
-The manufacturing execution cycle is therefore complete through confirmation and finished-goods receipt.
+### Actual Settlement (`KO88`)
 
-## Result
+After the documented corrections, the actual settlement update run was executed for Period `09/2026`.
 
-**Status: COMPLETED — Production Order execution, confirmation, goods receipt, inventory verification, and final order validation completed.**
+## Phase 4 — Financial Reconciliation
 
-### Key Result
+### Order Balance (`KKBC_ORD`)
 
-`10 EA` of Material `194` were produced and posted to unrestricted inventory through Material Document `5000000063`.
+| Category | Amount (EUR) | Status |
+|---|---:|---|
+| Actual Debit Costs | `6,000.00` | Incurred |
+| Actual Delivery Credit | `0.00` | No standard receipt valuation credit |
+| Settlement Offset | `-6,000.00` | Cleared to FI/CO |
+| Remaining Order Balance | **`0.00`** | **Fully Balanced** |
 
-## Remaining Period-End Manufacturing Activities
+### FI Journal Entry (`FB03`)
 
-The supplied execution report identifies the following as recommended next steps rather than completed activities:
+The settlement generated FI document `1000000001`:
 
-| Activity | Transaction | Objective |
-|---|---|---|
-| Technical Completion | `CO02` / TECO | Prevent further actual postings to the order |
-| Variance Calculation | `KKS2` | Calculate production variances |
-| Order Settlement | `KO88` | Settle actual order balances / variances to FI / CO-PA |
+- Document Type: `SA`
+- Posting Date: `30.09.2026`
+- Settlement account: `5010032`
+- Cost Center assignment: `CC9000`
+- Production Order receiver: `1000020`
 
-These activities belong to the subsequent manufacturing period-end / R2R integration phase and are not marked complete in this case.
+```text
+Item | PK | Account | Description          | Amount (EUR) | CO Assignment
+-----|----|---------|----------------------|--------------|----------------------
+001  | 81 | 5010032 | Funding: Expenses    |    6,000.00 | Cost Center CC9000
+002  | 93 | 5010032 | Funding: Expenses    |   -6,000.00 | Production Order 1000020
+-----|----|---------|----------------------|--------------|----------------------
+Net Balance: 0.00 EUR
+```
+
+## Final Result
+
+**Status: COMPLETED — Production execution, confirmation, finished-goods receipt, inventory reconciliation, period-end Controlling settlement, order-balance verification, and FI posting verification completed.**
+
+The manufacturing case is now complete through the documented CO-PC period-end close. Broader Record-to-Report activities, allocations, reporting, and other financial-close scenarios remain separate future scope.
 
 ## Evidence
 
-- Evidence pack: [`../../08-evidence/evidence-packs/SAP_Plan_to_Produce_Execution_Report.md`](../../08-evidence/evidence-packs/SAP_Plan_to_Produce_Execution_Report.md)
+- [Period-End Controlling Close](period-end-controlling-close.md)
+- [Plan-to-Produce Evidence Pack](../../08-evidence/evidence-packs/SAP_Plan_to_Produce_Execution_Report.md)
 - Screenshot location: `../../08-evidence/screenshots/plan-to-produce/`
