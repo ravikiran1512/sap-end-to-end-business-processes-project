@@ -27,6 +27,21 @@ Target folder: `08-evidence/screenshots/plan-to-produce/`
 | 17 | `17_MMBE_Stock_Overview_Verification.png` | `95 EA` unrestricted stock confirmed in `FG10` |
 | 18 | `18_CO03_Production_Order_Header_Final_Status.png` | Final production-order status and quantities |
 
+## Plan-to-Produce — CO-PC Period-End Close
+
+Target folder: `08-evidence/screenshots/plan-to-produce/`
+
+The supplied period-end documentation specifies the following additional evidence captures. They should be marked as repository evidence only after the corresponding images are uploaded.
+
+| # | Screenshot | SAP Evidence |
+|---:|---|---|
+| 19 | `01_co_abrechn_group_assignment.png` | Controlling Area `9000` assigned to settlement number-range group in `CO_ABRECHN` |
+| 20 | `02_obyc_prd_account_5010032.png` | `OBYC / PRD` configuration for Chart of Accounts `BKMG` and account `5010032` |
+| 21 | `03_okb9_default_assignment.png` | `OKB9` default assignment of Cost Element `5010032` to Cost Center `CC9000` |
+| 22 | `04_ko88_actual_settlement_update.png` | `KO88` actual settlement update run for Period `09/2026` |
+| 23 | `05_kkbc_ord_zero_balance.png` | `KKBC_ORD` showing remaining production-order balance `€0.00` |
+| 24 | `06_fb03_settlement_document_1000000001.png` | `FB03` FI settlement document `1000000001` / Type `SA` |
+
 ## O2C — Core Lifecycle
 
 Target folder: `08-evidence/screenshots/o2c/`
@@ -46,6 +61,7 @@ The P2P screenshot set documents the completed procurement chain from Purchase O
 - `08-evidence/evidence-packs/p2p-lifecycle-report.md`
 - `08-evidence/evidence-packs/SAP_SD_FI_Billing_Release_Documentation.md`
 - `08-evidence/evidence-packs/SAP_Material_Verification_to_Sales_Order_12.md`
+- `03-business-processes/plan-to-produce/period-end-controlling-close.md`
 
 ## Evidence Governance
 
