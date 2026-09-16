@@ -5,7 +5,8 @@ This section is the entry point for understanding the TechNova SAP S/4HANA imple
 ## Navigation
 
 - [Implementation Status](implementation-status.md)
-- [Latest Daily Progress — 16 September 2026](daily-progress/2026-09-04.md)
+- [Latest Daily Progress — 16 September 2026](daily-progress/2026-09-16.md)
+- [Daily Progress — 4 September 2026](daily-progress/2026-09-04.md)
 - [Daily Progress — 30 August 2026](daily-progress/2026-08-30.md)
 
 ## Current Focus
