@@ -4,11 +4,11 @@ Cross-module integration is documented here rather than duplicated inside each m
 
 ## Active Integration Areas
 
-### PP → MM → CO — Manufacturing Execution Completed
+### PP → MM → CO → FI — Manufacturing Execution & Period-End Close Completed
 
-The Plan-to-Produce execution for Production Order `1000020` is complete through production confirmation and finished-goods receipt:
+The Plan-to-Produce lifecycle for Production Order `1000020` now covers production execution and the documented CO-PC period-end settlement:
 
-`OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03`
+`OPK4 → CO15 → MIGO 101 → Material Document 5000000063 → MMBE → CO03 → TECO/SETC → KKS2 → CO_ABRECHN → OBYC/PRD → OKB9 → KO88 → KKBC_ORD → FB03`
 
 Key integration results:
 
@@ -21,9 +21,11 @@ Key integration results:
 - Goods Receipt posted successfully with Movement Type `101`
 - Material Document `5000000063`
 - Final unrestricted stock `95 EA`
-- Production Order final operational status includes `REL`, `CNF`, `PDLV`
-
-The next integration phase is production-order period-end processing: `TECO → KKS2 → KO88`.
+- Production-order period-end close completed for Period `09/2026`
+- `CO_ABRECHN`, `OBYC/PRD`, and `OKB9` prerequisites resolved
+- `KO88` actual settlement completed
+- `KKBC_ORD` remaining order balance `€0.00`
+- `FB03` FI settlement document `1000000001` verified
 
 ### SD → MM → FI → Accounts Receivable — Core O2C Completed
 
@@ -48,13 +50,14 @@ Key integration results include Material Document `5000000062`, Logistics Invoic
 ## Detailed Resolutions
 
 - [Current Manufacturing Case](../03-business-processes/plan-to-produce/README.md)
+- [Manufacturing Period-End Close](../03-business-processes/plan-to-produce/period-end-controlling-close.md)
 - [Historical SD-FI Billing Resolution](sd-fi-billing-resolution.md)
 - [MM-FI P2P Settlement](mm-fi-p2p-settlement.md)
 - [Current O2C Case Study](../03-business-processes/order-to-cash/case-study.md)
 
 ## Integration Status
 
-**Plan-to-Produce:** completed through confirmation, goods receipt, inventory reconciliation, and final order review.
+**Plan-to-Produce:** completed through production confirmation, goods receipt, inventory reconciliation, period-end settlement, and FI verification.
 
 **Core O2C:** completed through incoming payment and AR clearing.
 
@@ -64,4 +67,4 @@ Key integration results include Material Document `5000000062`, Logistics Invoic
 
 **CO/Universal Journal foundation:** completed for the documented posting prerequisites.
 
-**Manufacturing period-end integration:** pending `TECO`, `KKS2`, and `KO88`.
+**Manufacturing period-end integration:** completed for the documented `CO-PC → FI` settlement scenario. Broader R2R integration remains open.
